@@ -3,7 +3,6 @@ import {
   type BrandingAsset,
 } from "./gallery";
 
-// Re-export for consumers (BrandingGalleryGrid, BrandingCasePage, etc.)
 export type { BrandingAsset };
 
 export interface BrandingPiece {
@@ -11,12 +10,9 @@ export interface BrandingPiece {
   title: string;
   subtitle: string;
   year: string;
-  section: "branding";
-  /** Cover exclusivo de la marca: /assets/branding/<slug>/<slug>.webp */
   thumbnail: string;
   description: string;
-  /** Galería multi-asset; si existe, el detalle usa layout de caso */
-  gallery?: BrandingAsset[];
+  gallery: BrandingAsset[];
 }
 
 export const brandingPieces: BrandingPiece[] = [
@@ -24,8 +20,7 @@ export const brandingPieces: BrandingPiece[] = [
     slug: "dsumar",
     title: "D'Sumar",
     subtitle: "Conservas de Pescado.",
-    year: "2025",
-    section: "branding",
+    year: "2024",
     thumbnail: "/assets/branding/dsumar/dsumar.webp",
     description:
       "Proyecto de branding e identidad visual para una marca especializada en conservas de pescado. Se desarrolló una propuesta gráfica inspirada en la frescura y esencia del mar, buscando transmitir una imagen cercana, atractiva y consistente en sus diferentes aplicaciones.",
@@ -39,8 +34,7 @@ export const brandingPieces: BrandingPiece[] = [
     slug: "excelencia-grill",
     title: "EXCELENCIA GRILL",
     subtitle: "Pollería",
-    year: "2025",
-    section: "branding",
+    year: "2024",
     thumbnail: "/assets/branding/excelencia-grill/excelencia-grill.webp",
     description:
       "Desarrollo de branding e identidad visual para Excelencia Grill. La propuesta gráfica se construyó a partir de una paleta en rojo y amarillo, buscando transmitir fuerza, energía y una personalidad visual llamativa, acorde con el concepto gastronómico de la marca.",
@@ -48,6 +42,20 @@ export const brandingPieces: BrandingPiece[] = [
       slug: "excelencia-grill",
       label: "Excelencia Grill",
       items: 8,
+    }),
+  },
+    {
+    slug: "provenza",
+    title: "Provenza Producciones",
+    subtitle: "Pollería",
+    year: "2025",
+    thumbnail: "/assets/branding/provenza/provenza.webp",
+    description:
+      "Desarrollo de la identidad visual para Provenza Producciones, productora de contenido audiovisual con presencia en Perú y Colombia. El proyecto incluyó la creación del logotipo desde cero y el desarrollo del branding de la marca, definiendo una propuesta visual moderna, creativa y profesional, coherente con el sector audiovisual y la esencia de la productora.",
+    gallery: buildBrandingGallery({
+      slug: "provenza",
+      label: "provenza",
+      items: 11,
     }),
   },
 ];

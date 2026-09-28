@@ -3,17 +3,14 @@ import {
   type SocialAsset,
 } from "./gallery";
 
-// Re-export for consumers (SocialAssetGrid, SocialCasePage, etc.)
 export type { SocialAsset, SocialAssetKind } from "./gallery";
 
 export interface SocialProject {
   slug: string;
   title: string;
   year: string;
-  section: "social";
   thumbnail: string;
   description: string;
-  cover: string;
   subtitle: string;
   palette: string[];
   gallery: SocialAsset[];
@@ -21,17 +18,15 @@ export interface SocialProject {
 
 export const socialProjects: SocialProject[] = [
   {
-    slug: "md",
+    slug: "md-lash-factor",
     title: "MD Lash Factor",
     year: "2024",
-    section: "social",
-    cover: "/assets/social/md/md.webp",
-    thumbnail: "/assets/social/md/md.webp",
+    thumbnail: "/assets/social/md-lash-factor/md.webp",
     subtitle: "Sérum de Pestañas",
     palette: ["#7c8ca5", "#c5eafb", "#ffffff"],
     description: "Diseño y desarrollo de contenido visual para redes sociales, incluyendo posts, banners, reels y carruseles, orientados a fortalecer la identidad de marca, potenciar la comunicación visual y generar mayor interacción con la audiencia.",
     gallery: buildSocialGallery({
-      base: "/assets/social/md",
+      base: "/assets/social/md-lash-factor",
       label: "MD",
       banners: 3,
       posts: 8,
@@ -42,8 +37,6 @@ export const socialProjects: SocialProject[] = [
     slug: "dermanet",
     title: "DERMANET",
     year: "2024",
-    section: "social",
-    cover: "/assets/social/dermanet/dermanet.webp",
     thumbnail: "/assets/social/dermanet/dermanet.webp",
     subtitle: "Productos Dermatológicos",
     palette: ["#6fa1d8", "#3b38c6", "#ffffff"],
@@ -54,6 +47,22 @@ export const socialProjects: SocialProject[] = [
       banners: 4,
       mockups: 2,
       posts: 8,
+      reels: 2,
+    }),
+  },
+    {
+    slug: "ana-maria-la-justicia",
+    title: "Ana María La Justicia",
+    year: "2025",
+    thumbnail: "/assets/social/ana-maria-la-justicia/ana-maria-la-justicia.webp",
+    subtitle: "Subtitulo",
+    palette: ["#e5dbce", "#ff9a00", "#8b4c00"],
+    description: "Diseño de contenido visual para Ana María La Justicia, desarrollando posts, banners, reels y piezas para campañas publicitarias orientadas a fortalecer la comunicación de la marca, ampliar su alcance en redes sociales y acompañar su posicionamiento en farmacias y tiendas por departamento de Lima.",
+    gallery: buildSocialGallery({
+      base: "/assets/social/ana-maria-la-justicia",
+      label: "Ana María La Justicia",
+      banners: 6,
+      posts: 12,
       reels: 2,
     }),
   },

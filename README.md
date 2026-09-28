@@ -110,7 +110,6 @@ src/
 │   │   ├── ImageModal.tsx         # Fullscreen image viewer
 │   │   ├── ReelCard.tsx           # Reel card with video poster
 │   │   └── ShowMoreButton.tsx     # Progressive reveal button
-│   ├── shared/                    # Re-exports for backward compat → ui/
 │   └── social/
 │       ├── SocialGalleryGrid.tsx  # Social asset grid with HoverShade
 │       ├── SocialCasePage.tsx     # Social detail page (grouped by kind)
