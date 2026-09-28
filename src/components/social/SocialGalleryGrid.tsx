@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import type { SocialAsset } from "@/data/social_projects";
+import type { SocialAsset } from "@/data/social";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
-import HoverShade from "@/components/shared/HoverShade";
-import ImageModal from "@/components/shared/ImageModal";
-import ReelCard from "@/components/shared/ReelCard";
+import HoverShade from "@/components/ui/HoverShade";
+import ImageModal from "@/components/ui/ImageModal";
+import ReelCard from "@/components/ui/ReelCard";
 
 // Mapeo centralizado por kind: kind → {colSpan, aspect, sizes}
 // Altura la decide aspect (* / 9), ancho colSpan; sin row-span ni auto-rows fijo
@@ -88,7 +88,7 @@ export default function SocialGalleryGrid({ assets }: { assets: SocialAsset[] })
                     alt={asset.alt}
                     fill
                     sizes={sizes}
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="object-cover group-hover:scale-[1.02]"
                   />
                   <HoverShade />
                   {asset.caption && (

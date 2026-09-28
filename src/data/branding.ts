@@ -1,7 +1,7 @@
 import {
   buildBrandingGallery,
   type BrandingAsset,
-} from "./builders";
+} from "./gallery";
 
 // Re-export for consumers (BrandingGalleryGrid, BrandingCasePage, etc.)
 export type { BrandingAsset };

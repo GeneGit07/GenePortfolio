@@ -8,10 +8,9 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { currentTheme, applyTheme, type Theme } from "@/lib/theme";
 
-export type Theme = "dark" | "light";
-
-const STORAGE_KEY = "dp-theme";
+export type { Theme };
 
 type ThemeContextValue = {
   theme: Theme;
@@ -27,28 +26,18 @@ export function useTheme() {
   return useContext(ThemeContext);
 }
 
-function currentTheme(): Theme {
-  if (typeof document === "undefined") return "dark";
-  return document.documentElement.classList.contains("light")
-    ? "light"
-    : "dark";
-}
-
 export default function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
+    // Sincroniza con la clase .light inyectada por el script inline de layout.tsx
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(currentTheme());
   }, []);
 
   const toggle = useCallback(() => {
     const next: Theme = currentTheme() === "light" ? "dark" : "light";
-    document.documentElement.classList.toggle("light", next === "light");
-    try {
-      localStorage.setItem(STORAGE_KEY, next);
-    } catch {
-      // almacenamiento no disponible: el tema igual aplica en sesión
-    }
+    applyTheme(next);
     setTheme(next);
   }, []);
 

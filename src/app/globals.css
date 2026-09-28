@@ -45,7 +45,9 @@
 }
 
 html {
-  --theme-transition-property: background-color, color, border-color, fill, stroke, background, opacity, box-shadow, text-decoration-color, caret-color;
+  --theme-transition-property:
+    background-color, color, border-color, fill, stroke, background, opacity, box-shadow,
+    text-decoration-color, caret-color, transform, translate, scale, rotate;
   --theme-transition-duration: 0.5s;
   --theme-transition-timing: ease;
 }
@@ -99,5 +101,3 @@ footer[id],
     display: none;
   }
 }
-
-

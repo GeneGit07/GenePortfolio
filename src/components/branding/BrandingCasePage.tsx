@@ -1,5 +1,5 @@
-import type { BrandingPiece } from "@/data/branding_projects";
-import FadeInView from "@/components/shared/FadeInView";
+import type { BrandingPiece } from "@/data/branding";
+import FadeInView from "@/components/ui/FadeInView";
 import BrandingGalleryGrid from "./BrandingGalleryGrid";
 
 export default function BrandingCasePage({ project }: { project: BrandingPiece }) {

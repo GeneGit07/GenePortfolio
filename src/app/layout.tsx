@@ -18,9 +18,32 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio — Diseñadora Gráfica y Audiovisual",
+  title: {
+    default: "Dayana Pumajulca — Diseñadora Gráfica y Audiovisual",
+    template: "%s | Dayana Pumajulca",
+  },
   description:
-      "Un portfolio minimalista que muestra trabajos de branding, redes sociales, flyers y audiovisual.",
+    "Portfolio minimalista de Dayana Pumajulca — branding, redes sociales y diseño audiovisual. Perú.",
+  keywords: ["branding", "diseño gráfico", "redes sociales", "audiovisual", "portfolio", "Perú"],
+  authors: [{ name: "Dayana Pumajulca" }],
+  creator: "Dayana Pumajulca",
+  metadataBase: new URL("https://example.com"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_PE",
+    url: "https://example.com",
+    title: "Dayana Pumajulca — Diseñadora Gráfica y Audiovisual",
+    description: "Branding, redes sociales y diseño audiovisual. Portfolio minimalista.",
+    siteName: "Dayana Pumajulca Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dayana Pumajulca — Diseñadora Gráfica y Audiovisual",
+    description: "Branding, redes sociales y diseño audiovisual.",
+  },
   icons: {
     icon: [
       {

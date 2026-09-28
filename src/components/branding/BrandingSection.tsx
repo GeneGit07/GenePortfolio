@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import FadeInView from "@/components/shared/FadeInView";
-import ShowMoreButton from "@/components/shared/ShowMoreButton";
+import FadeInView from "@/components/ui/FadeInView";
+import ShowMoreButton from "@/components/ui/ShowMoreButton";
 import ProjectCard from "@/components/gallery/ProjectCard";
-import { brandingPieces } from "@/data/branding_projects";
+import { brandingPieces } from "@/data/branding";
+import { usePaginatedList } from "@/lib/pagination";
 
 const PIECES_PAGE_SIZE = 4;
 
 export default function BrandingSection() {
-  const [visiblePieces, setVisiblePieces] = useState(PIECES_PAGE_SIZE);
-  const hasMorePieces = visiblePieces < brandingPieces.length;
+  const { visibleItems: visiblePiecesList, hasMore: hasMorePieces, showMore } =
+    usePaginatedList(brandingPieces, PIECES_PAGE_SIZE);
 
   return (
     <div>
@@ -24,7 +24,7 @@ export default function BrandingSection() {
       </FadeInView>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
-        {brandingPieces.slice(0, visiblePieces).map((piece, i) => (
+        {visiblePiecesList.map((piece, i) => (
           <FadeInView key={piece.slug} delay={i * 0.05} className="h-full">
             <ProjectCard
               slug={piece.slug}
@@ -37,13 +37,7 @@ export default function BrandingSection() {
         ))}
       </div>
 
-      {hasMorePieces ? (
-        <ShowMoreButton
-          onClick={() =>
-            setVisiblePieces((prev) => prev + PIECES_PAGE_SIZE)
-          }
-        />
-      ) : null}
+      {hasMorePieces ? <ShowMoreButton onClick={showMore} /> : null}
     </div>
   );
 }

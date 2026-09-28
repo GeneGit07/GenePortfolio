@@ -1,42 +1,9 @@
 import Image from "next/image";
-import FadeInView from "@/components/shared/FadeInView";
-import HeroActions from "@/components/shared/HeroActions";
+import FadeInView from "@/components/ui/FadeInView";
+import HeroActions from "@/components/ui/HeroActions";
 import SocialSection from "@/components/social/SocialSection";
 import BrandingSection from "@/components/branding/BrandingSection";
-// import ProjectGrid from "@/components/gallery/ProjectGrid"; // desactivado - audiovisual movido a audiovisual/
-// import { audiovisualProjects } from "@/data/audiovisual_projects"; // desactivado - ver audiovisual/README.md
-
-
-const SOCIAL_LINKS = [
-  { name: "Instagram", href: "https://www.instagram.com/dayanap.designer" },
-  { name: "Facebook", href: "https://www.facebook.com/dayanapgdesigner" },
-  { name: "Behance", href: "https://behance.net/dayanadesigner4" },
-] as const;
-
-const SOFTWARES = [
-  { label: "Photoshop", abbr: "Ps" },
-  { label: "Illustrator", abbr: "Ai" },
-  { label: "InDesign", abbr: "Id" },
-  { label: "Premiere Pro", abbr: "Pr" },
-  { label: "After Effects", abbr: "Ae" },
-  { label: "Lightroom", abbr: "Lr" },
-  { label: "CapCut", abbr: "Cc" },
-] as const;
-
-// SectionHeader y ProjectSection desactivados - audiovisual movido a audiovisual/ - ver audiovisual/README.md
-// function SectionHeader({ number, title }: { number: string; title: string }) {
-//   return (
-//     <FadeInView>
-//       <div className="mb-12 flex items-baseline gap-4">
-//         <span className="text-sm font-mono font-medium text-muted">{number}</span>
-//         <h2 className="text-4xl font-bold uppercase tracking-tight md:text-5xl">{title}</h2>
-//       </div>
-//     </FadeInView>
-//   );
-// }
-// function ProjectSection() {
-//   return <ProjectGrid projects={audiovisualProjects} />;
-// }
+import { SOCIAL_LINKS, SOFTWARES } from "@/data/site";
 
 export default function HomePage() {
   return (
@@ -44,7 +11,7 @@ export default function HomePage() {
       {/* 00 HERO */}
       <section
         id="hero"
-        className="relative grid min-h-dvh grid-cols-1 content-center gap-10 overflow-hidden px-6 py-24 md:grid-cols-2 md:gap-0 md:px-16 md:py-10 lg:px-48"
+        className="relative grid min-h-dvh grid-cols-1 content-center gap-10 overflow-hidden px-6 py-24 md:grid-cols-2 md:gap-0 md:px-16 md:py-10 lg:px-44"
       >
         <FadeInView className="flex items-center">
           <div>
@@ -66,7 +33,7 @@ export default function HomePage() {
         <FadeInView className="flex items-center justify-center md:items-stretch">
           <div className="relative flex w-full items-center justify-center overflow-hidden rounded-[40px] py-4 md:h-full md:rounded-[48px] md:py-0">
             <Image
-              src="/assets/home/hero_logo.webp"
+              src="/assets/home/hero-logo.webp"
               alt="Hero logo"
               width={2250}
               height={1500}
@@ -127,13 +94,7 @@ export default function HomePage() {
         <BrandingSection />
       </section>
 
-      {/* 04 AUDIOVISUAL - desactivado temporalmente, ver audiovisual/README.md */}
-      {/* <section id="audiovisual" className="px-6 py-16 md:py-24 md:px-16 lg:px-48">
-        <SectionHeader number="04" title="Audiovisual" />
-        <ProjectSection />
-      </section> */}
-
-      {/* 04 CONTACT (antes 05) */}
+      {/* 04 CONTACT */}
       <footer id="contact" className="px-6 py-16 md:py-24 md:px-16 lg:px-48">
         <FadeInView>
           <div className="grid grid-cols-1 gap-16 md:grid-cols-12">
@@ -149,13 +110,13 @@ export default function HomePage() {
               <div className="mt-8 flex flex-col gap-3">
                 <a
                   href="tel:+51964322491"
-                  className="inline-flex items-center gap-2 text-sm tracking-wide text-muted transition-colors hover:text-foreground"
+                  className="inline-flex items-center gap-2 text-sm tracking-wide text-muted hover:text-foreground"
                 >
                   <span className="text-subtle">T</span> +51 964 322 491
                 </a>
                 <a
                   href="mailto:dayanap.designer@gmail.com"
-                  className="inline-flex items-center gap-2 text-sm tracking-wide text-muted transition-colors hover:text-foreground"
+                  className="inline-flex items-center gap-2 text-sm tracking-wide text-muted hover:text-foreground"
                 >
                   <span className="text-subtle">@</span> dayanap.designer@gmail.com
                 </a>
@@ -172,10 +133,10 @@ export default function HomePage() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center justify-between border-b border-border pb-3 text-sm uppercase tracking-widest text-muted transition-colors hover:text-foreground"
+                    className="group flex items-center justify-between border-b border-border pb-3 text-sm uppercase tracking-widest text-muted hover:text-foreground"
                   >
                     <span>{link.name}</span>
-                    <span className="text-subtle transition-colors group-hover:text-foreground">
+                    <span className="text-subtle group-hover:text-foreground">
                       ↗
                     </span>
                   </a>

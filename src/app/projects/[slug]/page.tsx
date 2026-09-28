@@ -1,6 +1,6 @@
-import { socialProjects, getSocialBySlug } from "@/data/social_projects";
-import { brandingPieces, getBrandingPieceBySlug } from "@/data/branding_projects";
-// import { audiovisualProjects, getAudiovisualBySlug } from "@/data/audiovisual_projects"; // desactivado - ver audiovisual/README.md
+import { notFound } from "next/navigation";
+import { socialProjects, getSocialBySlug } from "@/data/social";
+import { brandingPieces, getBrandingPieceBySlug } from "@/data/branding";
 import SocialCasePage from "@/components/social/SocialCasePage";
 import BrandingCasePage from "@/components/branding/BrandingCasePage";
 
@@ -26,6 +26,5 @@ export default async function ProjectPage({
     return <BrandingCasePage project={branding} />;
   }
 
-  // Audiovisual desactivado - ver audiovisual/README.md
-  return <div>Project not found</div>;
+  notFound();
 }

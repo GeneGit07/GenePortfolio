@@ -21,7 +21,7 @@ export default function ThemeToggle({ size = "md", className = "" }: ThemeToggle
       aria-pressed={isLight}
       aria-label={isLight ? "Cambiar a tema oscuro" : "Cambiar a tema claro"}
       title={isLight ? "Tema oscuro" : "Tema claro"}
-      className={`inline-flex shrink-0 cursor-pointer items-center justify-center p-2 text-muted transition-colors duration-300 hover:text-foreground ${className}`}
+      className={`inline-flex shrink-0 cursor-pointer items-center justify-center p-2 text-muted hover:text-foreground ${className}`}
     >
       {isLight ? (
         <svg

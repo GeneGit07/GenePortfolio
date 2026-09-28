@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import type { BrandingAsset } from "@/data/branding_projects";
+import type { BrandingAsset } from "@/data/branding";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
-import HoverShade from "@/components/shared/HoverShade";
-import ImageModal from "@/components/shared/ImageModal";
+import HoverShade from "@/components/ui/HoverShade";
+import ImageModal from "@/components/ui/ImageModal";
 
 interface BrandingGalleryGridProps {
   assets: BrandingAsset[];
@@ -52,7 +52,7 @@ export default function BrandingGalleryGrid({
                 alt={asset.alt}
                 fill
                 sizes="(max-width: 768px) 50vw, 33vw"
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                className="object-cover group-hover:scale-105"
               />
               <HoverShade />
             </button>

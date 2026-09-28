@@ -3,7 +3,7 @@
 import { memo } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import HoverShade from "@/components/shared/HoverShade";
+import HoverShade from "@/components/ui/HoverShade";
 
 interface ProjectCardProps {
   slug: string;
@@ -30,7 +30,7 @@ function ProjectCard({
         <div
           className={
             isLarge
-              ? "relative overflow-hidden rounded-lg bg-surface aspect-video"
+              ? "relative overflow-hidden bg-surface aspect-video"
               : "relative overflow-hidden rounded-lg bg-surface flex-1 min-h-45"
           }
         >
@@ -43,7 +43,7 @@ function ProjectCard({
                 ? "(max-width: 768px) 100vw, 50vw"
                 : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             }
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover group-hover:scale-105"
           />
           <HoverShade />
         </div>

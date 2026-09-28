@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import FadeInView from "@/components/shared/FadeInView";
+import FadeInView from "@/components/ui/FadeInView";
 
 export type GalleryColSpan = 1 | 2;
 export type GalleryRowSpan = 1 | 2;

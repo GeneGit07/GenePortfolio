@@ -1,10 +1,10 @@
 import {
   buildSocialGallery,
   type SocialAsset,
-} from "./builders";
+} from "./gallery";
 
 // Re-export for consumers (SocialAssetGrid, SocialCasePage, etc.)
-export type { SocialAsset, SocialAssetKind } from "./builders";
+export type { SocialAsset, SocialAssetKind } from "./gallery";
 
 export interface SocialProject {
   slug: string;

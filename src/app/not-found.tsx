@@ -1,0 +1,19 @@
+import Link from "next/link";
+
+export default function NotFound() {
+  return (
+    <main className="flex min-h-[60dvh] flex-col items-center justify-center px-6 py-24 text-center md:px-16 lg:px-48">
+      <p className="text-sm font-mono uppercase tracking-widest text-subtle">404</p>
+      <h1 className="mt-2 text-4xl font-bold tracking-tight md:text-5xl">Proyecto no encontrado</h1>
+      <p className="mt-4 max-w-md text-muted">
+        El proyecto que buscas no existe o fue movido.
+      </p>
+      <Link
+        href="/"
+        className="mt-8 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-sm tracking-wide hover:border-foreground hover:text-foreground"
+      >
+        ← Volver al inicio
+      </Link>
+    </main>
+  );
+}

@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import type { SocialProject } from "@/data/social_projects";
-import FadeInView from "@/components/shared/FadeInView";
-import HoverShade from "@/components/shared/HoverShade";
-import ImageModal from "@/components/shared/ImageModal";
+import type { SocialProject } from "@/data/social";
+import FadeInView from "@/components/ui/FadeInView";
+import HoverShade from "@/components/ui/HoverShade";
+import ImageModal from "@/components/ui/ImageModal";
 import SocialGalleryGrid from "./SocialGalleryGrid";
 import SocialSectionNav from "./SocialSectionNav";
 
@@ -59,11 +59,11 @@ export default function SocialCasePage({ project }: { project: SocialProject }) 
 
             <div className="mt-8 grid grid-cols-2 gap-6 border-t border-border pt-6 text-sm">
               <div>
-                <p className="text-xs uppercase tracking-widest text-subtle">Año</p>
-                <p className="mt-1 font-medium text-foreground">{project.year}</p>
+                <p className="text-xs font-medium uppercase tracking-widest">Año</p>
+                <p className="mt-1 font-medium text-muted">{project.year}</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-widest text-subtle">Paleta</p>
+                <p className="text-xs font-medium uppercase tracking-widest">Paleta</p>
                 <div className="mt-3 flex gap-3">
                   {project.palette.map((color) => (
                     <span
@@ -88,12 +88,12 @@ export default function SocialCasePage({ project }: { project: SocialProject }) 
               className="group relative flex aspect-[16/9] w-full cursor-zoom-in items-stretch overflow-hidden rounded-lg border border-border bg-surface text-left"
             >
               <Image
-                src={project.cover}
+                src={project.thumbnail}
                 alt={project.title}
                 fill
                 sizes="(max-width:768px) 100vw, 560px"
                 priority
-                className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                className="object-cover group-hover:scale-[1.02]"
               />
               <HoverShade />
             </button>
@@ -102,7 +102,7 @@ export default function SocialCasePage({ project }: { project: SocialProject }) 
       </div>
 
       {coverOpen && (
-        <ImageModal src={project.cover} alt={project.title} onClose={() => setCoverOpen(false)} />
+        <ImageModal src={project.thumbnail} alt={project.title} onClose={() => setCoverOpen(false)} />
       )}
 
       {/* Nav anchor por kind */}

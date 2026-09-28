@@ -4,25 +4,25 @@
 
 **Minimalist dark-theme portfolio for a graphic designer & content editor**
 
-Built with [Next.js](https://nextjs.org) 16, [React](https://react.dev) 19, [TypeScript](https://www.typescriptlang.org) 5, [Tailwind CSS](https://tailwindcss.com) 4, [Framer Motion](https://www.framer.com/motion), and [Lenis](https://lenis.darkroom.engineering).
+Built with [Next.js](https://nextjs.org) 16, [React](https://react.dev) 19, [TypeScript](https://www.typescriptlang.org) 5, [Tailwind CSS](https://tailwindcss.com) 4, and [Lenis](https://lenis.darkroom.engineering).
 
 [Getting started](#getting-started) • [Project structure](#project-structure) • [Customization](#customization) • [Deployment](#deployment)
 
 </div>
 
-A single-page portfolio website that showcases creative work across branding, social media, and audiovisual projects. Features a symmetric bento grid, smooth scrolling, scroll-driven fade-in animations, and dedicated project detail pages.
+A single-page portfolio website that showcases creative work across branding and social media projects. Features a bento grid, smooth scrolling, scroll-driven fade-in animations, and dedicated project detail pages.
 
 ## Features
 
-- **Symmetric bento grid** — Rotating block layouts that cycle per section, with `HoverShade` overlay on project cards
-- **Progressive content loading** — "See More" buttons reveal additional project blocks on demand
-- **Auto-hiding header** — Sticky navigation that hides on scroll-down velocity and reappears on scroll-up, with active section tracking
-- **Mobile hamburger menu** — Full-screen overlay with animated nav items and staggered link appearance
+- **Bento grid** — `GalleryGrid` with `HoverShade` overlay on project cards
+- **Progressive content loading** — "See More" buttons via `usePaginatedList` hook
+- **Auto-hiding header** — Sticky navigation with active section tracking via `IntersectionObserver`
+- **Mobile hamburger menu** — Full-screen overlay with staggered link appearance
 - **Smooth scrolling** — Lenis-powered smooth wheel scroll, resets to top on route change via Lenis API
-- **Scroll-triggered animations** — Sections and project cards fade in once via `whileInView` (Framer Motion)
+- **Scroll-triggered animations** — Sections and cards fade in via `FadeInView` (`IntersectionObserver`)
 - **Project detail pages** — Dynamic route (`projects/[slug]`) with `generateStaticParams` for fully static generation
-- **Dark/Light theme** — Custom color palette with CSS variable-based theme transitions, persisted in localStorage
-- **Zoomable images** — Click-to-zoom on project detail images via `ZoomableImage` component
+- **Dark/Light theme** — CSS variable-based theme transitions, persisted in localStorage (`src/lib/theme.ts`)
+- **Zoomable images** — Click-to-zoom on project covers via `ImageModal`
 - **No runtime dependencies** — Fully static site, zero API or backend requirements
 
 ## Built with
@@ -31,7 +31,6 @@ A single-page portfolio website that showcases creative work across branding, so
 |---|---|
 | **Framework** | [Next.js](https://nextjs.org) 16 |
 | **UI Library** | [React](https://react.dev) 19 |
-| **Animation** | [Framer Motion](https://www.framer.com/motion) 12 |
 | **Smooth Scroll** | [Lenis](https://lenis.darkroom.engineering) 1 |
 | **Styling** | [Tailwind CSS](https://tailwindcss.com) 4 |
 | **Language** | [TypeScript](https://www.typescriptlang.org) 5 |
@@ -86,42 +85,48 @@ src/
 ├── app/
 │   ├── globals.css               # Tailwind v4 theme tokens, reset, scrollbar styles
 │   ├── layout.tsx                 # Root layout — fonts, Lenis provider, header, footer
-│   ├── page.tsx                   # Home page — hero, about, social, branding, audiovisual, contact
+│   ├── page.tsx                   # Home page — hero, about, social, branding, contact
 │   └── projects/
 │       └── [slug]/
 │           └── page.tsx           # SSG project detail page (generateStaticParams)
 ├── components/
 │   ├── branding/
-│   │   ├── BrandingCasePage.tsx   # Branding detail page (single-column)
+│   │   ├── BrandingCasePage.tsx   # Branding detail page
 │   │   ├── BrandingGalleryGrid.tsx # Bento gallery layout for branding
 │   │   └── BrandingSection.tsx    # Branding section on home page
 │   ├── gallery/
-│   │   ├── ProjectCard.tsx        # Reusable project card with HoverShade
-│   │   └── ProjectGrid.tsx        # Main page grid with Block1-Block4 layouts
+│   │   ├── GalleryGrid.tsx        # Generic bento grid + GalleryGrid.Item
+│   │   └── ProjectCard.tsx        # Reusable project card with HoverShade
 │   ├── layout/
-│   │   ├── Header.tsx             # Auto-hiding sticky header + mobile nav
+│   │   ├── Header.tsx             # Sticky header + mobile nav, uses NAV_ITEMS
 │   │   ├── Footer.tsx
 │   │   ├── SmoothScrollProvider.tsx # Lenis wrapper with route-change scroll reset
 │   │   ├── ThemeProvider.tsx       # Dark/light toggle, persisted in localStorage
 │   │   └── ThemeToggle.tsx
-│   ├── shared/
+│   ├── ui/                        # Shared UI atoms
 │   │   ├── FadeInView.tsx         # Scroll-triggered fade-in wrapper
 │   │   ├── HeroActions.tsx        # CTA buttons in hero section
-│   │   ├── HoverShade.tsx         # Shared hover overlay (bg-black/0 → group-hover:bg-black/10)
+│   │   ├── HoverShade.tsx         # Hover overlay (bg-black/0 → group-hover:bg-black/10)
 │   │   ├── ImageModal.tsx         # Fullscreen image viewer
-│   │   ├── ShowMoreButton.tsx     # Progressive reveal button
-│   │   └── ZoomableImage.tsx      # Click-to-zoom image wrapper
+│   │   ├── ReelCard.tsx           # Reel card with video poster
+│   │   └── ShowMoreButton.tsx     # Progressive reveal button
+│   ├── shared/                    # Re-exports for backward compat → ui/
 │   └── social/
-│       ├── SocialAssetGrid.tsx    # Social asset grid with HoverShade
+│       ├── SocialGalleryGrid.tsx  # Social asset grid with HoverShade
 │       ├── SocialCasePage.tsx     # Social detail page (grouped by kind)
-│       ├── SocialReelCard.tsx     # Reel card with video poster
 │       ├── SocialSection.tsx      # Social section on home page
 │       └── SocialSectionNav.tsx   # Kind-based navigation for social details
+├── lib/
+│   ├── cn.ts                      # Class merge helper
+│   ├── constants.ts               # NAV_ITEMS
+│   ├── pagination.ts              # usePaginatedList hook
+│   └── theme.ts                   # Theme helpers (currentTheme, applyTheme)
 └── data/
-    ├── builders.ts                # Shared gallery builders (buildBrandingGallery, buildSocialGallery)
-    ├── branding_projects.ts       # BrandingPiece[] + getBrandingPieceBySlug
-    ├── social_projects.ts         # SocialProject[] + getSocialBySlug
-    └── audiovisual_projects.ts    # AudiovisualProject[] + getAudiovisualBySlug
+    ├── gallery.ts                 # Shared gallery builders (buildBrandingGallery, buildSocialGallery)
+    ├── branding.ts                # BrandingPiece[] + getBrandingPieceBySlug
+    ├── social.ts                  # SocialProject[] + getSocialBySlug
+    ├── site.ts                    # Site-wide content (SOCIAL_LINKS, SOFTWARES, CONTACT)
+    └── index.ts                   # Barrel exports
 public/
 ├── assets/
 │   ├── branding/<slug>/           # <slug>.webp (cover) + item-1.webp … item-N.webp
@@ -134,24 +139,20 @@ public/
 
 ### Branding
 
-Edit [`src/data/branding_projects.ts`](src/data/branding_projects.ts) to add, remove, or update branding pieces. Each piece has `slug`, `title`, `subtitle`, `year`, `section`, `thumbnail`, `description`, and an optional `gallery` built via `buildBrandingGallery({ slug, label, items })`.
+Edit [`src/data/branding.ts`](src/data/branding.ts) to add, remove, or update branding pieces. Each piece has `slug`, `title`, `subtitle`, `year`, `section`, `thumbnail`, `description`, and an optional `gallery` built via `buildBrandingGallery({ slug, label, items })`.
 
 > [!TIP]
 > Place branding images in `public/assets/branding/<slug>/` where the cover is `<slug>.webp` and gallery items are `item-1.webp` through `item-N.webp`.
 
 ### Social
 
-Edit [`src/data/social_projects.ts`](src/data/social_projects.ts). Assets live in `public/assets/social/<project>/{banners,posts,mockups,reels,logos,flyers}/` and follow the naming pattern `<kind>-<n>.webp` (or `.webm` for reels).
-
-### Audiovisual
-
-Edit [`src/data/audiovisual_projects.ts`](src/data/audiovisual_projects.ts).
+Edit [`src/data/social.ts`](src/data/social.ts). Assets live in `public/assets/social/<project>/{banners,posts,mockups,reels,logos,flyers}/` and follow the naming pattern `<kind>-<n>.webp` (or `.webm` for reels).
 
 ### Content & copy
 
-- **Hero / About / Contact text** — edit directly in [`src/app/page.tsx`](src/app/page.tsx)
-- **Social links** — the Contact section contains the list of social URLs
-- **Email** — update the `mailto:href` in the Contact section
+- **Hero / About / Contact text** — edit [`src/data/site.ts`](src/data/site.ts) (`HERO_COPY`, `ABOUT_COPY`, `CONTACT`)
+- **Social links / Softwares** — edit [`src/data/site.ts`](src/data/site.ts) (`SOCIAL_LINKS`, `SOFTWARES`)
+- **Navigation** — edit [`src/lib/constants.ts`](src/lib/constants.ts) (`NAV_ITEMS`)
 - **Meta tags** — edit the `metadata` export in [`src/app/layout.tsx`](src/app/layout.tsx)
 
 ### Theme colors
@@ -170,9 +171,9 @@ The custom color palette is defined in [`src/app/globals.css`](src/app/globals.c
 
 Light theme overrides are under the `.light` class in the same file.
 
-### Block layouts
+### Grid system
 
-The 4 rotating grid layouts are defined in [`src/components/gallery/ProjectGrid.tsx`](src/components/gallery/ProjectGrid.tsx) as `Block1`–`Block4`. Each renders projects in a different asymmetric arrangement. The cycle offset per section is set via the `startBlock` prop in [`src/app/page.tsx`](src/app/page.tsx).
+The generic bento grid is `GalleryGrid` ([`src/components/gallery/GalleryGrid.tsx`](src/components/gallery/GalleryGrid.tsx)) with `GalleryGrid.Item` wrapping `FadeInView`. Section grids use `usePaginatedList` ([`src/lib/pagination.ts`](src/lib/pagination.ts)) for progressive reveal.
 
 ## Deployment
 

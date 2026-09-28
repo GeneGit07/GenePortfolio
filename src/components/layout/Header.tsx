@@ -5,16 +5,7 @@ import Link from "next/link";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
-
-
-const NAV_ITEMS = [
-  { id: "hero", label: "Inicio" },
-  { id: "about", label: "Sobre Mí" },
-  { id: "redes-sociales", label: "Redes Sociales" },
-  { id: "branding", label: "Branding" },
-  // { id: "audiovisual", label: "Audiovisual" }, // desactivado - ver audiovisual/README.md
-  { id: "contact", label: "Contacto" },
-];
+import { NAV_ITEMS } from "@/lib/constants";
 
 export default function Header() {
   const pathname = usePathname();
@@ -22,7 +13,6 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState("hero");
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
-  const headerHeightRef = useRef(100);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen && isHome ? "hidden" : "";
@@ -31,22 +21,6 @@ export default function Header() {
     };
   }, [menuOpen, isHome]);
 
-  useEffect(() => {
-    const el = headerRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.borderBoxSize) {
-          headerHeightRef.current = entry.borderBoxSize[0]?.blockSize ?? 100;
-        } else {
-          headerHeightRef.current = el.getBoundingClientRect().height;
-        }
-      }
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
   const buildObserver = useCallback(() => {
     const sections = NAV_ITEMS.map((item) =>
       document.getElementById(item.id),
@@ -54,7 +28,6 @@ export default function Header() {
 
     if (sections.length === 0) return null;
 
-    const h = headerHeightRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -64,8 +37,10 @@ export default function Header() {
         }
       },
       {
-        rootMargin: `-${h}px 0px 0px 0px`,
-        threshold: 0.6,
+        // Banda central del viewport: solo la sección que cruza el centro
+        // se marca activa. Independiente de la altura de cada sección.
+        rootMargin: "-45% 0px -50% 0px",
+        threshold: 0,
       },
     );
 
@@ -99,7 +74,7 @@ export default function Header() {
         className="fixed top-0 right-0 left-0 z-40 border-b border-border/60 bg-background backdrop-blur-md"
       >
         <div className="flex items-center justify-between px-6 py-4 md:px-16 lg:px-48">
-          <a href="/" aria-label="Ir al inicio">
+          <Link href="/" aria-label="Ir al inicio">
             <Image
               src="/assets/home/logo-white.webp"
               alt="Logo"
@@ -116,13 +91,13 @@ export default function Header() {
               className="hidden h-10 w-auto object-contain light:block md:h-11"
               priority
             />
-          </a>
+          </Link>
           <div className="flex items-center gap-4">
             <Link
-            href="/"
-            className="text-sm font-mono uppercase tracking-widest text-muted transition-colors hover:text-foreground"
-          >
-            &larr; Volver
+              href="/"
+              className="text-sm font-mono uppercase tracking-widest text-muted hover:text-foreground"
+            >
+              &larr; Volver
             </Link>
             <span aria-hidden className="h-4 w-px bg-border" />
             <ThemeToggle />
@@ -169,7 +144,7 @@ export default function Header() {
                 key={id}
                 href={`#${id}`}
                 onClick={(e) => handleClick(e, id)}
-                className={`relative whitespace-nowrap text-xs tracking-widest transition-all duration-300 ${
+                className={`relative whitespace-nowrap text-xs tracking-widest ${
                   activeSection === id
                     ? "text-foreground"
                     : "text-muted"
@@ -177,7 +152,7 @@ export default function Header() {
               >
                 {label}
                 <span
-                  className={`absolute -bottom-1 left-1/2 h-px w-full bg-foreground transition-opacity duration-300 -translate-x-1/2 ${
+                  className={`absolute -bottom-1 left-1/2 h-px w-full bg-foreground -translate-x-1/2 ${
                     activeSection === id ? "opacity-100" : "opacity-0"
                   }`}
                 />
@@ -217,17 +192,17 @@ export default function Header() {
             className="relative z-50 flex shrink-0 flex-col gap-1.5 p-2"
           >
             <span
-              className={`block h-px w-6 bg-foreground transition-all duration-300 ${
+              className={`block h-px w-6 bg-foreground ${
                 menuOpen ? "rotate-45 translate-y-1.75" : ""
               }`}
             />
             <span
-              className={`block h-px w-6 bg-foreground transition-all duration-300 ${
+              className={`block h-px w-6 bg-foreground ${
                 menuOpen ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`block h-px w-6 bg-foreground transition-all duration-300 ${
+              className={`block h-px w-6 bg-foreground ${
                 menuOpen ? "-rotate-45 -translate-y-1.75" : ""
               }`}
             />
@@ -237,7 +212,7 @@ export default function Header() {
       </header>
 
       <div
-        className={`fixed inset-x-0 top-16 bottom-0 z-30 bg-background backdrop-blur-md transition-opacity duration-300 ${
+        className={`fixed inset-x-0 top-16 bottom-0 z-30 bg-background backdrop-blur-md ${
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -251,7 +226,7 @@ export default function Header() {
                   toggleMenu();
                 }}
                 style={{ transitionDelay: `${menuOpen ? i * 0.05 : 0}s` }}
-                className={`text-xl relative uppercase tracking-widest transition-all duration-300 ${
+                className={`text-xl relative uppercase tracking-widest ${
                   menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 } ${
                   activeSection === id
@@ -261,7 +236,7 @@ export default function Header() {
               >
                 {label}
                 <span
-                  className={`absolute -bottom-1 left-1/2 h-px w-full bg-foreground transition-opacity duration-300 -translate-x-1/2 ${
+                  className={`absolute -bottom-1 left-1/2 h-px w-full bg-foreground -translate-x-1/2 ${
                     activeSection === id ? "opacity-100" : "opacity-0"
                   }`}
                 />

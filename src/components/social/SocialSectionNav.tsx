@@ -26,7 +26,7 @@ export default function SocialSectionNav({ kinds }: { kinds: string[] }) {
             key={kind}
             href={`#section-${kind}`}
             onClick={handleClick(`section-${kind}`)}
-            className="whitespace-nowrap text-xs uppercase tracking-widest text-muted transition-colors hover:text-foreground"
+            className="whitespace-nowrap text-xs uppercase tracking-widest text-muted hover:text-foreground"
           >
             {LABELS[kind] ?? kind}
           </a>

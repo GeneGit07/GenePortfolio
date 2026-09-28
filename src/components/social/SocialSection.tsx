@@ -1,16 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import FadeInView from "@/components/shared/FadeInView";
-import ShowMoreButton from "@/components/shared/ShowMoreButton";
+import FadeInView from "@/components/ui/FadeInView";
+import ShowMoreButton from "@/components/ui/ShowMoreButton";
 import ProjectCard from "@/components/gallery/ProjectCard";
-import { socialProjects } from "@/data/social_projects";
+import { socialProjects } from "@/data/social";
+import { usePaginatedList } from "@/lib/pagination";
 
 const SOCIAL_PAGE_SIZE = 4;
 
 export default function SocialSection() {
-  const [visibleCount, setVisibleCount] = useState(SOCIAL_PAGE_SIZE);
-  const hasMore = visibleCount < socialProjects.length;
+  const {
+    visibleItems: visibleProjects,
+    hasMore,
+    showMore,
+  } = usePaginatedList(socialProjects, SOCIAL_PAGE_SIZE);
 
   return (
     <div>
@@ -24,7 +27,7 @@ export default function SocialSection() {
       </FadeInView>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
-        {socialProjects.slice(0, visibleCount).map((project, i) => (
+        {visibleProjects.map((project, i) => (
           <FadeInView key={project.slug} delay={i * 0.05} className="h-full">
             <ProjectCard
               slug={project.slug}
@@ -37,11 +40,7 @@ export default function SocialSection() {
         ))}
       </div>
 
-      {hasMore ? (
-        <ShowMoreButton
-          onClick={() => setVisibleCount((prev) => prev + SOCIAL_PAGE_SIZE)}
-        />
-      ) : null}
+      {hasMore ? <ShowMoreButton onClick={showMore} /> : null}
     </div>
   );
 }
