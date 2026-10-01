@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
-import { NAV_ITEMS } from "@/lib/constants";
+import { NAV_ITEMS, PAGE_PADDING_X } from "@/lib/constants";
 
 export default function Header() {
   const pathname = usePathname();
@@ -73,7 +73,7 @@ export default function Header() {
         ref={headerRef}
         className="fixed top-0 right-0 left-0 z-40 border-b border-border/60 bg-background backdrop-blur-md"
       >
-        <div className="flex items-center justify-between px-6 py-4 md:px-16 lg:px-48">
+        <div className={`flex items-center justify-between py-4 ${PAGE_PADDING_X}`}>
           <Link href="/" aria-label="Ir al inicio">
             <Image
               src="/assets/home/logo-white.webp"
@@ -114,7 +114,7 @@ export default function Header() {
         className="animate-header-in fixed top-0 right-0 left-0 z-40 border-b border-border/60 bg-background"
       >
         {/* DESKTOP NAVBAR */}
-        <nav className="hidden lg:flex items-center justify-between px-6 py-4 md:px-16 lg:px-48">
+        <nav className={`hidden lg:flex items-center justify-between py-4 ${PAGE_PADDING_X}`}>
           <a
             href="#"
             onClick={(e) => handleClick(e, "hero")}
@@ -164,7 +164,7 @@ export default function Header() {
         </nav>
 
         {/* Mobile header bar */}
-        <div className="lg:hidden flex h-16 items-center justify-between px-6 py-4 md:px-16">
+        <div className={`lg:hidden flex h-16 items-center justify-between py-4 ${PAGE_PADDING_X}`}>
           <a href="#hero" onClick={(e) => handleClick(e, "hero")} aria-label="Ir al inicio">
             <Image
               src="/assets/home/logo-white.webp"

@@ -35,7 +35,7 @@ export function buildBrandingGallery(spec: BrandingGallerySpec): BrandingAsset[]
 
 // ---- Social -------------------------------------------------------------
 
-export type SocialAssetKind = "banner" | "post" | "reel" | "mockup";
+export type SocialAssetKind = "banner" | "carousel" | "mockup" | "post" | "reel";
 
 export interface SocialAsset {
   src: string;
@@ -49,6 +49,7 @@ export interface SocialAsset {
 
 const KIND_ASPECT: Record<SocialAssetKind, NonNullable<SocialAsset["aspect"]>> = {
   banner: "32/9",
+  carousel: "16/9",
   post: "square",
   reel: "9/16",
   mockup: "16/9",
@@ -56,13 +57,14 @@ const KIND_ASPECT: Record<SocialAssetKind, NonNullable<SocialAsset["aspect"]>> =
 
 const KIND_LABEL: Record<SocialAssetKind, string> = {
   banner: "Banner",
+  carousel: "Carousel",
   post: "Post",
   reel: "Reel",
   mockup: "Mockup",
 };
 
-// Orden editorial: banners → mockups → posts → reels
-const KIND_ORDER: SocialAssetKind[] = ["banner", "mockup", "post", "reel"];
+// Orden editorial: banners → carruseles → mockups → posts → reels
+const KIND_ORDER: SocialAssetKind[] = ["banner", "carousel", "mockup", "post", "reel"];
 
 export interface SocialGallerySpec {
   /** Carpeta base del caso, ej. "/assets/social/md" */
@@ -70,6 +72,7 @@ export interface SocialGallerySpec {
   /** Nombre corto para el alt, ej. "MD" */
   label: string;
   banners?: number;
+  carousels?: number;
   posts?: number;
   mockups?: number;
   reels?: number;
@@ -78,6 +81,7 @@ export interface SocialGallerySpec {
 export function buildSocialGallery(spec: SocialGallerySpec): SocialAsset[] {
   const counts: Record<SocialAssetKind, number> = {
     banner: spec.banners ?? 0,
+    carousel: spec.carousels ?? 0,
     post: spec.posts ?? 0,
     mockup: spec.mockups ?? 0,
     reel: spec.reels ?? 0,
@@ -87,18 +91,18 @@ export function buildSocialGallery(spec: SocialGallerySpec): SocialAsset[] {
     const count = counts[kind];
     for (let i = 1; i <= count; i++) {
       if (kind === "reel") {
-        const poster = `${spec.base}/reels/reel-${i}${IMG_EXT}`;
+        const poster = `${spec.base}/reel/reel-${i}${IMG_EXT}`;
         gallery.push({
           src: poster,
           alt: `${spec.label} — Reel ${i}`,
           kind,
           aspect: KIND_ASPECT[kind],
           poster,
-          videoSrc: `${spec.base}/reels/reel-${i}${VIDEO_EXT}`,
+          videoSrc: `${spec.base}/reel/reel-${i}${VIDEO_EXT}`,
         });
       } else {
         gallery.push({
-          src: `${spec.base}/${kind}s/${kind}-${i}${IMG_EXT}`,
+          src: `${spec.base}/${kind}/${kind}-${i}${IMG_EXT}`,
           alt: `${spec.label} — ${KIND_LABEL[kind]} ${i}`,
           kind,
           aspect: KIND_ASPECT[kind],

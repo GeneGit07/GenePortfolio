@@ -1,13 +1,46 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 const LABELS: Record<string, string> = {
   banner: "Banners",
+  carousel: "Carruseles",
   post: "Posts",
   reel: "Reels",
   mockup: "Mockups",
 };
 
+const PILL_BASE =
+  "inline-flex shrink-0 snap-start items-center justify-center rounded-full border px-5 py-2.5 text-xs font-medium uppercase tracking-widest shadow-sm";
+const PILL_IDLE =
+  "border-foreground/15 bg-surface/60 text-muted hover:border-foreground/30 hover:bg-surface hover:text-foreground";
+const PILL_ACTIVE = "border-foreground bg-foreground text-background";
+
 export default function SocialSectionNav({ kinds }: { kinds: string[] }) {
+  const [active, setActive] = useState(kinds[0] ?? "");
+
+  useEffect(() => {
+    const sections = kinds
+      .map((k) => document.getElementById(`section-${k}`))
+      .filter(Boolean) as HTMLElement[];
+    if (sections.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id.replace("section-", ""));
+          }
+        }
+      },
+      // Banda central del viewport, igual que el Header con NAV_ITEMS.
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
+    );
+    for (const sec of sections) observer.observe(sec);
+    return () => observer.disconnect();
+  }, [kinds]);
+
+  if (kinds.length === 0) return null;
+
   const handleClick =
     (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
@@ -16,17 +49,16 @@ export default function SocialSectionNav({ kinds }: { kinds: string[] }) {
       el.scrollIntoView({ behavior: "smooth" });
     };
 
-  if (kinds.length === 0) return null;
-
   return (
-      <nav className="sticky top-[72px] z-20 -mx-6 border-y border-border bg-background px-6 py-5 md:mx-0 md:top-[64px] md:px-0">
-      <div className="flex items-center justify-start gap-8 overflow-x-auto pb-1 scrollbar-none mask-linear-to-r from-transparent via-black to-transparent md:justify-center md:gap-10 md:mask-none">
+    <nav className="sticky top-16 z-20 -mx-6 bg-background px-6 py-4 md:mx-0 md:top-[64px] md:px-0">
+      <div className="flex snap-x snap-mandatory items-center gap-3 overflow-x-auto scroll-smooth py-1 scrollbar-none md:justify-center md:gap-4 md:overflow-visible">
         {kinds.map((kind) => (
           <a
             key={kind}
             href={`#section-${kind}`}
             onClick={handleClick(`section-${kind}`)}
-            className="whitespace-nowrap text-xs uppercase tracking-widest text-muted hover:text-foreground"
+            aria-current={active === kind ? "true" : undefined}
+            className={`${PILL_BASE} ${active === kind ? PILL_ACTIVE : PILL_IDLE}`}
           >
             {LABELS[kind] ?? kind}
           </a>

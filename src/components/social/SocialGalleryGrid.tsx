@@ -12,6 +12,7 @@ import ReelCard from "@/components/ui/ReelCard";
 // Altura la decide aspect (* / 9), ancho colSpan; sin row-span ni auto-rows fijo
 const KIND_CONFIG: Record<string, { colSpan: 1 | 2; aspect: string; sizes: string }> = {
   banner: { colSpan: 2, aspect: "aspect-[32/9]", sizes: "(max-width:768px) 100vw, 50vw" },
+  carousel: { colSpan: 2, aspect: "aspect-[16/9]", sizes: "(max-width:768px) 100vw, 50vw" },
   reel: { colSpan: 1, aspect: "aspect-[9/16]", sizes: "(max-width:768px) 50vw, 25vw" },
   mockup: { colSpan: 2, aspect: "aspect-[16/9]", sizes: "(max-width:768px) 100vw, 50vw" },
 };

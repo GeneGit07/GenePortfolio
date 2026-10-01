@@ -92,7 +92,7 @@ footer[id],
 }
 
 .animate-header-in {
-  animation: headerSlideDown 0.75s ease-out both;
+  animation: headerSlideDown 0.5s ease;
 }
 
 @utility scrollbar-none {

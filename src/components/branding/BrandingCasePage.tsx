@@ -1,37 +1,28 @@
 import type { BrandingPiece } from "@/data/branding";
 import FadeInView from "@/components/ui/FadeInView";
+import CaseHero from "@/components/case/CaseHero";
 import BrandingGalleryGrid from "./BrandingGalleryGrid";
+import { PAGE_PADDING_X } from "@/lib/constants";
 
 export default function BrandingCasePage({ project }: { project: BrandingPiece }) {
   const gallery = project.gallery ?? [];
   const hasGallery = gallery.length > 0;
 
   return (
-    <main className="px-6 py-24 md:px-16 lg:px-48">
-      {/* Hero editorial — título + subtítulo */}
-      <FadeInView>
-        <div className="max-w-5xl">
-          <h1 className="mt-2 text-4xl font-bold tracking-tight text-balance md:text-6xl">
-            {project.title}
-          </h1>
-          <p className="mt-3 text-lg font-medium tracking-wide text-muted">
-            {project.subtitle}
-          </p>
-        </div>
-      </FadeInView>
-
-      <FadeInView delay={0.05}>
-        <div className="mt-10">
-          <p className="text-lg leading-relaxed text-muted">
-            {project.description}
-          </p>
-        </div>
-      </FadeInView>
+    <main className={`py-24 ${PAGE_PADDING_X}`}>
+      <CaseHero
+        title={project.title}
+        subtitle={project.subtitle}
+        description={project.description}
+        year={project.year}
+        palette={project.palette}
+        thumbnail={project.thumbnail}
+      />
 
       {hasGallery && (
         <>
           <FadeInView>
-            <hr className="mt-0 border-0 border-t border-border md:mt-20" aria-hidden="true" />
+            <hr className="border-0 border-t border-border mt-12" aria-hidden="true" />
           </FadeInView>
           <div className="mt-10 md:mt-12">
             <FadeInView>

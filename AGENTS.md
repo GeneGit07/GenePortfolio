@@ -25,10 +25,10 @@ There is **no test suite** in this repo.
 
 Portfolio content lives in `src/data/` — agents edit data, not JSX, to change content:
 
-- `branding.ts` — `BrandingPiece[]`. Each piece has `slug`, `title`, `subtitle`, `year`, `section`, `thumbnail`, `description`, and an optional `gallery` built via `buildBrandingGallery`.
-- `social.ts` — `SocialProject[]`. Each has `slug`, `title`, `year`, `section`, `thumbnail`, `subtitle`, `palette`, `description`, and `gallery` built via `buildSocialGallery`.
-- `gallery.ts` — Shared gallery builder logic (`buildBrandingGallery`, `buildSocialGallery`), kind maps, and constants. Both branding and social data files import from here.
-- `site.ts` — Site-wide content (`SOCIAL_LINKS`, `SOFTWARES`, hero/about/contact copy, `NAV_ITEMS`). Edit here instead of `src/app/page.tsx`.
+- `branding.ts` — `BrandingPiece[]`. Each piece has `slug`, `title`, `subtitle`, `year`, `palette`, `thumbnail`, `description`, and `gallery` built via `buildBrandingGallery`.
+- `social.ts` — `SocialProject[]`. Each has `slug`, `title`, `year`, `thumbnail`, `description`, `subtitle`, `palette`, and `gallery` built via `buildSocialGallery`.
+- `gallery.ts` — Shared gallery builder logic (`buildBrandingGallery`, `buildSocialGallery`), kind maps, and constants. Social kinds are `banner | carousel | mockup | post | reel` in that editorial order; `carousel` renders like `mockup` (`colSpan: 2`, `aspect-[16/9]`). Both branding and social data files import from here.
+- `site.ts` — Site-wide content (`SOCIAL_LINKS`, `SOFTWARES`, `CONTACT`, `HERO`, `ABOUT`). Edit here instead of section components. (`NAV_ITEMS` lives in `src/lib/constants.ts`, not here.)
 
 ### Adding a new project
 
@@ -40,8 +40,8 @@ Portfolio content lives in `src/data/` — agents edit data, not JSX, to change 
 ### Image asset paths
 
 - **Branding**: `public/assets/branding/<slug>/` — cover is `<slug>.webp`, gallery items are `item-1.webp` … `item-N.webp`. Referenced as `/assets/branding/<slug>/<file>.webp`.
-- **Social**: `public/assets/social/<project>/{banners,posts,mockups,reels,logos,flyers}/` — files follow `<kind>-<n>.webp` (or `.webm` for reels). Referenced as `/assets/social/<project>/<kind>s/<kind>-<n>.ext`.
-- **Home/brand**: `public/assets/home/` — site identity (`logo-white.webp`, `logo-black.webp`, `hero_logo.webp`, favicons) plus the CV PDF (`cv-dayana-pumajulca.pdf`), downloaded by the Hero primary button (`HeroActions.tsx` via `<a download>`).
+- **Social**: `public/assets/social/<project>/{banner,carousel,mockup,post,reel}/` — files follow `<kind>-<n>.webp` (or `.webm` for reels). Referenced as `/assets/social/<project>/<kind>/<kind>-<n>.ext`.
+- **Home/brand**: `public/assets/home/` — site identity (`logo-white.webp`, `logo-black.webp`, `hero-logo.webp`, `favicon-*.ico`) plus the CV PDF (`cv-dayana-pumajulca.pdf`), downloaded by the Hero primary button (`HeroActions.tsx` via `<a download>`).
 
 ## Theming / styling quirks
 
@@ -53,6 +53,12 @@ Portfolio content lives in `src/data/` — agents edit data, not JSX, to change 
 - `@/*` path alias maps to `src/*` (`tsconfig.json`).
 
 ## Layout / animation notes
+
+- Page horizontal padding is unified in `PAGE_PADDING_X` (`src/lib/constants.ts`: `px-6 md:px-16 lg:px-64`). All home sections, `Header`, `Footer`, both case pages, and `not-found` consume it — never hardcode section `px-*`.
+- Home sections are modular: `src/app/page.tsx` only composes wrappers (`<section id>` + padding); content lives in `hero/HeroSection`, `about/AboutSection`, `social/SocialSection`, `branding/BrandingSection`, `contact/ContactSection`, all data-driven from `src/data/site.ts`.
+- Case pages share `CaseHero` (`src/components/case/CaseHero.tsx`, `"use client"`) — full-width title, 2-column info + zoomable `aspect-[16/9]` thumbnail with `ImageModal`, `palette` required. Social and branding differ only in their galleries; `BrandingCasePage` stays a server component rendering the client `CaseHero`.
+- `SocialSectionNav.tsx` is a sticky pill nav (`top-16` mobile to match the `h-16` mobile header) with snap scrolling and active-kind tracking via `IntersectionObserver` (central band, same pattern as `Header`). No border, no mask fade — keep it that way.
+- Both case pages render the same `hr` divider (`mt-0 border-0 border-t border-border md:mt-20` in `FadeInView`) between `CaseHero` and the gallery.
 
 - `SmoothScrollProvider.tsx` (Lenis) wraps the app in `src/app/layout.tsx`. Scroll position resets to top on route change via `lenis.scrollTo(0, { immediate: true, force: true })` — using Lenis's API instead of `window.scrollTo` so the internal scroll state is also cleared.
 - Scroll-driven reveals use `FadeInView` (`src/components/ui/FadeInView.tsx`) — `IntersectionObserver` with conditional `opacity-*/translate-*` classes (animated by the unified theme transition) and staggered inline `transitionDelay`.

@@ -15,19 +15,24 @@ export const SOFTWARES = [
 ] as const;
 
 export const CONTACT = {
+  sectionNumber: "04",
+  title: "Contacto",
+  description:
+    "Disponible para proyectos freelance, dirección creativa y colaboraciones. Creemos algo extraordinario juntos.",
   phone: "+51964322491",
+  phoneDisplay: "+51 964 322 491",
   phoneHref: "tel:+51964322491",
   email: "dayanap.designer@gmail.com",
   emailHref: "mailto:dayanap.designer@gmail.com",
 } as const;
 
-export const HERO_COPY = {
+export const HERO = {
   badge: "Perú",
   title: ["Dayana", "Pumajulca"] as const,
   description: "Branding, redes sociales, diseño gráfico y audiovisual.",
 } as const;
 
-export const ABOUT_COPY = {
+export const ABOUT = {
   sectionNumber: "01",
   title: ["Diseñadora", "Gráfica y Audiovisual"] as const,
   paragraphs: [
