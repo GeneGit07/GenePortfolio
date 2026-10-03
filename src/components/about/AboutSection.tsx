@@ -9,13 +9,13 @@ export default function AboutSection() {
           <span className="text-sm font-mono font-medium text-muted">
             {ABOUT.sectionNumber}
           </span>
-          <h2 className="mt-1 text-4xl font-bold uppercase tracking-tight md:text-5xl">
+          <h2 className="mt-1 font-display text-4xl font-bold uppercase tracking-tight md:text-5xl">
             {ABOUT.title[0]}
             <br />
             {ABOUT.title[1]}
           </h2>
         </div>
-        <div className="md:col-span-7 md:col-start-6">
+        <div className="relative md:col-span-7 md:col-start-6">
           {ABOUT.paragraphs.map((paragraph, i) => (
             <p
               key={i}
@@ -26,17 +26,22 @@ export default function AboutSection() {
           ))}
 
           <div className="mt-10 border-t border-border pt-6">
-            <p className="mb-3 text-xs font-mono uppercase tracking-widest text-subtle">
+            <p className="mb-3 text-xs font-mono uppercase tracking-widest text-foreground">
               Softwares
             </p>
             <ul className="flex flex-wrap gap-x-5 gap-y-1.5">
-              {SOFTWARES.map((sw) => (
-                <li key={sw.label} className="text-sm tracking-wide text-muted">
-                  <span className="font-mono text-xs text-subtle">{sw.abbr}</span>
-                  <span className="mx-1.5 text-border">·</span>
-                  {sw.label}
-                </li>
-              ))}
+              {SOFTWARES.map((sw) => {
+                const Icon = sw.icon;
+                return (
+                  <li
+                    key={sw.label}
+                    className="flex items-center gap-1.5 text-sm tracking-wide text-foreground"
+                  >
+                    <Icon className="size-5 shrink-0" />
+                    {sw.label}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

@@ -1,18 +1,33 @@
+import type { ComponentType, SVGProps } from "react";
+import {
+  AfterEffectsIcon,
+  CapCutIcon,
+  IllustratorIcon,
+  InDesignIcon,
+  LightroomIcon,
+  PhotoshopIcon,
+  PremiereProIcon,
+} from "@/components/about/SoftwareIcons";
+
 export const SOCIAL_LINKS = [
   { name: "Instagram", href: "https://www.instagram.com/dayanap.designer" },
   { name: "Facebook", href: "https://www.facebook.com/dayanapgdesigner" },
   { name: "Behance", href: "https://behance.net/dayanadesigner4" },
 ] as const;
 
-export const SOFTWARES = [
-  { label: "Photoshop", abbr: "Ps" },
-  { label: "Illustrator", abbr: "Ai" },
-  { label: "InDesign", abbr: "Id" },
-  { label: "Premiere Pro", abbr: "Pr" },
-  { label: "After Effects", abbr: "Ae" },
-  { label: "Lightroom", abbr: "Lr" },
-  { label: "CapCut", abbr: "Cc" },
-] as const;
+export const SOFTWARES: {
+  label: string;
+  abbr: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+}[] = [
+  { label: "Photoshop", abbr: "Ps", icon: PhotoshopIcon },
+  { label: "Illustrator", abbr: "Ai", icon: IllustratorIcon },
+  { label: "InDesign", abbr: "Id", icon: InDesignIcon },
+  { label: "Premiere Pro", abbr: "Pr", icon: PremiereProIcon },
+  { label: "After Effects", abbr: "Ae", icon: AfterEffectsIcon },
+  { label: "Lightroom", abbr: "Lr", icon: LightroomIcon },
+  { label: "CapCut", abbr: "Cc", icon: CapCutIcon },
+];
 
 export const CONTACT = {
   sectionNumber: "04",

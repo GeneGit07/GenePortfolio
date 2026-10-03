@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useState, useRef } from "react";
-import HoverShade from "@/components/ui/HoverShade";
 
 interface Props {
   src: string;
@@ -27,7 +26,7 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
             if (e.key === "Enter" || e.key === " ") setIsPlaying(true);
           }}
           aria-label={`Reproducir ${alt}`}
-          className="group relative cursor-pointer overflow-hidden rounded-lg border border-border bg-black"
+          className="group relative cursor-pointer overflow-hidden rounded-2xl bg-black"
         >
           <div className="relative aspect-[9/16] overflow-hidden bg-black">
             <Image
@@ -37,7 +36,6 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
               sizes="(max-width:768px) 50vw, 33vw"
               className="object-cover group-hover:scale-[1.02]"
             />
-            <HoverShade />
             <span className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-black backdrop-blur group-hover:scale-105 group-active:scale-95">
               <span aria-hidden className="ml-0.5 text-lg leading-none">▶</span>
             </span>
@@ -50,7 +48,7 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
     }
 
     return (
-      <div className="overflow-hidden rounded-lg border border-border bg-surface">
+      <div className="overflow-hidden rounded-2xl bg-surface">
         <div className="aspect-[9/16] overflow-hidden bg-black">
           <video
             ref={videoRef}
@@ -71,7 +69,7 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
   }
 
   return (
-    <div className="group overflow-hidden rounded-lg border border-border bg-surface">
+    <div className="group overflow-hidden rounded-2xl bg-surface">
       <div className="relative aspect-[9/16] overflow-hidden bg-surface">
         <Image
           src={poster ?? src}
@@ -80,7 +78,6 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
           sizes="(max-width:768px) 50vw, 33vw"
           className="object-cover group-hover:scale-105"
         />
-        <HoverShade />
         <span className="absolute right-2 top-2 rounded-full bg-black/70 px-2 py-1 text-[10px] uppercase tracking-widest text-white">
           Reel
         </span>

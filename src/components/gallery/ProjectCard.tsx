@@ -3,7 +3,7 @@
 import { memo } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import HoverShade from "@/components/ui/HoverShade";
+import Card from "@/components/ui/Card";
 
 interface ProjectCardProps {
   slug: string;
@@ -26,12 +26,12 @@ function ProjectCard({
 
   return (
     <Link href={`/projects/${slug}`} className={isLarge ? "block h-full" : undefined}>
-      <div className="group cursor-pointer flex flex-col h-full">
+      <Card className="group flex h-full cursor-pointer flex-col">
         <div
           className={
             isLarge
-              ? "relative overflow-hidden bg-surface aspect-video"
-              : "relative overflow-hidden rounded-lg bg-surface flex-1 min-h-45"
+              ? "relative aspect-video overflow-hidden rounded-2xl bg-surface"
+              : "relative flex-1 min-h-45 overflow-hidden rounded-2xl bg-surface"
           }
         >
           <Image
@@ -45,15 +45,14 @@ function ProjectCard({
             }
             className="object-cover group-hover:scale-105"
           />
-          <HoverShade />
         </div>
-        <div className="mt-4">
-          <p className="text-xs uppercase tracking-widest text-muted">
+        <div className="pt-5">
+          <p className="text-xs uppercase tracking-widest text-background/60">
             {eyebrow ?? year}
           </p>
-          <h3 className="mt-1 text-lg font-semibold">{title}</h3>
+          <h3 className="mt-1 font-display text-xl font-bold text-background">{title}</h3>
         </div>
-      </div>
+      </Card>
     </Link>
   );
 }

@@ -14,17 +14,19 @@ A single-page portfolio website that showcases creative work across branding and
 
 ## Features
 
-- **Bento grid** — `GalleryGrid` with `HoverShade` overlay on project cards
+- **Card design system** — Shared `Card` shell (`bg-foreground`, `rounded-2xl`) used by home `ProjectCard`s and case pages (`CaseCard` = `Card` + entrance reveal)
 - **Progressive content loading** — "See More" buttons via `usePaginatedList` hook
 - **Sticky header** — Fixed navigation with active section tracking via `IntersectionObserver`
-- **Mobile hamburger menu** — Full-screen overlay with staggered link appearance
+- **Mobile hamburger menu** — Extracted `MobileMenu` component: full-screen overlay with staggered link appearance
 - **Smooth scrolling** — Lenis-powered smooth wheel scroll, resets to top on route change via Lenis API
-- **Scroll-triggered animations** — Sections and cards fade in via `FadeInView` (`IntersectionObserver`)
+- **Scroll-triggered animations** — Sections and cards fade in via `FadeInView` (`IntersectionObserver`, opacity-only)
 - **Project detail pages** — Dynamic route (`projects/[slug]`) with `generateStaticParams` for fully static generation
-- **Shared case hero** — `CaseHero` (title, info, palette, zoomable cover) reused by social and branding detail pages
+- **Shared case hero** — `CaseHero` (title, info, palette bars with hex labels, zoomable cover in a `CaseCard`) reused by social and branding detail pages
 - **Social kind navigation** — Sticky snap-scrolling pill nav (`SocialSectionNav`) with active-kind tracking; kinds render in editorial order (banners → carruseles → mockups → posts → reels)
-- **Dark/Light theme** — CSS variable-based theme transitions, persisted in localStorage (`src/lib/theme.ts`)
-- **Zoomable images** — Click-to-zoom on project covers via `ImageModal`
+- **Dark/Light theme** — CSS variable-based theme with 1s unified transition, View Transitions crossfade on toggle, persisted in localStorage (`src/lib/theme.ts`)
+- **Zoomable images** — Click-to-zoom on project covers and gallery items via `ImageModal`
+- **Contact form** — `mailto:`-based form (name/email/message), no backend required
+- **Inverted footer** — Theme-aware footer with wave divider, Ventura wordmark, and social pill buttons
 - **No runtime dependencies** — Fully static site, zero API or backend requirements
 
 ## Built with
@@ -85,7 +87,7 @@ npx tsc --noEmit
 ```
 src/
 ├── app/
-│   ├── globals.css               # Tailwind v4 theme tokens, reset, scrollbar styles
+│   ├── globals.css               # Tailwind v4 theme tokens, fonts, separators, view-transition styles
 │   ├── layout.tsx                 # Root layout — fonts, Lenis provider, header, footer
 │   ├── page.tsx                   # Home page — composes hero/about/social/branding/contact sections
 │   └── projects/
@@ -93,43 +95,47 @@ src/
 │           └── page.tsx           # SSG project detail page (generateStaticParams)
 ├── components/
 │   ├── about/
-│   │   └── AboutSection.tsx       # About section on home page (ABOUT + SOFTWARES)
+│   │   ├── AboutSection.tsx       # About section on home page (ABOUT + SOFTWARES with icons)
+│   │   └── SoftwareIcons.tsx      # Local Adobe-style software badges (theme-aware, no deps)
 │   ├── branding/
-│   │   ├── BrandingCasePage.tsx   # Branding detail page (CaseHero + gallery)
-│   │   ├── BrandingGalleryGrid.tsx # Bento gallery layout for branding
-│   │   └── BrandingSection.tsx    # Branding section on home page
+│   │   ├── BrandingCasePage.tsx   # Branding detail page (CaseHero + gallery in CaseCard)
+│   │   ├── BrandingGalleryGrid.tsx # Bento gallery layout for branding (rounded-2xl, zoomable)
+│   │   └── BrandingSection.tsx    # Branding section on home page (paginated ProjectCards)
 │   ├── case/
-│   │   └── CaseHero.tsx           # Shared detail-page hero (title, info, palette, zoomable cover)
+│   │   ├── CaseHero.tsx           # Shared detail-page hero (title, info, palette bars, zoomable cover)
+│   │   └── CaseCard.tsx           # Case wrapper: Card + FadeInView
 │   ├── contact/
-│   │   └── ContactSection.tsx     # Contact section on home page (CONTACT + SOCIAL_LINKS)
+│   │   ├── ContactSection.tsx     # Contact section on home page (CONTACT + ContactForm)
+│   │   └── ContactForm.tsx        # mailto: contact form (client component, no backend)
 │   ├── gallery/
 │   │   ├── GalleryGrid.tsx        # Generic bento grid + GalleryGrid.Item
-│   │   └── ProjectCard.tsx        # Reusable project card with HoverShade
+│   │   └── ProjectCard.tsx        # Reusable project card inside the Card shell
 │   ├── hero/
 │   │   └── HeroSection.tsx        # Hero section on home page (HERO + HeroActions)
 │   ├── layout/
-│   │   ├── Header.tsx             # Sticky header + mobile nav, uses NAV_ITEMS
-│   │   ├── Footer.tsx
+│   │   ├── Header.tsx             # Sticky header, uses NAV_ITEMS + MobileMenu
+│   │   ├── MobileMenu.tsx         # Hamburger button + full-screen mobile nav overlay
+│   │   ├── Footer.tsx             # Inverted footer: wave, Ventura wordmark, SOCIAL_LINKS pills
 │   │   ├── SmoothScrollProvider.tsx # Lenis wrapper with route-change scroll reset
-│   │   ├── ThemeProvider.tsx       # Dark/light toggle, persisted in localStorage
+│   │   ├── ThemeProvider.tsx       # Dark/light toggle with View Transitions flip
 │   │   └── ThemeToggle.tsx
 │   ├── ui/                        # Shared UI atoms
-│   │   ├── FadeInView.tsx         # Scroll-triggered fade-in wrapper
-│   │   ├── HeroActions.tsx        # CTA buttons in hero section
-│   │   ├── HoverShade.tsx         # Hover overlay (bg-black/0 → group-hover:bg-black/10)
+│   │   ├── Card.tsx               # Single card shell (bg-foreground, rounded-2xl) for home + cases
+│   │   ├── FadeInView.tsx         # Scroll-triggered fade-in wrapper (opacity-only)
+│   │   ├── HeroActions.tsx        # CTA buttons in hero section (incl. CV download)
 │   │   ├── ImageModal.tsx         # Fullscreen image viewer
 │   │   ├── ReelCard.tsx           # Reel card with video poster
 │   │   └── ShowMoreButton.tsx     # Progressive reveal button
 │   └── social/
-│       ├── SocialGalleryGrid.tsx  # Social asset grid with HoverShade
-│       ├── SocialCasePage.tsx     # Social detail page (CaseHero + sections grouped by kind)
-│       ├── SocialSection.tsx      # Social section on home page
+│       ├── SocialGalleryGrid.tsx  # Social asset grid (zoomable, reels supported)
+│       ├── SocialCasePage.tsx     # Social detail page (CaseHero + sections grouped by kind in CaseCards)
+│       ├── SocialSection.tsx      # Social section on home page (paginated ProjectCards)
 │       └── SocialSectionNav.tsx   # Sticky pill nav with active-kind tracking
 ├── lib/
 │   ├── cn.ts                      # Class merge helper
 │   ├── constants.ts               # NAV_ITEMS + PAGE_PADDING_X (unified page padding)
 │   ├── pagination.ts              # usePaginatedList hook
-│   └── theme.ts                   # Theme helpers (currentTheme, applyTheme)
+│   └── theme.ts                   # Theme helpers (currentTheme, applyTheme, view-transition gates)
 └── data/
     ├── gallery.ts                 # Shared gallery builders (buildBrandingGallery, buildSocialGallery)
     ├── branding.ts                # BrandingPiece[] + getBrandingPieceBySlug
@@ -147,7 +153,7 @@ public/
 
 ### Branding
 
-Edit [`src/data/branding.ts`](src/data/branding.ts) to add, remove, or update branding pieces. Each piece has `slug`, `title`, `subtitle`, `year`, `palette`, `thumbnail`, `description`, and `gallery` built via `buildBrandingGallery({ slug, label, items })`.
+Edit [`src/data/branding.ts`](src/data/branding.ts) to add, remove, or update branding pieces. Each piece has `slug`, `title`, `year`, `palette`, `thumbnail`, `description`, and `gallery` built via `buildBrandingGallery({ slug, label, items })`.
 
 > [!TIP]
 > Place branding images in `public/assets/branding/<slug>/` where the cover is `<slug>.webp` and gallery items are `item-1.webp` through `item-N.webp`.
@@ -159,7 +165,9 @@ Edit [`src/data/social.ts`](src/data/social.ts). Assets live in `public/assets/s
 ### Content & copy
 
 - **Hero / About / Contact text** — edit [`src/data/site.ts`](src/data/site.ts) (`HERO`, `ABOUT`, `CONTACT`)
-- **Social links / Softwares** — edit [`src/data/site.ts`](src/data/site.ts) (`SOCIAL_LINKS`, `SOFTWARES`)
+- **Social links** — edit [`src/data/site.ts`](src/data/site.ts) (`SOCIAL_LINKS`, rendered as pills in the `Footer`)
+- **Softwares** — edit [`src/data/site.ts`](src/data/site.ts) (`SOFTWARES`; each entry pairs a label with an icon from `SoftwareIcons.tsx`)
+- **Contact form** — [`src/components/contact/ContactForm.tsx`](src/components/contact/ContactForm.tsx) submits via `mailto:` to `CONTACT.email`; no backend needed
 - **Navigation** — edit [`src/lib/constants.ts`](src/lib/constants.ts) (`NAV_ITEMS`)
 - **Page padding** — edit [`src/lib/constants.ts`](src/lib/constants.ts) (`PAGE_PADDING_X`, consumed by all sections, header, footer and case pages)
 - **Meta tags** — edit the `metadata` export in [`src/app/layout.tsx`](src/app/layout.tsx)
@@ -178,7 +186,7 @@ The custom color palette is defined in [`src/app/globals.css`](src/app/globals.c
 | `--color-border` | `#1d1d1d` | Section separators |
 | `--color-accent` | `#ffffff` | Selection highlight |
 
-Light theme overrides are under the `.light` class in the same file.
+Light theme overrides are under the `.light` class in the same file. Theme switching plays a 0.5s View Transitions crossfade with per-element transitions suppressed during the flip (instant fallback without support or with reduced motion). All headings use `font-display font-bold` (local Intel One Display); micro-labels use `font-mono` (Geist Mono); the footer wordmark uses `font-ventura` (local Ventura).
 
 ### Grid system
 

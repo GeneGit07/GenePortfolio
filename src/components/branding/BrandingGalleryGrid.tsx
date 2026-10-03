@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 import type { BrandingAsset } from "@/data/branding";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
-import HoverShade from "@/components/ui/HoverShade";
 import ImageModal from "@/components/ui/ImageModal";
 
 interface BrandingGalleryGridProps {
@@ -45,7 +44,7 @@ export default function BrandingGalleryGrid({
               type="button"
               onClick={() => setSelected(asset)}
               aria-label={`Ver imagen ampliada: ${asset.alt}`}
-              className="group relative block h-full w-full cursor-zoom-in overflow-hidden rounded-2xl border border-border bg-surface text-left shadow-sm"
+              className="group relative block h-full w-full cursor-zoom-in overflow-hidden rounded-2xl bg-surface text-left"
             >
               <Image
                 src={asset.src}
@@ -54,7 +53,6 @@ export default function BrandingGalleryGrid({
                 sizes="(max-width: 768px) 50vw, 33vw"
                 className="object-cover group-hover:scale-105"
               />
-              <HoverShade />
             </button>
           </GalleryGrid.Item>
         ))}

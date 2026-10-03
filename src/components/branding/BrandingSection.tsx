@@ -15,15 +15,15 @@ export default function BrandingSection() {
   return (
     <div>
       <FadeInView>
-        <div className="mb-12 flex items-baseline gap-4">
+        <div className="mb-12">
           <span className="text-sm font-mono font-medium text-muted">03</span>
-          <h2 className="text-4xl font-bold uppercase tracking-tight md:text-5xl">
+          <h2 className="mt-1 font-display text-4xl font-bold uppercase tracking-tight md:text-5xl">
             Branding
           </h2>
         </div>
       </FadeInView>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
         {visiblePiecesList.map((piece, i) => (
           <FadeInView key={piece.slug} delay={i * 0.05} className="h-full">
             <ProjectCard

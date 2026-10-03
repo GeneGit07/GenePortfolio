@@ -50,7 +50,7 @@ export default function ImageModal({ src, alt, onClose }: ImageModalProps) {
         loading="eager"
         decoding="async"
         onClick={(e) => e.stopPropagation()}
-        className="modal-content max-h-[85vh] max-w-[90vw] rounded-lg object-contain shadow-2xl"
+        className="modal-content max-h-[85vh] max-w-[90vw] rounded-2xl object-contain"
       />
     </div>,
     document.body,

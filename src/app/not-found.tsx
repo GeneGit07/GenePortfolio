@@ -7,7 +7,7 @@ export default function NotFound() {
       className={`flex min-h-[60dvh] flex-col items-center justify-center py-24 text-center ${PAGE_PADDING_X}`}
     >
       <p className="text-sm font-mono uppercase tracking-widest text-subtle">404</p>
-      <h1 className="mt-2 text-4xl font-bold tracking-tight md:text-5xl">Proyecto no encontrado</h1>
+      <h1 className="mt-2 font-display text-4xl font-bold tracking-tight md:text-5xl">Proyecto no encontrado</h1>
       <p className="mt-4 max-w-md text-muted">
         El proyecto que buscas no existe o fue movido.
       </p>

@@ -3,6 +3,7 @@
 import type { SocialProject } from "@/data/social";
 import FadeInView from "@/components/ui/FadeInView";
 import CaseHero from "@/components/case/CaseHero";
+import CaseCard from "@/components/case/CaseCard";
 import SocialGalleryGrid from "./SocialGalleryGrid";
 import SocialSectionNav from "./SocialSectionNav";
 import { PAGE_PADDING_X } from "@/lib/constants";
@@ -36,7 +37,6 @@ export default function SocialCasePage({ project }: { project: SocialProject }) 
     <main className={`py-24 ${PAGE_PADDING_X}`}>
       <CaseHero
         title={project.title}
-        subtitle={project.subtitle}
         description={project.description}
         year={project.year}
         palette={project.palette}
@@ -46,7 +46,7 @@ export default function SocialCasePage({ project }: { project: SocialProject }) 
       {/* Delineado info → galería, igual que en branding */}
       {grouped.length > 0 && (
         <FadeInView>
-          <hr className="mt-0 border-0 border-t border-border md:mt-20" aria-hidden="true" />
+          <hr className="mt-0 border-0 border-t-2 border-subtle/60 md:mt-20" aria-hidden="true" />
         </FadeInView>
       )}
 
@@ -63,14 +63,16 @@ export default function SocialCasePage({ project }: { project: SocialProject }) 
       <div className="mt-12 space-y-16">
         {grouped.map(([kind, assets]) => (
           <section key={kind} id={`section-${kind}`} className="scroll-mt-28">
-            <FadeInView>
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
-                  {KIND_LABELS[kind] ?? kind}
-                </h2>
-              </div>
-            </FadeInView>
-            <SocialGalleryGrid assets={assets} />
+            <CaseCard>
+              <FadeInView>
+                <div className="mb-6">
+                  <h2 className="font-display text-2xl font-bold tracking-tight md:text-3xl">
+                    {KIND_LABELS[kind] ?? kind}
+                  </h2>
+                </div>
+              </FadeInView>
+              <SocialGalleryGrid assets={assets} />
+            </CaseCard>
           </section>
         ))}
       </div>

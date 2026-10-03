@@ -50,8 +50,8 @@ export default function SocialSectionNav({ kinds }: { kinds: string[] }) {
     };
 
   return (
-    <nav className="sticky top-16 z-20 -mx-6 bg-background px-6 py-4 md:mx-0 md:top-[64px] md:px-0">
-      <div className="flex snap-x snap-mandatory items-center gap-3 overflow-x-auto scroll-smooth py-1 scrollbar-none md:justify-center md:gap-4 md:overflow-visible">
+    <nav className="sticky top-16 z-20 -mx-6 bg-background px-6 py-4 sm:-mx-8 sm:px-8 md:mx-0 md:top-[64px] md:px-0">
+      <div className="flex snap-x snap-mandatory items-center gap-3 overflow-x-auto scroll-smooth py-1 md:justify-center md:gap-4 md:overflow-visible">
         {kinds.map((kind) => (
           <a
             key={kind}

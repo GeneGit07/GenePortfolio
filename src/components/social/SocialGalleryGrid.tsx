@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 import type { SocialAsset } from "@/data/social";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
-import HoverShade from "@/components/ui/HoverShade";
 import ImageModal from "@/components/ui/ImageModal";
 import ReelCard from "@/components/ui/ReelCard";
 
@@ -79,7 +78,7 @@ export default function SocialGalleryGrid({ assets }: { assets: SocialAsset[] })
                 type="button"
                 onClick={() => setSelected(asset)}
                 aria-label={`Ver imagen ampliada: ${asset.alt}`}
-                className="group block h-full w-full cursor-zoom-in overflow-hidden rounded-2xl border border-border bg-surface text-left shadow-sm"
+                className="group block h-full w-full cursor-zoom-in overflow-hidden rounded-2xl bg-surface text-left"
               >
                 <div
                   className={`relative w-full overflow-hidden bg-surface ${isPostsOnly ? "h-full" : aspect}`}
@@ -91,7 +90,6 @@ export default function SocialGalleryGrid({ assets }: { assets: SocialAsset[] })
                     sizes={sizes}
                     className="object-cover group-hover:scale-[1.02]"
                   />
-                  <HoverShade />
                   {asset.caption && (
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-3 py-2">
                       <p className="text-xs tracking-wide text-white">{asset.caption}</p>

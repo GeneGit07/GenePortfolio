@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
+import MobileMenu from "./MobileMenu";
 import { NAV_ITEMS, PAGE_PADDING_X } from "@/lib/constants";
 
 export default function Header() {
@@ -13,13 +14,6 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState("hero");
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen && isHome ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen, isHome]);
 
   const buildObserver = useCallback(() => {
     const sections = NAV_ITEMS.map((item) =>
@@ -49,10 +43,10 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    if (!isHome || menuOpen) return;
+    if (!isHome) return;
     const observer = buildObserver();
     return () => observer?.disconnect();
-  }, [isHome, menuOpen, pathname, buildObserver]);
+  }, [isHome, pathname, buildObserver]);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     if (!isHome) return;
@@ -95,9 +89,9 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <Link
               href="/"
-              className="text-sm font-mono uppercase tracking-widest text-muted hover:text-foreground"
+              className="text-xs tracking-widest text-muted hover:text-foreground"
             >
-              &larr; Volver
+              Volver
             </Link>
             <span aria-hidden className="h-4 w-px bg-border" />
             <ThemeToggle />
@@ -185,65 +179,15 @@ export default function Header() {
           </a>
           <div className="flex shrink-0 items-center gap-2">
             <ThemeToggle size="sm" />
-            <button
-            onClick={toggleMenu}
-            aria-label={menuOpen ? "Cerrar navegación" : "Abrir navegación"}
-            aria-expanded={menuOpen}
-            className="relative z-50 flex shrink-0 flex-col gap-1.5 p-2"
-          >
-            <span
-              className={`block h-px w-6 bg-foreground ${
-                menuOpen ? "rotate-45 translate-y-1.75" : ""
-              }`}
+            <MobileMenu
+              open={menuOpen}
+              activeSection={activeSection}
+              onToggle={toggleMenu}
+              onNavigate={handleClick}
             />
-            <span
-              className={`block h-px w-6 bg-foreground ${
-                menuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block h-px w-6 bg-foreground ${
-                menuOpen ? "-rotate-45 -translate-y-1.75" : ""
-              }`}
-            />
-            </button>
           </div>
         </div>
       </header>
-
-      <div
-        className={`fixed inset-x-0 top-16 bottom-0 z-30 bg-background backdrop-blur-md ${
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <nav className="flex flex-col items-center gap-8 pt-12 pb-24 min-h-full justify-center">
-          {NAV_ITEMS.map(({ id, label }, i) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                onClick={(e) => {
-                  handleClick(e, id);
-                  toggleMenu();
-                }}
-                style={{ transitionDelay: `${menuOpen ? i * 0.05 : 0}s` }}
-                className={`text-xl relative uppercase tracking-widest ${
-                  menuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                } ${
-                  activeSection === id
-                    ? "text-foreground"
-                    : "text-muted"
-                }`}
-              >
-                {label}
-                <span
-                  className={`absolute -bottom-1 left-1/2 h-px w-full bg-foreground -translate-x-1/2 ${
-                    activeSection === id ? "opacity-100" : "opacity-0"
-                  }`}
-                />
-            </a>
-          ))}
-        </nav>
-      </div>
     </>
   );
 }

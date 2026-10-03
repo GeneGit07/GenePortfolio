@@ -8,11 +8,7 @@ export default function HeroSection() {
     <>
       <FadeInView className="flex items-center">
         <div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-[11px] tracking-widest text-muted">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
-            {HERO.badge}
-          </span>
-          <h1 className="mt-4 text-6xl font-bold leading-none tracking-tighter md:text-7xl lg:text-8xl">
+          <h1 className="font-display text-6xl font-bold leading-none tracking-tighter md:text-7xl xl:text-8xl 2xl:text-9xl">
             {HERO.title[0]}
             <br />
             {HERO.title[1]}
@@ -24,13 +20,13 @@ export default function HeroSection() {
         </div>
       </FadeInView>
       <FadeInView className="flex items-center justify-center md:items-stretch">
-        <div className="relative flex w-full items-center justify-center overflow-hidden rounded-[40px] py-4 md:h-full md:rounded-[48px] md:py-0">
+        <div className="relative flex w-full items-center justify-center overflow-hidden rounded-2xl py-4 md:h-full md:py-0">
           <Image
             src="/assets/home/hero-logo.webp"
             alt="Hero logo"
             width={2250}
             height={1500}
-            className="h-auto w-full max-w-130 overflow-hidden rounded-[40px] object-contain md:h-full md:max-h-dvh md:w-full md:max-w-none md:rounded-[48px] md:object-contain"
+            className="h-auto w-full max-w-130 overflow-hidden rounded-2xl object-contain md:h-full md:max-h-dvh md:w-full md:max-w-none md:object-contain"
             priority
             sizes="(max-width: 768px) 90vw, 50vw"
           />

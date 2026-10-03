@@ -1,6 +1,7 @@
 import type { BrandingPiece } from "@/data/branding";
 import FadeInView from "@/components/ui/FadeInView";
 import CaseHero from "@/components/case/CaseHero";
+import CaseCard from "@/components/case/CaseCard";
 import BrandingGalleryGrid from "./BrandingGalleryGrid";
 import { PAGE_PADDING_X } from "@/lib/constants";
 
@@ -12,7 +13,6 @@ export default function BrandingCasePage({ project }: { project: BrandingPiece }
     <main className={`py-24 ${PAGE_PADDING_X}`}>
       <CaseHero
         title={project.title}
-        subtitle={project.subtitle}
         description={project.description}
         year={project.year}
         palette={project.palette}
@@ -22,15 +22,17 @@ export default function BrandingCasePage({ project }: { project: BrandingPiece }
       {hasGallery && (
         <>
           <FadeInView>
-            <hr className="border-0 border-t border-border mt-12" aria-hidden="true" />
+            <hr className="border-0 border-t-2 border-subtle/60 mt-12" aria-hidden="true" />
           </FadeInView>
           <div className="mt-10 md:mt-12">
-            <FadeInView>
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Galería</h2>
-              </div>
-            </FadeInView>
-            <BrandingGalleryGrid assets={gallery} />
+            <CaseCard>
+              <FadeInView>
+                <div className="mb-6">
+                  <h2 className="font-display text-2xl font-bold tracking-tight md:text-3xl">Galería</h2>
+                </div>
+              </FadeInView>
+              <BrandingGalleryGrid assets={gallery} />
+            </CaseCard>
           </div>
         </>
       )}

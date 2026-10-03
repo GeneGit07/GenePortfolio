@@ -17,28 +17,35 @@ export default function FadeInView({
 }: FadeInViewProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  // El delay escalonado solo existe para el reveal de entrada: una vez
+  // completado se limpia para no retrasar futuras transiciones (p. ej. el
+  // fade de colores al cambiar de tema).
+  const [delayDone, setDelayDone] = useState(delay === 0);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { rootMargin: "-100px" },
-    );
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.unobserve(el);
+      }
+    });
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!isVisible || delayDone) return;
+    const t = setTimeout(() => setDelayDone(true), delay * 1000);
+    return () => clearTimeout(t);
+  }, [isVisible, delay, delayDone]);
+
   return (
     <div
       ref={ref}
-      className={`${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"} ${className}`}
-      style={{ transitionDelay: `${delay}s` }}
+      className={`${isVisible ? "opacity-100" : "opacity-0"} ${className}`}
+      style={{ transitionDelay: delayDone ? "0s" : `${delay}s` }}
     >
       {children}
     </div>

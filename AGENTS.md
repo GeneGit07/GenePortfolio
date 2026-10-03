@@ -25,8 +25,8 @@ There is **no test suite** in this repo.
 
 Portfolio content lives in `src/data/` — agents edit data, not JSX, to change content:
 
-- `branding.ts` — `BrandingPiece[]`. Each piece has `slug`, `title`, `subtitle`, `year`, `palette`, `thumbnail`, `description`, and `gallery` built via `buildBrandingGallery`.
-- `social.ts` — `SocialProject[]`. Each has `slug`, `title`, `year`, `thumbnail`, `description`, `subtitle`, `palette`, and `gallery` built via `buildSocialGallery`.
+- `branding.ts` — `BrandingPiece[]`. Each piece has `slug`, `title`, `year`, `palette`, `thumbnail`, `description`, and `gallery` built via `buildBrandingGallery`. No `subtitle` field.
+- `social.ts` — `SocialProject[]`. Each has `slug`, `title`, `year`, `thumbnail`, `description`, `palette`, and `gallery` built via `buildSocialGallery`. No `subtitle` field.
 - `gallery.ts` — Shared gallery builder logic (`buildBrandingGallery`, `buildSocialGallery`), kind maps, and constants. Social kinds are `banner | carousel | mockup | post | reel` in that editorial order; `carousel` renders like `mockup` (`colSpan: 2`, `aspect-[16/9]`). Both branding and social data files import from here.
 - `site.ts` — Site-wide content (`SOCIAL_LINKS`, `SOFTWARES`, `CONTACT`, `HERO`, `ABOUT`). Edit here instead of section components. (`NAV_ITEMS` lives in `src/lib/constants.ts`, not here.)
 
@@ -49,23 +49,30 @@ Portfolio content lives in `src/data/` — agents edit data, not JSX, to change 
 - Light theme overrides are under the `.light` class (toggled on `<html>`).
 - Theme transitions use CSS custom properties (`--theme-transition-property` — includes `transform, translate, scale, rotate` — `--theme-transition-duration: 1s`, `--theme-transition-timing`) applied to `html *`. This unlayered rule wins over Tailwind v4 `transition-*`/`duration-*` utilities (cascade layers), so do NOT add those utilities — all animation runs on the unified theme duration.
 - `body { background-color }` (not `background` shorthand) to align with the transition-property list.
+- Theme switching uses the View Transitions API crossfade (`::view-transition-old/new(root)`, 0.5s) with per-element transitions suppressed via `html.theme-flip` (`ThemeProvider.toggle` + `lib/theme.ts`). Reason: `html *` transitioning `color` makes inherited values re-animate down the tree (late echo on nested titles/icons). Fallback without support or with reduced-motion is an instant flip.
+- Fonts (all local `public/fonts`, static-export safe): `--font-display` + `--font-sans` = Intel One Display (400/500/700 via `@font-face`); `--font-mono` = Geist Mono (micro-labels); `--font-ventura` = Ventura (footer wordmark only). Headings use `font-display font-bold`. (`HERO.badge` still exists in `site.ts` but is no longer rendered — the hero pill was removed.)
+- `body { overflow-x: clip }` guard preserves sticky (unlike hidden).
 - `postcss.config.mjs` uses only `@tailwindcss/postcss` (v4 plugin).
 - `@/*` path alias maps to `src/*` (`tsconfig.json`).
 
 ## Layout / animation notes
 
-- Page horizontal padding is unified in `PAGE_PADDING_X` (`src/lib/constants.ts`: `px-6 md:px-16 lg:px-64`). All home sections, `Header`, `Footer`, both case pages, and `not-found` consume it — never hardcode section `px-*`.
-- Home sections are modular: `src/app/page.tsx` only composes wrappers (`<section id>` + padding); content lives in `hero/HeroSection`, `about/AboutSection`, `social/SocialSection`, `branding/BrandingSection`, `contact/ContactSection`, all data-driven from `src/data/site.ts`.
-- Case pages share `CaseHero` (`src/components/case/CaseHero.tsx`, `"use client"`) — full-width title, 2-column info + zoomable `aspect-[16/9]` thumbnail with `ImageModal`, `palette` required. Social and branding differ only in their galleries; `BrandingCasePage` stays a server component rendering the client `CaseHero`.
+- Page horizontal padding is unified in `PAGE_PADDING_X` (`src/lib/constants.ts`: `px-6 sm:px-8 md:px-16 lg:px-24 xl:px-32 2xl:px-64`, mirrored by the inset section separators in `globals.css`: `1.5rem / 2rem / 4rem / 6rem / 8rem / 16rem`). All home sections, `Header`, `Footer`, both case pages, and `not-found` consume it — never hardcode section `px-*`.
+- Hero grid splits to 2 columns at `md` (`src/app/page.tsx`); the title scales `text-6xl → md:7xl → xl:8xl → 2xl:9xl` and the image is capped (`max-w-130`) only below `md`.
+- Home sections are modular: `src/app/page.tsx` only composes wrappers (`<section id>` + padding; contact is a `<footer id="contact">`); content lives in `hero/HeroSection`, `about/AboutSection`, `social/SocialSection`, `branding/BrandingSection`, `contact/ContactSection`, all data-driven from `src/data/site.ts`. Section headers are stacked (number over title, `mt-1`), home grids use `gap-10 md:gap-12`.
+- `AboutSection` renders `SOFTWARES` with local `SoftwareIcons.tsx` badges (solid `currentColor` rounded square + letters in `var(--color-background)`, theme-aware, no deps).
+- `ContactSection` renders phone/email links with inline icons + `ContactForm.tsx` (`"use client"`, `mailto:` submit, no backend). Social links live in `Footer`, not here.
+- `Footer` is inverted (`bg-foreground text-background`) with a wave SVG on top (`bg-background` strip, `fill-foreground` path), Ventura wordmark, `SOCIAL_LINKS` pill buttons, and a Dreamy Studio credit. Contact (`footer#contact`) has no inset separator — it flows into the wave.
+- Case pages share `CaseHero` (`src/components/case/CaseHero.tsx`, `"use client"`) — full-width title (no subtitle), 2-column info + zoomable `aspect-[16/9]` thumbnail wrapped in `CaseCard`, `palette` required and rendered as full-width bars with hex labels (luminance-aware text via `textOnColor`). Social and branding differ only in their galleries; `BrandingCasePage` stays a server component rendering the client `CaseHero`.
 - `SocialSectionNav.tsx` is a sticky pill nav (`top-16` mobile to match the `h-16` mobile header) with snap scrolling and active-kind tracking via `IntersectionObserver` (central band, same pattern as `Header`). No border, no mask fade — keep it that way.
-- Both case pages render the same `hr` divider (`mt-0 border-0 border-t border-border md:mt-20` in `FadeInView`) between `CaseHero` and the gallery.
-
+- Both case pages render the same `hr` divider (`mt-0 border-0 border-t-2 border-subtle/60 md:mt-20` in `FadeInView`) between `CaseHero` and the gallery. Galleries and the case cover are wrapped in `CaseCard` (`case/CaseCard.tsx` = `Card` + `FadeInView`).
+- `Card` (`ui/Card.tsx`) is the single visual shell for home + case cards: `bg-foreground p-6 rounded-2xl text-background`. `ProjectCard` puts the image (`rounded-2xl`, no border) and eyebrow/title (`text-background/60`, `font-display text-background`) inside it.
 - `SmoothScrollProvider.tsx` (Lenis) wraps the app in `src/app/layout.tsx`. Scroll position resets to top on route change via `lenis.scrollTo(0, { immediate: true, force: true })` — using Lenis's API instead of `window.scrollTo` so the internal scroll state is also cleared.
-- Scroll-driven reveals use `FadeInView` (`src/components/ui/FadeInView.tsx`) — `IntersectionObserver` with conditional `opacity-*/translate-*` classes (animated by the unified theme transition) and staggered inline `transitionDelay`.
-- `HoverShade` is a shared hover overlay (`bg-black/0 → group-hover:bg-black/10`, animated by the unified theme transition) used on `ProjectCard`, `SocialGalleryGrid`, `BrandingGalleryGrid`, and `ReelCard`.
-- `GalleryGrid.tsx` is the generic bento grid (`grid-cols-2 md:grid-cols-4`, `squareRows` via `ResizeObserver`); `GalleryGrid.Item` wraps `FadeInView`. Section grids (`BrandingSection`, `SocialSection`) use paginated `ProjectCard` lists (`variant="large"` → `aspect-video`, no rounding).
+- Scroll-driven reveals use `FadeInView` (`src/components/ui/FadeInView.tsx`) — `IntersectionObserver` (default viewport, no `rootMargin`) toggling `opacity-0 → opacity-100` (no translate, animated by the unified theme transition). The staggered `transitionDelay` is cleared after the entrance reveal so later transitions (e.g. theme color fades) aren't delayed.
+- `GalleryGrid.tsx` is the generic bento grid (`grid-cols-2 md:grid-cols-4`, `squareRows` via `ResizeObserver`); `GalleryGrid.Item` wraps `FadeInView`. Section grids (`BrandingSection`, `SocialSection`) use paginated `ProjectCard` lists inside the `Card` shell. Gallery media is `rounded-2xl` with no border/shadow/overlay — there is no `HoverShade` component (deleted); hover zoom is `group-hover:scale-*` only. `ImageModal` is `rounded-2xl` with no shadow.
 - `ShowMoreButton.tsx` is a pill matching the Hero secondary button (`rounded-full border-foreground/15 bg-surface/60`), rendered as `{hasMore ? ... : null}` via `usePaginatedList` (`src/lib/pagination.ts`) — plain mount/unmount, no exit choreography.
-- Header tracks active section via `IntersectionObserver` and `NAV_ITEMS` (`src/lib/constants.ts`); mobile nav is a full-screen overlay.
+- Header tracks active section via `IntersectionObserver` and `NAV_ITEMS` (`src/lib/constants.ts`); mobile nav is extracted in `layout/MobileMenu.tsx` (hamburger + full-screen overlay, staggered links). `Header` no longer locks `body` overflow or tears down the observer when the menu opens.
+- `ThemeToggle` uses a fixed 22px icon (filled moon / stroked sun in a `h-10 w-10` button); the `size` prop is vestigial. Theme helpers live in `lib/theme.ts`: `currentTheme` / `applyTheme` plus `canViewTransition` / `startThemeViewTransition` (View Transitions gate with reduced-motion check).
 
 ## Build and deployment
 

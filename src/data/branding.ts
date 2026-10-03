@@ -8,7 +8,6 @@ export type { BrandingAsset };
 export interface BrandingPiece {
   slug: string;
   title: string;
-  subtitle: string;
   year: string;
   palette: string[];
   thumbnail: string;
@@ -20,9 +19,8 @@ export const brandingPieces: BrandingPiece[] = [
   {
     slug: "dsumar",
     title: "D'Sumar",
-    subtitle: "Conservas de Pescado.",
     year: "2024",
-    palette: ["#1e4f9e", "#3b7dd8", "#f4f4f4"],
+    palette: ["#fcdc3e", "#194f90"],
     thumbnail: "/assets/branding/dsumar/dsumar.webp",
     description:
       "Proyecto de branding e identidad visual para una marca especializada en conservas de pescado. Se desarrolló una propuesta gráfica inspirada en la frescura y esencia del mar, buscando transmitir una imagen cercana, atractiva y consistente en sus diferentes aplicaciones.",
@@ -35,9 +33,8 @@ export const brandingPieces: BrandingPiece[] = [
   {
     slug: "excelencia-grill",
     title: "EXCELENCIA GRILL",
-    subtitle: "Pollería",
     year: "2024",
-    palette: ["#e63329", "#f7c500", "#2a1a12"],
+    palette: ["#ed2224", "#facc13", "#2A0E12"],
     thumbnail: "/assets/branding/excelencia-grill/excelencia-grill.webp",
     description:
       "Desarrollo de branding e identidad visual para Excelencia Grill. La propuesta gráfica se construyó a partir de una paleta en rojo y amarillo, buscando transmitir fuerza, energía y una personalidad visual llamativa, acorde con el concepto gastronómico de la marca.",
@@ -50,15 +47,28 @@ export const brandingPieces: BrandingPiece[] = [
     {
     slug: "provenza",
     title: "Provenza Producciones",
-    subtitle: "Pollería",
     year: "2025",
-    palette: ["#c6f52e", "#1a1a1a", "#ffffff"],
+    palette: ["#000000", "#def118"],
     thumbnail: "/assets/branding/provenza/provenza.webp",
     description:
       "Desarrollo de la identidad visual para Provenza Producciones, productora de contenido audiovisual con presencia en Perú y Colombia. El proyecto incluyó la creación del logotipo desde cero y el desarrollo del branding de la marca, definiendo una propuesta visual moderna, creativa y profesional, coherente con el sector audiovisual y la esencia de la productora.",
     gallery: buildBrandingGallery({
       slug: "provenza",
-      label: "provenza",
+      label: "Provenza Producciones",
+      items: 11,
+    }),
+  },
+  {
+    slug: "nutralife",
+    title: "Nutralife",
+    year: "2025",
+    palette: ["#000000", "#00b140"],
+    thumbnail: "/assets/branding/nutralife/nutralife.webp",
+    description:
+      "Desarrollo del branding para Nutralife, marca de suplementos alimenticios y productos de bienestar. El proyecto incluyó identidad visual, diseño de posts para productos y desarrollo visual de su página web, buscando transmitir una imagen natural, confiable y profesional, acorde con la esencia de sus productos.",
+    gallery: buildBrandingGallery({
+      slug: "nutralife",
+      label: "Nutralife",
       items: 11,
     }),
   },

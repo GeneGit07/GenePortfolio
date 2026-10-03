@@ -8,7 +8,13 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { currentTheme, applyTheme, type Theme } from "@/lib/theme";
+import { flushSync } from "react-dom";
+import {
+  currentTheme,
+  applyTheme,
+  startThemeViewTransition,
+  type Theme,
+} from "@/lib/theme";
 
 export type { Theme };
 
@@ -37,8 +43,24 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
 
   const toggle = useCallback(() => {
     const next: Theme = currentTheme() === "light" ? "dark" : "light";
-    applyTheme(next);
-    setTheme(next);
+    const root = document.documentElement;
+    // Suprime las transiciones por elemento durante el flip: con `html *`
+    // transicionando `color`, los valores heredados se animarían en cascada
+    // (eco tardío en títulos e iconos). La única animación es el crossfade
+    // de View Transitions; sin soporte o con reduced-motion, cambio directo.
+    const flip = () => {
+      root.classList.add("theme-flip");
+      applyTheme(next);
+      setTheme(next);
+    };
+    const done = () => root.classList.remove("theme-flip");
+    const vt = startThemeViewTransition(() => flushSync(flip));
+    if (vt) {
+      vt.finished.then(done, done);
+    } else {
+      flip();
+      requestAnimationFrame(() => requestAnimationFrame(done));
+    }
   }, []);
 
   return (
