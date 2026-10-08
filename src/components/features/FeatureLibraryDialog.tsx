@@ -94,6 +94,7 @@ export default function FeatureLibraryDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby="feature-library-title"
+        data-lenis-prevent
         onClick={(event) => event.stopPropagation()}
         className="feature-dialog-panel w-full max-w-6xl overflow-y-auto rounded-3xl border border-border bg-background p-4 shadow-2xl sm:p-5 md:p-8"
       >
