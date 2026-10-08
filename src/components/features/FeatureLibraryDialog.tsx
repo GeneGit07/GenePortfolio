@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import { useEffect, useRef } from "react";
 import type { FeatureLibraryItem, ProjectFeatureMedia } from "@/data/projectFeatureMedia";
 
@@ -84,9 +85,9 @@ export default function FeatureLibraryDialog({
     };
   }, [onClose]);
 
-  return (
+  return createPortal((
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-3 backdrop-blur-md md:p-8"
+      className="feature-dialog-backdrop fixed inset-0 z-[100] bg-black/75 backdrop-blur-md"
       onClick={onClose}
     >
       <section
@@ -94,7 +95,7 @@ export default function FeatureLibraryDialog({
         aria-modal="true"
         aria-labelledby="feature-library-title"
         onClick={(event) => event.stopPropagation()}
-        className="max-h-[92vh] w-full max-w-6xl overflow-y-auto rounded-3xl border border-border bg-background p-5 shadow-2xl md:p-8"
+        className="feature-dialog-panel w-full max-w-6xl overflow-y-auto rounded-3xl border border-border bg-background p-4 shadow-2xl sm:p-5 md:p-8"
       >
         <div className="mb-7 flex items-start justify-between gap-6 md:mb-9">
           <div>
@@ -134,5 +135,5 @@ export default function FeatureLibraryDialog({
         </div>
       </section>
     </div>
-  );
+  ), document.body);
 }
