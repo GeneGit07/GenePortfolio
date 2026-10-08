@@ -13,13 +13,14 @@ export default function ContactForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const subject = encodeURIComponent(
-      `Portfolio inquiry — ${name.trim() || "no name"}`,
-    );
-    const body = encodeURIComponent(
-      `${message.trim()}\n\n— ${name.trim()}\n${email.trim()}`,
-    );
-    window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
+    const params = new URLSearchParams({
+      view: "cm",
+      fs: "1",
+      to: CONTACT.email,
+      su: `Portfolio inquiry — ${name.trim() || "no name"}`,
+      body: `${message.trim()}\n\n— ${name.trim()}\n${email.trim()}`,
+    });
+    window.location.assign(`https://mail.google.com/mail/?${params.toString()}`);
   };
 
   return (

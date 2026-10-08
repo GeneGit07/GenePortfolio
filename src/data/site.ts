@@ -23,7 +23,7 @@ export const CONTACT = {
   phoneDisplay: "0949 620 8191",
   phoneHref: "tel:+639496208191",
   email: "genedalida07@gmail.com",
-  emailHref: "mailto:genedalida07@gmail.com",
+  emailHref: "https://mail.google.com/mail/?view=cm&fs=1&to=genedalida07%40gmail.com",
 } as const;
 
 export const HERO = {
