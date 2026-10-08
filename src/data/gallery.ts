@@ -5,8 +5,6 @@
 // ---------------------------------------------------------------------------
 
 const IMG_EXT = ".webp";
-const VIDEO_EXT = ".webm";
-
 // ---- Branding -----------------------------------------------------------
 
 export interface BrandingGallerySpec {
@@ -35,80 +33,18 @@ export function buildBrandingGallery(spec: BrandingGallerySpec): BrandingAsset[]
 
 // ---- Social -------------------------------------------------------------
 
-export type SocialAssetKind = "banner" | "carousel" | "mockup" | "post" | "reel";
+export type SocialAssetKind = "campaign" | "screen";
 
 export interface SocialAsset {
   src: string;
   alt: string;
   kind: SocialAssetKind;
   caption?: string;
-  aspect?: "square" | "16/9" | "32/9" | "9/16";
-  poster?: string;
-  videoSrc?: string;
 }
 
-const KIND_ASPECT: Record<SocialAssetKind, NonNullable<SocialAsset["aspect"]>> = {
-  banner: "32/9",
-  carousel: "16/9",
-  post: "square",
-  reel: "9/16",
-  mockup: "16/9",
-};
-
-const KIND_LABEL: Record<SocialAssetKind, string> = {
-  banner: "Banner",
-  carousel: "Carousel",
-  post: "Post",
-  reel: "Reel",
-  mockup: "Mockup",
-};
-
-// Orden editorial: banners → carruseles → mockups → posts → reels
-const KIND_ORDER: SocialAssetKind[] = ["banner", "carousel", "mockup", "post", "reel"];
-
-export interface SocialGallerySpec {
-  /** Carpeta base del caso, ej. "/assets/social/md" */
-  base: string;
-  /** Nombre corto para el alt, ej. "MD" */
-  label: string;
-  banners?: number;
-  carousels?: number;
-  posts?: number;
-  mockups?: number;
-  reels?: number;
-}
-
-export function buildSocialGallery(spec: SocialGallerySpec): SocialAsset[] {
-  const counts: Record<SocialAssetKind, number> = {
-    banner: spec.banners ?? 0,
-    carousel: spec.carousels ?? 0,
-    post: spec.posts ?? 0,
-    mockup: spec.mockups ?? 0,
-    reel: spec.reels ?? 0,
-  };
-  const gallery: SocialAsset[] = [];
-  for (const kind of KIND_ORDER) {
-    const count = counts[kind];
-    for (let i = 1; i <= count; i++) {
-      if (kind === "reel") {
-        const poster = `${spec.base}/reel/reel-${i}${IMG_EXT}`;
-        gallery.push({
-          src: poster,
-          alt: `${spec.label} — Reel ${i}`,
-          kind,
-          aspect: KIND_ASPECT[kind],
-          poster,
-          videoSrc: `${spec.base}/reel/reel-${i}${VIDEO_EXT}`,
-        });
-      } else {
-        gallery.push({
-          src: `${spec.base}/${kind}/${kind}-${i}${IMG_EXT}`,
-          alt: `${spec.label} — ${KIND_LABEL[kind]} ${i}`,
-          kind,
-          aspect: KIND_ASPECT[kind],
-        });
-      }
-    }
-  }
-  return gallery;
+export interface SocialGallerySection {
+  id: string;
+  title: string;
+  description: string;
+  assets: SocialAsset[];
 }

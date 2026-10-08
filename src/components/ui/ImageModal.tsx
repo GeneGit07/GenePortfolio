@@ -10,9 +10,8 @@ interface ImageModalProps {
 }
 
 /**
- * Modal simple de imagen a tamaño completo.
- * Fondo oscuro dimmed, imagen centrada con `object-contain`.
- * Cierra con click en el backdrop, botón X o tecla Escape.
+ * Full-screen image viewer with a dimmed backdrop and centered image.
+ * Close it by clicking the backdrop, the close button, or Escape.
  */
 export default function ImageModal({ src, alt, onClose }: ImageModalProps) {
   useEffect(() => {
@@ -38,7 +37,7 @@ export default function ImageModal({ src, alt, onClose }: ImageModalProps) {
       <button
         type="button"
         onClick={onClose}
-        aria-label="Cerrar imagen ampliada"
+        aria-label="Close enlarged image"
         className="absolute right-4 top-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl leading-none text-white hover:bg-white/20"
       >
         <span aria-hidden>×</span>

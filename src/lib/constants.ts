@@ -1,9 +1,9 @@
 export const NAV_ITEMS = [
-  { id: "hero", label: "Inicio" },
-  { id: "about", label: "Sobre Mí" },
-  { id: "redes-sociales", label: "Redes Sociales" },
-  { id: "branding", label: "Branding" },
-  { id: "contact", label: "Contacto" },
+  { id: "hero", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "redes-sociales", label: "Social" },
+  { id: "branding", label: "Project Features" },
+  { id: "contact", label: "Contact" },
 ] as const;
 
 export type NavItem = (typeof NAV_ITEMS)[number];

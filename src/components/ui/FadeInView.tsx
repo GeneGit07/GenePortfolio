@@ -44,7 +44,7 @@ export default function FadeInView({
   return (
     <div
       ref={ref}
-      className={`${isVisible ? "opacity-100" : "opacity-0"} ${className}`}
+      className={`reveal ${isVisible ? "is-visible" : ""} ${className}`}
       style={{ transitionDelay: delayDone ? "0s" : `${delay}s` }}
     >
       {children}

@@ -4,16 +4,16 @@ export const dynamic = "force-static";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Dayana Pumajulca — Portfolio",
-    short_name: "Dayana Portfolio",
-    description: "Portfolio minimalista de branding, redes sociales y diseño audiovisual.",
+    name: "Eugene Dalida — Portfolio",
+    short_name: "Eugene Dalida",
+    description: "Portfolio of visual identity, art direction, and digital design.",
     start_url: "/",
     display: "standalone",
-    background_color: "#050505",
-    theme_color: "#050505",
+    background_color: "#f2f0e9",
+    theme_color: "#f2f0e9",
     icons: [
       {
-        src: "/assets/home/favicon-white.ico",
+        src: "/assets/home/favicon-black.ico",
         sizes: "any",
         type: "image/x-icon",
       },

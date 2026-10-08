@@ -16,13 +16,12 @@ export default function SocialSection() {
   } = usePaginatedList(socialProjects, SOCIAL_PAGE_SIZE);
 
   return (
-    <div>
+    <div className="page-shell">
       <FadeInView>
-        <div className="mb-12">
-          <span className="text-sm font-mono font-medium text-muted">02</span>
-          <h2 className="mt-1 font-display text-4xl font-bold uppercase tracking-tight md:text-5xl">
-            Redes Sociales
-          </h2>
+        <div className="mb-14 flex flex-col justify-between gap-5 md:mb-16 md:flex-row md:items-end">
+          <div><span className="section-label text-muted">02 / Selected work</span>
+            <h2 className="mt-5 font-display text-5xl font-medium tracking-[-0.065em] md:text-7xl">Social <span className="italic text-muted">& digital</span></h2></div>
+          <p className="max-w-xs text-sm leading-relaxed text-muted">Social campaigns and product stories for three distinct brands.</p>
         </div>
       </FadeInView>
 
@@ -33,7 +32,12 @@ export default function SocialSection() {
               slug={project.slug}
               title={project.title}
               year={project.year}
+              eyebrow={project.year}
+              category={project.category}
+              description={project.description}
               thumbnail={project.thumbnail}
+              thumbnailAlt={project.thumbnailAlt}
+              thumbnailPosition={project.thumbnailPosition}
               variant="large"
             />
           </FadeInView>

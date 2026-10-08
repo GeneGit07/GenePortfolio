@@ -13,13 +13,12 @@ export default function BrandingSection() {
     usePaginatedList(brandingPieces, PIECES_PAGE_SIZE);
 
   return (
-    <div>
+    <div className="page-shell">
       <FadeInView>
-        <div className="mb-12">
-          <span className="text-sm font-mono font-medium text-muted">03</span>
-          <h2 className="mt-1 font-display text-4xl font-bold uppercase tracking-tight md:text-5xl">
-            Branding
-          </h2>
+        <div className="mb-14 flex flex-col justify-between gap-5 md:mb-16 md:flex-row md:items-end">
+          <div><span className="section-label text-muted">03 / Brand identities</span>
+            <h2 className="mt-5 font-display text-5xl font-medium tracking-[-0.065em] md:text-7xl">Brands with <span className="italic text-muted">character</span></h2></div>
+          <p className="max-w-xs text-sm leading-relaxed text-muted">Ideas shaped into distinctive, memorable visual worlds.</p>
         </div>
       </FadeInView>
 

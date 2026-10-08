@@ -25,7 +25,7 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") setIsPlaying(true);
           }}
-          aria-label={`Reproducir ${alt}`}
+          aria-label={`Play ${alt}`}
           className="group relative cursor-pointer overflow-hidden rounded-2xl bg-black"
         >
           <div className="relative aspect-[9/16] overflow-hidden bg-black">

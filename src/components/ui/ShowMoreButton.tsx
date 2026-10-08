@@ -11,7 +11,7 @@ export default function ShowMoreButton({ onClick }: Props) {
         onClick={onClick}
         className="inline-flex items-center justify-center gap-1.5 rounded-full border border-foreground/15 bg-surface/60 px-6 py-3 text-sm font-medium tracking-wide text-foreground shadow-sm hover:border-foreground/30 hover:bg-surface"
       >
-        Ver más <span aria-hidden className="text-subtle">↓</span>
+        Show more <span aria-hidden className="text-subtle">↓</span>
       </button>
     </div>
   );

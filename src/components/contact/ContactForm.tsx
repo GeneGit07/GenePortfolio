@@ -4,7 +4,7 @@ import { useState } from "react";
 import { CONTACT } from "@/data/site";
 
 const inputClass =
-  "w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder:text-subtle focus:border-foreground focus:outline-none";
+  "w-full rounded-xl border border-background/15 bg-background/5 px-4 py-3 text-sm text-background placeholder:text-background/40 focus:border-accent focus:outline-none";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -14,7 +14,7 @@ export default function ContactForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const subject = encodeURIComponent(
-      `Contacto portfolio — ${name.trim() || "sin nombre"}`,
+      `Portfolio inquiry — ${name.trim() || "no name"}`,
     );
     const body = encodeURIComponent(
       `${message.trim()}\n\n— ${name.trim()}\n${email.trim()}`,
@@ -26,52 +26,52 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-xs font-medium uppercase tracking-widest text-muted">
-            Nombre
+          <span className="section-label text-background/60">
+            Name
           </span>
           <input
             type="text"
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Tu nombre"
+            placeholder="Your name"
             autoComplete="name"
             className={inputClass}
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="font-mono text-xs font-medium uppercase tracking-widest text-muted">
-            Correo
+          <span className="section-label text-background/60">
+            Email
           </span>
           <input
             type="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="tu@correo.com"
+            placeholder="you@example.com"
             autoComplete="email"
             className={inputClass}
           />
         </label>
       </div>
       <label className="flex flex-col gap-2">
-        <span className="font-mono text-xs font-medium uppercase tracking-widest text-muted">
-          Mensaje
+        <span className="section-label text-background/60">
+          Message
         </span>
         <textarea
           required
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Cuéntame sobre tu proyecto…"
+          placeholder="Tell me a little about your project…"
           rows={5}
           className={`${inputClass} resize-y`}
         />
       </label>
       <button
         type="submit"
-        className="mt-2 inline-flex items-center justify-center rounded-full bg-foreground px-6 py-3 text-sm font-medium tracking-wide text-background hover:bg-foreground/90 sm:self-start"
+        className="mt-2 inline-flex items-center justify-center gap-4 rounded-full bg-accent px-6 py-3 text-sm font-medium tracking-wide text-foreground hover:bg-accent/85 sm:self-start"
       >
-        Enviar mensaje ↗
+        Send message <span aria-hidden>↗</span>
       </button>
     </form>
   );

@@ -1,48 +1,45 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
 import ThemeProvider from "@/components/layout/ThemeProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import IntroAnimation from "@/components/layout/IntroAnimation";
 
-const geistSans = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
-});
+const productionDomain = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const deploymentDomain = process.env.VERCEL_URL;
+const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+const siteUrl = configuredSiteUrl ??
+  (productionDomain ? `https://${productionDomain}` :
+    deploymentDomain ? `https://${deploymentDomain}` : "http://localhost:3000");
 
 export const metadata: Metadata = {
   title: {
-    default: "Dayana Pumajulca — Diseñadora Gráfica y Audiovisual",
-    template: "%s | Dayana Pumajulca",
+    default: "Eugene Dalida — Visual Designer & Art Director",
+    template: "%s | Eugene Dalida",
   },
   description:
-    "Portfolio minimalista de Dayana Pumajulca — branding, redes sociales y diseño audiovisual. Perú.",
-  keywords: ["branding", "diseño gráfico", "redes sociales", "audiovisual", "portfolio", "Perú"],
-  authors: [{ name: "Dayana Pumajulca" }],
-  creator: "Dayana Pumajulca",
-  metadataBase: new URL("https://example.com"),
+    "Eugene Dalida is an independent designer in Manila creating social campaigns, visual identities, digital content, and AI-assisted creative work.",
+  keywords: ["visual design", "brand identity", "social media", "content creation", "UI/UX", "Philippines"],
+  authors: [{ name: "Eugene Dalida" }],
+  creator: "Eugene Dalida",
+  metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
-    locale: "es_PE",
-    url: "https://example.com",
-    title: "Dayana Pumajulca — Diseñadora Gráfica y Audiovisual",
-    description: "Branding, redes sociales y diseño audiovisual. Portfolio minimalista.",
-    siteName: "Dayana Pumajulca Portfolio",
+    locale: "en_US",
+    url: siteUrl,
+    title: "Eugene Dalida — Visual Designer & Art Director",
+    description: "Social campaigns, visual identities, digital content, and AI-assisted creative work.",
+    siteName: "Eugene Dalida Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dayana Pumajulca — Diseñadora Gráfica y Audiovisual",
-    description: "Branding, redes sociales y diseño audiovisual.",
+    title: "Eugene Dalida — Visual Designer & Art Director",
+    description: "Social campaigns, visual identities, digital content, and AI-assisted creative work.",
   },
   icons: {
     icon: [
@@ -60,8 +57,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
-    { media: "(prefers-color-scheme: dark)", color: "#050505" },
+    { media: "(prefers-color-scheme: light)", color: "#f2f0e9" },
+    { media: "(prefers-color-scheme: dark)", color: "#11130f" },
   ],
 };
 
@@ -72,19 +69,19 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="es"
+      lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem('dp-theme');if(s==='light'||(!s&&window.matchMedia('(prefers-color-scheme: light)').matches)){document.documentElement.classList.add('light')}}catch(e){}})();`,
+            __html: `(function(){try{var s=localStorage.getItem('dp-theme');if(s!=='dark'){document.documentElement.classList.add('light')}}catch(e){document.documentElement.classList.add('light')}})();`,
           }}
         />
       </head>
       <body className="font-sans antialiased">
         <ThemeProvider>
+          <IntroAnimation />
           <SmoothScrollProvider>
             <Header />
             {children}

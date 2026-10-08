@@ -9,7 +9,7 @@ export default function Card({
   className?: string;
 }) {
   return (
-    <div className={`bg-foreground p-6 text-background shadow-sm rounded-2xl ${className}`}>
+    <div className={`rounded-[1.5rem] bg-foreground p-4 text-background md:p-6 ${className}`}>
       {children}
     </div>
   );

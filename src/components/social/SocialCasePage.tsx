@@ -6,76 +6,72 @@ import CaseHero from "@/components/case/CaseHero";
 import CaseCard from "@/components/case/CaseCard";
 import SocialGalleryGrid from "./SocialGalleryGrid";
 import SocialSectionNav from "./SocialSectionNav";
-import { PAGE_PADDING_X } from "@/lib/constants";
-
-const KIND_LABELS: Record<string, string> = {
-  banner: "Banners",
-  carousel: "Carruseles",
-  post: "Posts",
-  reel: "Reels",
-  mockup: "Mockups",
-};
-
-function groupByKind(gallery: SocialProject["gallery"]) {
-  const groups = new Map<string, typeof gallery>();
-  for (const asset of gallery) {
-    if (!groups.has(asset.kind)) groups.set(asset.kind, []);
-    groups.get(asset.kind)!.push(asset);
-  }
-  // Orden editorial: banners → carruseles → mockups → posts → reels
-  const order = ["banner", "carousel", "mockup", "post", "reel"];
-  return [...groups.entries()].sort(
-    (a, b) => order.indexOf(a[0]) - order.indexOf(b[0])
-  );
-}
 
 export default function SocialCasePage({ project }: { project: SocialProject }) {
-  const grouped = groupByKind(project.gallery);
-  const kinds = grouped.map(([k]) => k);
-
   return (
-    <main className={`py-24 ${PAGE_PADDING_X}`}>
+    <main className="page-shell py-32 md:py-40">
       <CaseHero
         title={project.title}
+        category={project.category}
+        projectType={project.projectType}
         description={project.description}
+        role={project.role}
+        services={project.services}
         year={project.year}
         palette={project.palette}
         thumbnail={project.thumbnail}
+        thumbnailAlt={project.thumbnailAlt}
       />
 
-      {/* Delineado info → galería, igual que en branding */}
-      {grouped.length > 0 && (
-        <FadeInView>
-          <hr className="mt-0 border-0 border-t-2 border-subtle/60 md:mt-20" aria-hidden="true" />
-        </FadeInView>
-      )}
+      {project.sections.length > 0 && (
+        <>
+          <FadeInView>
+            <hr className="mt-0 border-0 border-t-2 border-subtle/60 md:mt-20" aria-hidden="true" />
+          </FadeInView>
 
-      {/* Nav anchor por kind */}
-      {kinds.length > 1 && (
-        <FadeInView>
-          <div className="mt-12">
-            <SocialSectionNav kinds={kinds} />
+          {project.sections.length > 1 && (
+            <FadeInView>
+              <div className="mt-8">
+                <SocialSectionNav sections={project.sections} />
+              </div>
+            </FadeInView>
+          )}
+
+          <div className="mt-12 space-y-12 md:space-y-16">
+            {project.sections.map((section) => (
+              <section key={section.id} id={`section-${section.id}`} className="scroll-mt-28">
+                <CaseCard>
+                  <FadeInView>
+                    <div className="mb-6 max-w-3xl">
+                      <h2 className="font-display text-3xl font-medium tracking-tight md:text-4xl">
+                        {section.title}
+                      </h2>
+                      <p className="mt-3 text-sm leading-relaxed text-background/65 md:text-base">
+                        {section.description}
+                      </p>
+                    </div>
+                  </FadeInView>
+                  <SocialGalleryGrid assets={section.assets} />
+                </CaseCard>
+              </section>
+            ))}
           </div>
-        </FadeInView>
+        </>
       )}
 
-      {/* Secciones apiladas por kind */}
-      <div className="mt-12 space-y-16">
-        {grouped.map(([kind, assets]) => (
-          <section key={kind} id={`section-${kind}`} className="scroll-mt-28">
-            <CaseCard>
-              <FadeInView>
-                <div className="mb-6">
-                  <h2 className="font-display text-2xl font-bold tracking-tight md:text-3xl">
-                    {KIND_LABELS[kind] ?? kind}
-                  </h2>
-                </div>
-              </FadeInView>
-              <SocialGalleryGrid assets={assets} />
-            </CaseCard>
-          </section>
-        ))}
-      </div>
+      <FadeInView className="mt-16 border-t border-border pt-10 md:mt-24 md:pt-14">
+        <div className="grid gap-5 md:grid-cols-[0.7fr_1.3fr] md:gap-12">
+          <div>
+            <p className="section-label text-muted">Creative process</p>
+            <h2 className="mt-3 font-display text-3xl font-medium tracking-tight md:text-4xl">
+              AI-assisted workflow
+            </h2>
+          </div>
+          <p className="max-w-3xl text-base leading-relaxed text-muted md:text-lg">
+            {project.workflow}
+          </p>
+        </div>
+      </FadeInView>
     </main>
   );
 }

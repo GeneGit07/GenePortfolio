@@ -19,8 +19,8 @@ export default function ThemeToggle({ size = "md", className = "" }: ThemeToggle
       type="button"
       onClick={toggle}
       aria-pressed={isLight}
-      aria-label={isLight ? "Cambiar a tema oscuro" : "Cambiar a tema claro"}
-      title={isLight ? "Tema oscuro" : "Tema claro"}
+      aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
+      title={isLight ? "Dark theme" : "Light theme"}
       className={`inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center text-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground ${className}`}
     >
       <span className="block" style={{ width: ICON_SIZE, height: ICON_SIZE }} aria-hidden>
