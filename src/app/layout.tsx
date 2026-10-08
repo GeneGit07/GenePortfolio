@@ -16,7 +16,7 @@ const siteUrl = configuredSiteUrl ??
 
 export const metadata: Metadata = {
   title: {
-    default: "Eugene Dalida — Visual Designer & Art Director",
+    default: "Eugene Dalida",
     template: "%s | Eugene Dalida",
   },
   description:
@@ -41,18 +41,7 @@ export const metadata: Metadata = {
     title: "Eugene Dalida — Visual Designer & Art Director",
     description: "Social campaigns, visual identities, digital content, and AI-assisted creative work.",
   },
-  icons: {
-    icon: [
-      {
-        url: "/assets/home/favicon-black.ico",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/assets/home/favicon-white.ico",
-        media: "(prefers-color-scheme: dark)",
-      },
-    ],
-  },
+  
 };
 
 export const viewport: Viewport = {
