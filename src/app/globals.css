@@ -155,13 +155,15 @@ section[id], footer[id] { scroll-margin-top: 100px; }
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  overflow-y: auto;
+  overflow: hidden;
   padding: max(0.75rem, env(safe-area-inset-top)) 0.75rem 0.75rem;
 }
 
 .feature-dialog-panel {
   max-height: calc(100dvh - max(1.5rem, env(safe-area-inset-top) + 0.75rem));
-  overscroll-behavior: contain;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 @media (min-width: 768px) {

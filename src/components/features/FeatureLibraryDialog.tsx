@@ -95,8 +95,9 @@ export default function FeatureLibraryDialog({
         aria-modal="true"
         aria-labelledby="feature-library-title"
         data-lenis-prevent
+        data-lenis-prevent-touch
         onClick={(event) => event.stopPropagation()}
-        className="feature-dialog-panel w-full max-w-6xl overflow-y-auto rounded-3xl border border-border bg-background p-4 shadow-2xl sm:p-5 md:p-8"
+        className="feature-dialog-panel w-full max-w-6xl overflow-x-hidden overflow-y-scroll rounded-3xl border border-border bg-background p-4 shadow-2xl sm:p-5 md:p-8"
       >
         <div className="mb-7 flex items-start justify-between gap-6 md:mb-9">
           <div>
