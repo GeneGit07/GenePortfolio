@@ -20,7 +20,7 @@ export default function SocialSection() {
       <FadeInView>
         <div className="mb-14 flex flex-col justify-between gap-5 md:mb-16 md:flex-row md:items-end">
           <div><span className="section-label text-muted">02 / Selected work</span>
-            <h2 className="mt-5 font-display text-5xl font-medium tracking-[-0.065em] md:text-7xl">Social <span className="italic text-muted">& digital</span></h2></div>
+            <h2 className="mt-5 font-display text-5xl font-medium uppercase tracking-[-0.065em] md:text-7xl">Social <span className="italic text-muted">& digital</span></h2></div>
           <p className="max-w-xs text-sm leading-relaxed text-muted">Social campaigns and product stories for three distinct brands.</p>
         </div>
       </FadeInView>
