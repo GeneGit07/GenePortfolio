@@ -1,7 +1,7 @@
 export const SOCIAL_LINKS = [
   {
     name: "Facebook",
-    href: "https://www.facebook.com/gene.dalidall/?viewas=&should_open_composer=false&show_switched_toast=false&show_invite_to_follow=false&show_switched_tooltip=false&show_podcast_settings=false&show_community_review_changes=false&show_community_rollback=false&show_follower_visibility_disclosure=false&bypass_exit_warning=true",
+    href: "https://www.facebook.com/share/18hTgkmJuE/",
   },
 ] as const;
 
