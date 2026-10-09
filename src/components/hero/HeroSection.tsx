@@ -13,8 +13,8 @@ const marqueeItems = [
 export default function HeroSection() {
   return (
     <>
-      <div className="page-shell grid min-w-0 items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-20">
-        <div className="relative z-10 min-w-0">
+      <div className="page-shell grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+        <div className="relative z-10">
           <p className="section-label eyebrow-dot hero-enter text-muted">Independent designer · Manila, Philippines</p>
           <h1 className="hero-enter mt-8 max-w-4xl font-display text-[clamp(3.25rem,6.5vw,6.75rem)] font-medium leading-[0.82] tracking-[-0.075em]">
             <span className="font-semibold">Design with</span>
@@ -43,7 +43,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="hero-enter-delay relative mx-auto min-w-0 w-full max-w-2xl lg:mx-0 lg:justify-self-end">
+        <div className="hero-enter-delay relative mx-auto w-full max-w-2xl lg:mx-0 lg:justify-self-end">
           <div role="img" aria-label="Solar energy. A brighter tomorrow." className="absolute -top-4 right-3 z-10 grid size-24 place-items-center rounded-full bg-accent px-2 text-center text-[0.58rem] font-medium leading-tight tracking-[0.12em] text-foreground shadow-xl md:-top-6 md:-right-5 md:size-28">
             <span className="flex flex-col items-center gap-1">
               <span>SOLAR ENERGY<br />A BRIGHTER<br />TOMORROW</span>
@@ -73,7 +73,7 @@ export default function HeroSection() {
 
       <div aria-label="Design services" className="mt-20 overflow-hidden border-y border-border py-5 md:mt-28 md:py-7">
         <div className="marquee-track flex w-max items-center gap-7 whitespace-nowrap text-[clamp(1.2rem,3vw,2.6rem)] font-medium tracking-[-0.04em]">
-          {[...marqueeItems, ...marqueeItems].map((item, i) => <span key={`${item}-${i}`} className="flex items-center gap-7">{item}<span aria-hidden className="text-accent">✳</span></span>)}
+          {[...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, i) => <span key={`${item}-${i}`} className="flex items-center gap-7">{item}<span aria-hidden className="text-accent">✳</span></span>)}
         </div>
       </div>
     </>
