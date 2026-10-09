@@ -44,8 +44,11 @@ export default function HeroSection() {
         </div>
 
         <div className="hero-enter-delay relative mx-auto w-full max-w-2xl lg:mx-0 lg:justify-self-end">
-          <div className="absolute -top-7 right-5 z-10 grid size-24 place-items-center rounded-full bg-accent text-center text-[0.58rem] font-medium leading-tight tracking-[0.12em] text-foreground shadow-xl md:-right-6 md:size-28">
-            SOLAR ENERGY<br />A BRIGHTER<br />TOMORROW <span className="text-base">✳</span>
+          <div role="img" aria-label="Solar energy. A brighter tomorrow." className="absolute -top-4 right-3 z-10 grid size-24 place-items-center rounded-full bg-accent px-2 text-center text-[0.58rem] font-medium leading-tight tracking-[0.12em] text-foreground shadow-xl md:-top-6 md:-right-5 md:size-28">
+            <span className="flex flex-col items-center gap-1">
+              <span>SOLAR ENERGY<br />A BRIGHTER<br />TOMORROW</span>
+              <span aria-hidden="true" className="text-base leading-none">✳</span>
+            </span>
           </div>
           <div className="hero-art relative aspect-[2/3] overflow-hidden rounded-[1.4rem] bg-[#11130f] md:rounded-[2rem]">
             <Image src="/assets/social/solarworks-ph/solar-before-after.png" alt="SolarWorks PH before-and-after solar campaign showing a homeowner and the change in monthly electricity costs" fill preload sizes="(max-width: 1024px) 90vw, 42vw" className="project-image object-contain" />
