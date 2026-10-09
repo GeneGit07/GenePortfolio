@@ -50,18 +50,24 @@ export default function HeroSection() {
               <span aria-hidden="true" className="text-base leading-none">✳</span>
             </span>
           </div>
-          <div className="hero-art relative aspect-[2/3] overflow-hidden rounded-[1.4rem] bg-[#11130f] md:rounded-[2rem]">
-            <Image src="/assets/social/solarworks-ph/solar-before-after.png" alt="SolarWorks PH before-and-after solar campaign showing a homeowner and the change in monthly electricity costs" fill preload sizes="(max-width: 1024px) 90vw, 42vw" className="project-image object-contain" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/5" />
-            <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 text-white md:inset-x-8 md:bottom-8">
-              <div>
-                <p className="section-label text-white/70">Featured project · 2026</p>
-                <p className="mt-2 font-display text-2xl font-medium tracking-tight md:text-4xl">SolarWorks PH</p>
+          <Link
+            href="/projects/solarworks-ph"
+            aria-label="View the SolarWorks PH project"
+            className="project-link group block rounded-[1.4rem] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent md:rounded-[2rem]"
+          >
+            <div className="hero-art relative aspect-[2/3] overflow-hidden rounded-[1.4rem] bg-[#11130f] md:rounded-[2rem]">
+              <Image src="/assets/social/solarworks-ph/solar-before-after.png" alt="SolarWorks PH before-and-after solar campaign showing a homeowner and the change in monthly electricity costs" fill preload sizes="(max-width: 1024px) 90vw, 42vw" className="project-image object-contain" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/5" />
+              <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 text-white md:inset-x-8 md:bottom-8">
+                <div>
+                  <p className="section-label text-white/70">Featured project · 2026</p>
+                  <p className="mt-2 font-display text-2xl font-medium tracking-tight md:text-4xl">SolarWorks PH</p>
+                </div>
+                <span className="grid size-12 shrink-0 place-items-center rounded-full border border-white/40 text-xl backdrop-blur-md group-hover:rotate-45 group-focus-visible:rotate-45">↗</span>
               </div>
-              <span className="grid size-12 shrink-0 place-items-center rounded-full border border-white/40 text-xl backdrop-blur-md">↗</span>
             </div>
-          </div>
-          <p className="section-label mt-4 flex justify-between text-muted"><span>Solar campaign · before & after</span><span>01 / 03</span></p>
+            <p className="section-label mt-4 flex justify-between text-muted"><span>Solar campaign · before &amp; after</span><span>01 / 03</span></p>
+          </Link>
         </div>
       </div>
 

@@ -1,0 +1,81 @@
+PORTFOLIO POWERSHELL COMMANDS
+============================
+
+Run project commands from the portfolio folder that contains package.json.
+In the VS Code terminal, check the path shown before the > prompt. Your clone
+may be inside a nested GenePortfolio folder.
+
+1. GO TO THE PROJECT FOLDER
+
+cd "C:\Users\ferna\Documents\ChatGPT\GenePortfolio"
+
+This changes PowerShell's current folder. If your cloned project is in a
+nested folder, change the path to that folder instead.
+
+
+2. INSTALL PNPM (ONLY IF POWERSHELL SAYS PNPM IS NOT RECOGNIZED)
+
+Invoke-WebRequest https://get.pnpm.io/install.ps1 -UseBasicParsing | Invoke-Expression
+
+This runs pnpm's Windows installer. Close and reopen VS Code after installing
+so its terminal can find pnpm.
+
+
+3. CHECK THAT NODE.JS AND PNPM ARE AVAILABLE
+
+node --version
+pnpm --version
+
+These print the installed versions. Node.js is required to run the project's
+JavaScript tools and dependencies.
+
+
+4. INSTALL PROJECT DEPENDENCIES AND RUN THE SITE LOCALLY
+
+pnpm install
+pnpm dev
+
+The first command installs the project's packages. The second starts the local
+development server. Open http://localhost:3000 in your browser.
+
+The project uses pnpm. An earlier generic suggestion was npm run dev, but use
+pnpm dev for this project.
+
+
+5. SAVE ALL CHANGES AND PUSH THEM TO GITHUB
+
+git add -A
+git commit -m "Update portfolio design"
+git push origin main
+
+git add -A stages all changes. git commit saves them with a short description.
+Change the quoted commit message to describe your actual update. git push
+origin main uploads the commit to the main branch on GitHub.
+
+Example commit message:
+
+git commit -m "Fix project feature scrolling"
+
+
+6. STAGE ONLY ONE FILE (OPTIONAL)
+
+git add src/components/features/FeatureLibraryDialog.tsx
+
+This stages only that file. Use this instead of git add -A when you want to
+include only this file in the next commit.
+
+
+7. CHECK WHICH GITHUB REPOSITORY IS CONNECTED
+
+git remote -v
+
+This displays the remote repository address. It does not stage, commit, or push
+files.
+
+
+8. CHANGE THE GITHUB REMOTE (ONLY IF THE ADDRESS IS WRONG)
+
+git remote set-url origin https://github.com/GeneGit07/GenePortfolio.git
+
+This changes the repository address named origin. You normally do not need to
+run it when pushing ordinary updates.
