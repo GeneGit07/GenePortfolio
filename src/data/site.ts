@@ -16,7 +16,7 @@ export const SOFTWARES = [
 ] as const;
 
 export const CONTACT = {
-  sectionNumber: "04",
+  sectionNumber: "05",
   title: "Contact",
   description: "Have an idea in mind? Let’s talk about what we can create together.",
   phone: "+639496208191",

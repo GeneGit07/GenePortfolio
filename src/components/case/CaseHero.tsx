@@ -94,7 +94,7 @@ export default function CaseHero({
                       style={{ background: color }}
                     >
                       <span
-                        className="font-mono text-xs uppercase tracking-widest"
+                        className="font-mono text-sm uppercase tracking-widest"
                         style={{ color: textOnColor(color) }}
                       >
                         {color}

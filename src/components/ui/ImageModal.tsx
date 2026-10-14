@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 interface ImageModalProps {
@@ -14,6 +14,8 @@ interface ImageModalProps {
  * Close it by clicking the backdrop, the close button, or Escape.
  */
 export default function ImageModal({ src, alt, onClose }: ImageModalProps) {
+  const [isZoomed, setIsZoomed] = useState(false);
+
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -38,19 +40,32 @@ export default function ImageModal({ src, alt, onClose }: ImageModalProps) {
         type="button"
         onClick={onClose}
         aria-label="Close enlarged image"
-        className="absolute right-4 top-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl leading-none text-white hover:bg-white/20"
+        className="absolute right-4 top-4 z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl leading-none text-white hover:bg-white/20"
       >
         <span aria-hidden>×</span>
       </button>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={src}
-        alt={alt}
-        loading="eager"
-        decoding="async"
-        onClick={(e) => e.stopPropagation()}
-        className="modal-content max-h-[85vh] max-w-[90vw] rounded-2xl object-contain"
-      />
+      <div
+        className="absolute inset-0 flex items-center justify-center overflow-auto p-4 md:p-8"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={() => setIsZoomed((zoomed) => !zoomed)}
+          aria-label={isZoomed ? "Fit image to screen" : "Zoom image"}
+          title={isZoomed ? "Fit image to screen" : "Zoom image"}
+          className="cursor-zoom-in"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={src}
+            alt={alt}
+            loading="eager"
+            decoding="async"
+            style={isZoomed ? { width: "min(140vw, 1024px)", maxWidth: "none", maxHeight: "none" } : undefined}
+            className={`modal-content rounded-2xl object-contain ${isZoomed ? "cursor-zoom-out" : "max-h-[85vh] max-w-[90vw]"}`}
+          />
+        </button>
+      </div>
     </div>,
     document.body,
   );

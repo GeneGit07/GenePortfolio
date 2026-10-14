@@ -59,7 +59,7 @@ export default function ProjectFeatureCard({
                   className={`project-image ${item.fit === "contain" ? "object-contain" : "object-cover"} group-hover:scale-[1.035]`}
                 />
                 {featureMedia.preview.length > 1 ? (
-                  <span className="absolute inset-x-0 bottom-0 truncate bg-gradient-to-t from-black/75 to-transparent px-2 pb-2 pt-5 text-[9px] font-medium tracking-wide text-white/90 sm:text-[10px]">
+                  <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-2 pb-2 pt-5 text-sm font-medium leading-tight tracking-wide text-white/95">
                     {item.project}
                   </span>
                 ) : null}
@@ -90,7 +90,7 @@ export default function ProjectFeatureCard({
             {feature.labels.map((label) => (
               <li
                 key={label}
-                className="rounded-full border border-background/15 px-3 py-1.5 text-xs text-background/70"
+                className="rounded-full border border-background/15 px-3 py-1.5 text-sm text-background/80"
               >
                 {label}
               </li>

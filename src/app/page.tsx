@@ -2,6 +2,7 @@ import HeroSection from "@/components/hero/HeroSection";
 import AboutSection from "@/components/about/AboutSection";
 import SocialSection from "@/components/social/SocialSection";
 import ProjectFeaturesSection from "@/components/features/ProjectFeaturesSection";
+import EmailDesignSection from "@/components/features/EmailDesignSection";
 import ContactSection from "@/components/contact/ContactSection";
 
 export default function HomePage() {
@@ -27,7 +28,12 @@ export default function HomePage() {
         <ProjectFeaturesSection />
       </section>
 
-      {/* 04 CONTACT */}
+      {/* 04 EMAIL DESIGN */}
+      <section id="email-design" className="py-20 md:py-32">
+        <EmailDesignSection />
+      </section>
+
+      {/* 05 CONTACT */}
       <footer id="contact" className="pt-20 pb-8 md:pt-32">
         <ContactSection />
       </footer>

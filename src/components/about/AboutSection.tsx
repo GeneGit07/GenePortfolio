@@ -20,15 +20,15 @@ export default function AboutSection() {
             <p className="section-label">How I work</p>
             <ol className="mt-5 grid gap-5 sm:grid-cols-3">
               <li className="border-l border-border pl-4">
-                <span className="section-label text-accent">01 / Understand</span>
+                <span className="section-label text-foreground">01 / Understand</span>
                 <p className="mt-2 text-sm leading-relaxed text-muted">Clarify the audience, message, and goal behind the work.</p>
               </li>
               <li className="border-l border-border pl-4">
-                <span className="section-label text-accent">02 / Explore</span>
+                <span className="section-label text-foreground">02 / Explore</span>
                 <p className="mt-2 text-sm leading-relaxed text-muted">Develop visual directions and explore possibilities with the right tools.</p>
               </li>
               <li className="border-l border-border pl-4">
-                <span className="section-label text-accent">03 / Refine</span>
+                <span className="section-label text-foreground">03 / Refine</span>
                 <p className="mt-2 text-sm leading-relaxed text-muted">Make the creative decisions, polish the details, and prepare the final work.</p>
               </li>
             </ol>
@@ -38,7 +38,7 @@ export default function AboutSection() {
             <ul className="flex flex-wrap gap-2.5">
               {SOFTWARES.map((tool) => (
                 <li key={tool.label} className="flex items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm">
-                  <span aria-hidden="true" className="grid min-w-5 shrink-0 place-items-center rounded bg-foreground px-1 py-1 text-[9px] font-semibold leading-none text-background">{tool.abbr}</span>
+                  <span aria-hidden="true" className="grid min-w-5 shrink-0 place-items-center rounded bg-foreground px-1 py-1 text-[11px] font-semibold leading-none text-background">{tool.abbr}</span>
                   {tool.label}
                 </li>
               ))}

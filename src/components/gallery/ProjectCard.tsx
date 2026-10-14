@@ -59,9 +59,9 @@ function ProjectCard({
         <div className="flex items-end justify-between gap-4 px-3 pb-2 pt-5 md:px-4 md:pb-3">
           <div>
             <p className="section-label text-background/60">{eyebrow ?? year}</p>
-            {category && <p className="mt-1 text-xs text-background/55">{category}</p>}
+            {category && <p className="mt-1 text-sm text-background/65">{category}</p>}
             <h3 className="mt-2 font-display text-xl font-medium tracking-tight text-background md:text-2xl">{title}</h3>
-            {description && <p className="mt-2 line-clamp-2 max-w-xl text-xs leading-relaxed text-background/65 md:text-sm">{description}</p>}
+            {description && <p className="mt-2 line-clamp-2 max-w-xl text-sm leading-relaxed text-background/75 md:text-base">{description}</p>}
           </div>
           <span className="mb-1 text-sm text-background/60">View case ↗</span>
         </div>

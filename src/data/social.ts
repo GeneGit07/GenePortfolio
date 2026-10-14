@@ -25,7 +25,28 @@ const solarSections: SocialGallerySection[] = [
     title: "Campaign messaging & calls to action",
     description:
       "The lead creative pairs a clear solar-energy message with a direct invitation to enquire, connecting brand communication to a practical next step.",
-    assets: [],
+    assets: [
+      {
+        src: "/assets/social/solarworks-ph/power-outage-campaign.png",
+        alt: "SolarWorks campaign comparing a powered home with a blackout during a grid outage.",
+        kind: "campaign",
+      },
+      {
+        src: "/assets/social/solarworks-ph/bill-savings-campaign.png",
+        alt: "SolarWorks campaign comparing a customer's electricity bill before and after solar installation.",
+        kind: "campaign",
+      },
+      {
+        src: "/assets/social/solarworks-ph/free-daylight-energy.png",
+        alt: "SolarWorks family campaign about generating clean energy from daylight.",
+        kind: "campaign",
+      },
+      {
+        src: "/assets/social/solarworks-ph/summer-bill-campaign.png",
+        alt: "SolarWorks summer campaign encouraging homeowners to check rising electricity bills.",
+        kind: "campaign",
+      },
+    ],
   },
   {
     id: "product-education",
@@ -33,6 +54,21 @@ const solarSections: SocialGallerySection[] = [
     description:
       "Warranty creative presents solar components and coverage in a clear, benefit-led social format.",
     assets: [
+      {
+        src: "/assets/social/solarworks-ph/warranty-comparison.png",
+        alt: "SolarWorks comparison graphic showing panel, inverter, and battery warranty periods.",
+        kind: "campaign",
+      },
+      {
+        src: "/assets/social/solarworks-ph/panel-warranty.png",
+        alt: "SolarWorks solar panel campaign highlighting a 20-year panel warranty.",
+        kind: "campaign",
+      },
+      {
+        src: "/assets/social/solarworks-ph/inverter-warranty.png",
+        alt: "SolarWorks inverter campaign explaining the 10-year inverter and 5-year battery warranties.",
+        kind: "campaign",
+      },
       {
         src: "/assets/social/solarworks-ph/warranty-content.webp",
         alt: "SolarWorks PH warranty graphic highlighting solar panels, an inverter, and a battery.",
@@ -51,17 +87,72 @@ const solarSections: SocialGallerySection[] = [
         alt: "SolarWorks PH after-sales support graphic showing a service team, contact options, and customer care.",
         kind: "campaign",
       },
+      {
+        src: "/assets/social/solarworks-ph/after-sales-service.png",
+        alt: "SolarWorks technician speaking with homeowners about ongoing service and support.",
+        kind: "campaign",
+      },
+      {
+        src: "/assets/social/solarworks-ph/messenger-support.png",
+        alt: "SolarWorks Messenger campaign showing a customer asking about solar panels and warranties.",
+        kind: "campaign",
+      },
+    ],
+  },
+  {
+    id: "customer-stories",
+    title: "Customer stories",
+    description:
+      "Customer testimonials make the impact of lower electricity bills and dependable service tangible.",
+    assets: [
+      {
+        src: "/assets/social/solarworks-ph/mamaril-testimonial.png",
+        alt: "SolarWorks customer testimonial from Mr. and Mrs. Mamaril about savings and service.",
+        kind: "campaign",
+      },
+      {
+        src: "/assets/social/solarworks-ph/ana-savings-testimonial.png",
+        alt: "SolarWorks customer testimonial showing Ana's electricity bill before and after installation.",
+        kind: "campaign",
+      },
     ],
   },
 ];
 
 const fifthAveSections: SocialGallerySection[] = [
   {
-    id: "beverage-campaign",
-    title: "Beverage campaign",
+    id: "menu-design",
+    title: "Menu design",
     description:
-      "The supplied campaign artwork gives a featured beverage a bold New York-inspired setting, clear flavor cues, and an immediate availability message.",
-    assets: [],
+      "Two illustrated menu boards organize the hot dog range, add-ons, refreshers, and prices in a bold New York-inspired system.",
+    assets: [
+      {
+        src: "/assets/social/fifth-ave-dogs/hotdog-menu.png",
+        alt: "Fifth Ave Dogs New York-style hot dog menu with six hot dogs, add-ons, and combo pricing.",
+        kind: "campaign",
+        caption: "Hot dogs & add-ons",
+      },
+      {
+        src: "/assets/social/fifth-ave-dogs/refreshers-menu.png",
+        alt: "Fifth Ave Dogs refresher menu featuring iced tea, root beer, red iced tea, lemonade vodka, and snacks.",
+        kind: "campaign",
+        caption: "Drinks & snacks",
+      },
+    ],
+  },
+  {
+    id: "food-preparation-reel",
+    title: "Food preparation reel",
+    description:
+      "A short behind-the-scenes video brings the Queens Bacon Melt Dog from the grill to the table.",
+    assets: [
+      {
+        src: "/assets/social/fifth-ave-dogs/hotdog-prep.mp4",
+        alt: "Behind-the-scenes preparation of the Fifth Ave Dogs Queens Bacon Melt Dog.",
+        kind: "video",
+        poster: "/assets/social/fifth-ave-dogs/hotdog-menu.png",
+      },
+    ],
   },
 ];
 
@@ -70,8 +161,18 @@ const rendezvousSections: SocialGallerySection[] = [
     id: "coffee-campaigns",
     title: "Coffee campaigns",
     description:
-      "A coordinated set of signature drink promotions uses product names, flavor cues, and a warm café atmosphere to give each campaign its own character.",
+      "Signature drink campaigns pair vivid ingredient cues with a warm café atmosphere and a consistent visual identity.",
     assets: [
+      {
+        src: "/assets/social/rendezvous-cafe/lychee-refresh.png",
+        alt: "Rendezvous Cafe Lychee Refresh campaign featuring a chilled lychee drink and fresh fruit.",
+        kind: "campaign",
+      },
+      {
+        src: "/assets/social/rendezvous-cafe/peach-perfect.png",
+        alt: "Rendezvous Cafe Peach Perfect campaign featuring an iced peach drink and fresh peaches.",
+        kind: "campaign",
+      },
       {
         src: "/assets/social/rendezvous-cafe/spanish-latte.webp",
         alt: "Rendezvous Cafe Spanish Latte campaign featuring an iced latte in a warm café setting.",
@@ -99,6 +200,12 @@ const rendezvousSections: SocialGallerySection[] = [
         src: "/assets/social/rendezvous-cafe/chicken-sisig.webp",
         alt: "Rendezvous Cafe Chicken Sisig campaign featuring the plated Filipino-style dish.",
         kind: "campaign",
+      },
+      {
+        src: "/assets/social/rendezvous-cafe/chicken-sisig-reel.mp4",
+        alt: "Rendezvous Cafe chef finishing a Chicken Sisig dish with sauce and fresh garnish.",
+        kind: "video",
+        poster: "/assets/social/rendezvous-cafe/chicken-sisig.webp",
       },
     ],
   },

@@ -8,7 +8,7 @@ interface SectionLink {
 }
 
 const PILL_BASE =
-  "inline-flex shrink-0 snap-start items-center justify-center rounded-full border px-5 py-2.5 text-xs font-medium uppercase tracking-widest shadow-sm";
+  "inline-flex shrink-0 snap-start items-center justify-center rounded-full border px-5 py-2.5 text-sm font-medium uppercase tracking-widest shadow-sm";
 const PILL_IDLE =
   "border-foreground/15 bg-surface/60 text-muted hover:border-foreground/30 hover:bg-surface hover:text-foreground";
 const PILL_ACTIVE = "border-foreground bg-foreground text-background";

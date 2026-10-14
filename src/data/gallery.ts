@@ -33,13 +33,14 @@ export function buildBrandingGallery(spec: BrandingGallerySpec): BrandingAsset[]
 
 // ---- Social -------------------------------------------------------------
 
-export type SocialAssetKind = "campaign" | "screen";
+export type SocialAssetKind = "campaign" | "screen" | "video";
 
 export interface SocialAsset {
   src: string;
   alt: string;
   kind: SocialAssetKind;
   caption?: string;
+  poster?: string;
 }
 
 export interface SocialGallerySection {

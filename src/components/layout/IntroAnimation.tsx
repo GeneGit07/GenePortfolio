@@ -15,7 +15,7 @@ export default function IntroAnimation() {
     ).matches;
     if (prefersReducedMotion) return;
 
-    const timeout = window.setTimeout(() => setIsVisible(false), 1900);
+    const timeout = window.setTimeout(() => setIsVisible(false), 2300);
     return () => window.clearTimeout(timeout);
   }, [pathname]);
 
@@ -27,15 +27,6 @@ export default function IntroAnimation() {
         <span>INDEPENDENT DESIGNER</span>
         <span>MANILA · PHILIPPINES</span>
       </div>
-
-      <button
-        type="button"
-        className="intro-skip"
-        onClick={() => setIsVisible(false)}
-        aria-label="Skip intro animation"
-      >
-        Skip <span aria-hidden="true">↗</span>
-      </button>
 
       <div className="intro-center" aria-hidden="true">
         <span className="intro-mark">ED<span>.</span></span>

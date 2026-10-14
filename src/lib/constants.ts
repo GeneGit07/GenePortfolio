@@ -3,6 +3,7 @@ export const NAV_ITEMS = [
   { id: "about", label: "About" },
   { id: "redes-sociales", label: "Social" },
   { id: "branding", label: "Project Features" },
+  { id: "email-design", label: "Email Design" },
   { id: "contact", label: "Contact" },
 ] as const;
 

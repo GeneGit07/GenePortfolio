@@ -46,7 +46,7 @@ export default function Header() {
           {NAV_ITEMS.map(({ id, label }) => <a key={id} href={`#${id}`} onClick={(event) => handleClick(event, id)} className={`rounded-full px-4 py-2.5 text-[0.72rem] transition-colors hover:bg-surface ${activeSection === id ? "bg-surface text-foreground" : "text-muted"}`}>{label}</a>)}
           <span className="mx-1 h-5 w-px bg-border" /><ThemeToggle className="rounded-full hover:bg-surface" />
         </div> : <div className="hidden items-center gap-2 lg:flex"><Link href="/#redes-sociales" className="rounded-full px-4 py-2 text-sm text-muted hover:text-foreground">Back to work</Link><ThemeToggle className="rounded-full hover:bg-surface" /></div>}
-        <div className="flex items-center gap-1 lg:hidden">{!isHome && <Link href="/#redes-sociales" className="rounded-full px-3 py-2 text-xs text-muted hover:text-foreground">Back to work</Link>}<ThemeToggle className="rounded-full hover:bg-surface" />{isHome && <MobileMenu open={menuOpen} activeSection={activeSection} onToggle={toggleMenu} onNavigate={handleClick} />}</div>
+        <div className="flex items-center gap-1 lg:hidden">{!isHome && <Link href="/#redes-sociales" className="rounded-full px-3 py-2 text-sm text-muted hover:text-foreground">Back to work</Link>}<ThemeToggle className="rounded-full hover:bg-surface" />{isHome && <MobileMenu open={menuOpen} activeSection={activeSection} onToggle={toggleMenu} onNavigate={handleClick} />}</div>
       </nav>
     </header>
   );

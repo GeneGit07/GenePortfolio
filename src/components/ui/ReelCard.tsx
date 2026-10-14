@@ -41,7 +41,7 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
             </span>
           </div>
           {caption && (
-            <p className="px-3 py-2 text-xs tracking-wide text-muted">{caption}</p>
+            <p className="px-3 py-2 text-sm tracking-wide text-muted">{caption}</p>
           )}
         </div>
       );
@@ -62,7 +62,7 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
           />
         </div>
         {caption && (
-          <p className="px-3 py-2 text-xs tracking-wide text-muted">{caption}</p>
+          <p className="px-3 py-2 text-sm tracking-wide text-muted">{caption}</p>
         )}
       </div>
     );
@@ -78,12 +78,12 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
           sizes="(max-width:768px) 50vw, 33vw"
           className="object-cover group-hover:scale-105"
         />
-        <span className="absolute right-2 top-2 rounded-full bg-black/70 px-2 py-1 text-[10px] uppercase tracking-widest text-white">
+        <span className="absolute right-2 top-2 rounded-full bg-black/70 px-2 py-1 text-xs uppercase tracking-widest text-white">
           Reel
         </span>
       </div>
       {caption && (
-        <p className="px-3 py-2 text-xs tracking-wide text-muted">{caption}</p>
+        <p className="px-3 py-2 text-sm tracking-wide text-muted">{caption}</p>
       )}
     </div>
   );

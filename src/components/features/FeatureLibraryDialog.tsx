@@ -46,7 +46,7 @@ function LibraryItem({ item }: { item: FeatureLibraryItem }) {
         {item.href ? (
           <Link
             href={item.href}
-            className="shrink-0 rounded-full border border-border px-3 py-2 text-xs text-muted hover:text-foreground"
+            className="shrink-0 rounded-full border border-border px-3 py-2 text-sm text-muted hover:text-foreground"
           >
             View project ↗
           </Link>
@@ -114,7 +114,7 @@ export default function FeatureLibraryDialog({
               {description}
             </p>
             {media.note ? (
-              <p className="mt-3 max-w-2xl text-xs leading-relaxed text-muted/80">
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
                 {media.note}
               </p>
             ) : null}
