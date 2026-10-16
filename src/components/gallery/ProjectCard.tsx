@@ -50,7 +50,7 @@ function ProjectCard({
     videoEl.volume = 1;
 
     if (videoEl.paused) {
-      videoEl.play();
+      void videoEl.play().catch(() => {});
     } else {
       videoEl.pause();
     }
@@ -76,6 +76,7 @@ function ProjectCard({
               playsInline
               preload="auto"
               controls={false}
+              aria-label={`Play or pause ${title} video`}
               onClick={handleVideoClick}
               onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
               className="absolute inset-0 block h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.04]"
@@ -95,8 +96,8 @@ function ProjectCard({
               className="project-image object-cover"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/5" />
-          <span className="absolute right-4 top-4 grid size-10 place-items-center rounded-full bg-background/90 text-lg text-foreground opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">{hasVideo ? "▶" : "↗"}</span>
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/5" />
+          <span aria-hidden="true" className={`pointer-events-none absolute right-4 top-4 grid size-10 place-items-center rounded-full bg-background/90 text-lg text-foreground backdrop-blur-sm transition-opacity duration-300 ${hasVideo ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>{hasVideo ? "▶" : "↗"}</span>
         </div>
         <div className="flex items-end justify-between gap-4 px-3 pb-2 pt-5 md:px-4 md:pb-3">
           <div>

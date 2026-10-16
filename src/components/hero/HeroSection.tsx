@@ -1,8 +1,6 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
-import { activateExclusiveVideo } from "@/lib/videoPlayback";
 
 const marqueeItems = [
   "SOCIAL MEDIA",
@@ -14,25 +12,6 @@ const marqueeItems = [
 ];
 
 export default function HeroSection() {
-  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
-
-  const handleHeroVideoClick = (event: React.MouseEvent<HTMLVideoElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const videoEl = heroVideoRef.current;
-    if (!videoEl) return;
-
-    videoEl.muted = false;
-    videoEl.volume = 1;
-
-    if (videoEl.paused) {
-      videoEl.play();
-    } else {
-      videoEl.pause();
-    }
-  };
-
   return (
     <>
       <div className="page-shell grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
@@ -72,39 +51,34 @@ export default function HeroSection() {
               <span aria-hidden="true" className="text-base leading-none">✳</span>
             </span>
           </div>
-          <Link
-            href="/projects/solarworks-ph"
-            aria-label="View the SolarWorks PH project"
-            className="project-link group block w-full rounded-[1.4rem] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent md:rounded-[2rem]"
-          >
+          <div className="project-link group block w-full">
             <div className="hero-art relative aspect-video w-full overflow-hidden rounded-[1.4rem] bg-[#11130f] shadow-[0_28px_70px_rgba(0,0,0,0.32)] ring-1 ring-white/10 md:rounded-[2rem]">
               <video
-                ref={heroVideoRef}
                 src="/assets/social/solarworks-ph/solar-works-video.mp4"
                 poster="/assets/video-posters/solarworks-featured-poster.jpg"
-                muted={false}
+                controls
                 loop
                 playsInline
-                preload="auto"
-                onClick={handleHeroVideoClick}
-                onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
+                preload="metadata"
+                aria-label="SolarWorks PH featured campaign video"
                 className="absolute inset-0 block h-full w-full object-cover object-center"
                 style={{ width: "100%", height: "100%", objectPosition: "center center" }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/20" />
-              <span className="absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full border border-white/50 bg-black/35 text-lg text-white backdrop-blur-sm md:right-5 md:top-5">
-                ▶
-              </span>
-              <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 text-white md:inset-x-8 md:bottom-8">
-                <div>
-                  <p className="section-label text-white/75">Featured project · 2026</p>
-                  <p className="mt-2 font-display text-2xl font-medium tracking-tight md:text-4xl">SolarWorks PH</p>
-                </div>
-                <span className="grid size-12 shrink-0 place-items-center rounded-full border border-white/40 text-xl backdrop-blur-md transition-transform duration-300 group-hover:rotate-45 group-focus-visible:rotate-45">↗</span>
-              </div>
+              <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
             </div>
-            <p className="section-label mt-4 flex justify-between text-muted"><span>Solar campaign · motion-led storytelling</span><span>01 / 03</span></p>
-          </Link>
+            <Link
+              href="/projects/solarworks-ph"
+              aria-label="View the SolarWorks PH project"
+              className="mt-4 flex items-center justify-between gap-4 rounded-lg text-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              <span>
+                <span className="section-label block">Featured project · 2026</span>
+                <span className="mt-1 block font-display text-2xl font-medium tracking-tight text-foreground md:text-3xl">SolarWorks PH</span>
+                <span className="section-label mt-2 block">Solar campaign · motion-led storytelling</span>
+              </span>
+              <span aria-hidden="true" className="grid size-12 shrink-0 place-items-center rounded-full border border-border text-xl transition-transform duration-300 group-hover:rotate-45 group-focus-visible:rotate-45">↗</span>
+            </Link>
+          </div>
         </div>
       </div>
 
