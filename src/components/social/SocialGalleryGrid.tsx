@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { SocialAsset } from "@/data/social";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
 import ImageModal from "@/components/ui/ImageModal";
+import { activateExclusiveVideo } from "@/lib/videoPlayback";
 
 export default function SocialGalleryGrid({ assets }: { assets: SocialAsset[] }) {
   const [selected, setSelected] = useState<SocialAsset | null>(null);
@@ -20,16 +21,21 @@ export default function SocialGalleryGrid({ assets }: { assets: SocialAsset[] })
           return (
             <GalleryGrid.Item key={asset.src} colSpan={isVideo ? 2 : 1} index={index}>
               {isVideo ? (
-                <figure className="overflow-hidden rounded-2xl bg-black">
-                  <video
-                    src={asset.src}
-                    poster={asset.poster}
-                    aria-label={asset.alt}
-                    controls
-                    playsInline
-                    preload="metadata"
-                    className="block aspect-video w-full"
-                  />
+                <figure className="relative overflow-hidden rounded-2xl bg-black">
+                  <div className="relative aspect-video w-full overflow-hidden">
+                    <video
+                      src={asset.src}
+                      poster={asset.poster}
+                      aria-label={asset.alt}
+                      controls
+                      muted={false}
+                      playsInline
+                      preload="auto"
+                      onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
+                      className="absolute inset-0 block h-full w-full object-cover object-center"
+                      style={{ width: "100%", height: "100%", objectPosition: "center center" }}
+                    />
+                  </div>
                   {asset.caption && <figcaption className="px-3 py-3 text-sm text-background">{asset.caption}</figcaption>}
                 </figure>
               ) : (

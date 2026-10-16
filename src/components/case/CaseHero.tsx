@@ -5,6 +5,7 @@ import Image from "next/image";
 import FadeInView from "@/components/ui/FadeInView";
 import ImageModal from "@/components/ui/ImageModal";
 import CaseCard from "./CaseCard";
+import { activateExclusiveVideo } from "@/lib/videoPlayback";
 
 interface CaseHeroProps {
   title: string;
@@ -17,6 +18,10 @@ interface CaseHeroProps {
   palette: string[];
   thumbnail: string;
   thumbnailAlt?: string;
+  thumbnailVideo?: {
+    src: string;
+    poster?: string;
+  };
 }
 
 // Select readable text colors based on the palette swatch luminance.
@@ -41,8 +46,10 @@ export default function CaseHero({
   palette,
   thumbnail,
   thumbnailAlt,
+  thumbnailVideo,
 }: CaseHeroProps) {
   const [coverOpen, setCoverOpen] = useState(false);
+  const isVideoCover = Boolean(thumbnailVideo);
 
   return (
     <>
@@ -112,24 +119,50 @@ export default function CaseHero({
             <button
               type="button"
               onClick={() => setCoverOpen(true)}
-              aria-label={`View larger image: ${title}`}
-              className="group relative flex aspect-[16/9] w-full cursor-zoom-in items-stretch overflow-hidden rounded-[1rem] bg-surface text-left md:rounded-[1.25rem]"
+              aria-label={isVideoCover ? `View larger video: ${title}` : `View larger image: ${title}`}
+              className="group relative flex aspect-[16/9] w-full cursor-zoom-in items-stretch overflow-hidden rounded-[1rem] bg-surface text-left ring-1 ring-white/10 md:rounded-[1.25rem]"
             >
-              <Image
-                src={thumbnail}
-                alt={thumbnailAlt ?? title}
-                fill
-                sizes="(max-width:768px) 100vw, 560px"
-                preload
-                className="object-cover group-hover:scale-[1.02]"
-              />
+              {isVideoCover ? (
+                <>
+                  <video
+                    src={thumbnailVideo?.src}
+                    poster={thumbnailVideo?.poster}
+                    muted={false}
+                    loop
+                    playsInline
+                    preload="auto"
+                    controls
+                    onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
+                    className="absolute inset-0 block h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                    style={{ width: "100%", height: "100%", objectPosition: "center center" }}
+                  />
+                  <span className="absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full border border-white/50 bg-black/35 text-lg text-white backdrop-blur-sm">
+                    ▶
+                  </span>
+                </>
+              ) : (
+                <Image
+                  src={thumbnail}
+                  alt={thumbnailAlt ?? title}
+                  fill
+                  sizes="(max-width:768px) 100vw, 560px"
+                  preload
+                  className="object-cover group-hover:scale-[1.02]"
+                />
+              )}
             </button>
           </CaseCard>
         </div>
       </div>
 
       {coverOpen && (
-        <ImageModal src={thumbnail} alt={thumbnailAlt ?? title} onClose={() => setCoverOpen(false)} />
+        <ImageModal
+          src={thumbnailVideo?.src ?? thumbnail}
+          alt={thumbnailAlt ?? title}
+          onClose={() => setCoverOpen(false)}
+          mediaType={isVideoCover ? "video" : "image"}
+          poster={thumbnailVideo?.poster}
+        />
       )}
     </>
   );

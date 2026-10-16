@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useRef } from "react";
+import { activateExclusiveVideo } from "@/lib/videoPlayback";
 
 interface Props {
   src: string;
@@ -55,9 +56,10 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
             src={videoSrc}
             poster={poster ?? src}
             controls
-            autoPlay
             playsInline
             preload="metadata"
+            muted={false}
+            onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
             className="h-full w-full object-cover"
           />
         </div>

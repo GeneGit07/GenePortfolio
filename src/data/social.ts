@@ -11,6 +11,10 @@ export interface SocialProject {
   thumbnail: string;
   thumbnailAlt: string;
   thumbnailPosition?: string;
+  thumbnailVideo?: {
+    src: string;
+    poster?: string;
+  };
   description: string;
   role: string;
   services: string[];
@@ -45,6 +49,12 @@ const solarSections: SocialGallerySection[] = [
         src: "/assets/social/solarworks-ph/summer-bill-campaign.png",
         alt: "SolarWorks summer campaign encouraging homeowners to check rising electricity bills.",
         kind: "campaign",
+      },
+      {
+        src: "/assets/social/solarworks-ph/solar-works-campaign-video.mp4",
+        alt: "SolarWorks campaign video presenting its solar energy offer.",
+        kind: "video",
+        caption: "Solar campaign video",
       },
     ],
   },
@@ -115,6 +125,27 @@ const solarSections: SocialGallerySection[] = [
         alt: "SolarWorks customer testimonial showing Ana's electricity bill before and after installation.",
         kind: "campaign",
       },
+      {
+        src: "/assets/social/solarworks-ph/solar-works-testimonial-1.mp4",
+        alt: "SolarWorks customer testimonial video.",
+        kind: "video",
+        poster: "/assets/video-posters/solarworks-testimonial-1-poster.jpg",
+        caption: "Customer testimonial",
+      },
+      {
+        src: "/assets/social/solarworks-ph/solar-works-testimonial-2.mp4",
+        alt: "SolarWorks customer testimonial video.",
+        kind: "video",
+        poster: "/assets/video-posters/solarworks-testimonial-2-poster.jpg",
+        caption: "Customer testimonial",
+      },
+      {
+        src: "/assets/social/solarworks-ph/solar-works-testimonial-3.mp4",
+        alt: "SolarWorks customer testimonial video.",
+        kind: "video",
+        poster: "/assets/video-posters/solarworks-testimonial-3-poster.jpg",
+        caption: "Customer testimonial",
+      },
     ],
   },
 ];
@@ -150,7 +181,7 @@ const fifthAveSections: SocialGallerySection[] = [
         src: "/assets/social/fifth-ave-dogs/hotdog-prep.mp4",
         alt: "Behind-the-scenes preparation of the Fifth Ave Dogs Queens Bacon Melt Dog.",
         kind: "video",
-        poster: "/assets/social/fifth-ave-dogs/hotdog-menu.png",
+        poster: "/assets/video-posters/fifth-ave-hotdog-prep-poster.jpg",
       },
     ],
   },
@@ -188,6 +219,18 @@ const rendezvousSections: SocialGallerySection[] = [
         alt: "Rendezvous Cafe Cookie Butter Brew campaign featuring the iced coffee and cookie ingredients.",
         kind: "campaign",
       },
+      {
+        src: "/assets/social/rendezvous-cafe/rendezvous-new-drinks.mp4",
+        alt: "Rendezvous Cafe video introducing its new drinks.",
+        kind: "video",
+        caption: "New drinks",
+      },
+      {
+        src: "/assets/social/rendezvous-cafe/rendezvous-cinematic-atmosphere.mp4",
+        alt: "Cinematic atmosphere video for Rendezvous Cafe.",
+        kind: "video",
+        caption: "Cafe atmosphere",
+      },
     ],
   },
   {
@@ -200,12 +243,29 @@ const rendezvousSections: SocialGallerySection[] = [
         src: "/assets/social/rendezvous-cafe/chicken-sisig.webp",
         alt: "Rendezvous Cafe Chicken Sisig campaign featuring the plated Filipino-style dish.",
         kind: "campaign",
+        poster: "/assets/video-posters/rendezvous-chicken-sisig-poster.jpg",
       },
       {
         src: "/assets/social/rendezvous-cafe/chicken-sisig-reel.mp4",
         alt: "Rendezvous Cafe chef finishing a Chicken Sisig dish with sauce and fresh garnish.",
         kind: "video",
-        poster: "/assets/social/rendezvous-cafe/chicken-sisig.webp",
+        poster: "/assets/video-posters/rendezvous-new-drinks-poster.jpg",
+      },
+    ],
+  },
+  {
+    id: "solar-powered-cafe",
+    title: "Solar-powered café story",
+        poster: "/assets/video-posters/rendezvous-cinematic-poster.jpg",
+    description:
+      "A branded video connects Rendezvous Cafe’s location with its solar-powered setup.",
+    assets: [
+      {
+        src: "/assets/social/rendezvous-cafe/rendezvous-solarworks-setup.mp4",
+        alt: "Rendezvous Cafe solar-powered setup campaign video.",
+        poster: "/assets/video-posters/rendezvous-solar-setup-poster.jpg",
+        kind: "video",
+        caption: "Solar-powered cafe",
       },
     ],
   },
@@ -255,6 +315,10 @@ export const socialProjects: SocialProject[] = [
     thumbnailAlt:
       "SolarWorks PH clean-energy campaign featuring a solar-powered home at sunset.",
     thumbnailPosition: "center 30%",
+    thumbnailVideo: {
+      src: "/assets/social/solarworks-ph/solar-works-video.mp4",
+      poster: "/assets/video-posters/solarworks-featured-poster.jpg",
+    },
     description:
       "Social media management and content creation for SolarWorks PH, focused on building a consistent brand presence through strategic campaigns, educational content, promotional visuals, and customer-focused communication.",
     role:
@@ -282,6 +346,10 @@ export const socialProjects: SocialProject[] = [
     thumbnailAlt:
       "Fifth Ave Dogs beverage campaign featuring red iced tea and lemonade vodka.",
     thumbnailPosition: "center 30%",
+    thumbnailVideo: {
+      src: "/assets/social/fifth-ave-dogs/hotdog-prep.mp4",
+      poster: "/assets/video-posters/fifth-ave-hotdog-prep-poster.jpg",
+    },
     description:
       "Social media content and promotional campaigns created for Fifth Ave Dogs, combining food photography, visual storytelling, promotional design, and a distinct New York-inspired brand personality.",
     role:
@@ -310,6 +378,10 @@ export const socialProjects: SocialProject[] = [
     thumbnailAlt:
       "Rendezvous Cafe Caramel Macchiato campaign featuring an iced caramel drink.",
     thumbnailPosition: "center 30%",
+    thumbnailVideo: {
+      src: "/assets/social/rendezvous-cafe/rendezvous-cinematic-video.mp4",
+      poster: "/assets/video-posters/rendezvous-cinematic-poster.jpg",
+    },
     description:
       "Social media content and product campaigns created for Rendezvous Cafe, combining product-focused visuals, brand consistency, promotional storytelling, and a premium café aesthetic.",
     role:

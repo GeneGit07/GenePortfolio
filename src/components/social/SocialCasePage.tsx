@@ -21,6 +21,7 @@ export default function SocialCasePage({ project }: { project: SocialProject }) 
         palette={project.palette}
         thumbnail={project.thumbnail}
         thumbnailAlt={project.thumbnailAlt}
+        thumbnailVideo={project.thumbnailVideo}
       />
 
       {project.sections.length > 0 && (

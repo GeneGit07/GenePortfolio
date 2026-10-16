@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createPortal } from "react-dom";
 import { useEffect, useRef } from "react";
 import type { FeatureLibraryItem, ProjectFeatureMedia } from "@/data/projectFeatureMedia";
+import { activateExclusiveVideo } from "@/lib/videoPlayback";
 
 function LibraryItem({ item }: { item: FeatureLibraryItem }) {
   const media = item.kind === "video" ? (
@@ -14,9 +15,13 @@ function LibraryItem({ item }: { item: FeatureLibraryItem }) {
       preload="metadata"
       poster={item.poster}
       aria-label={item.alt}
+      onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
       className="h-full w-full object-cover"
     >
-      <source src={item.src} type="video/webm" />
+      <source
+        src={item.src}
+        type={item.src.endsWith(".webm") ? "video/webm" : "video/mp4"}
+      />
       Your browser does not support this video.
     </video>
   ) : (

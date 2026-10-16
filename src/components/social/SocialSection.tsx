@@ -38,6 +38,8 @@ export default function SocialSection() {
               thumbnail={project.thumbnail}
               thumbnailAlt={project.thumbnailAlt}
               thumbnailPosition={project.thumbnailPosition}
+              videoSrc={project.thumbnailVideo?.src}
+              videoPoster={project.thumbnailVideo?.poster}
               variant="large"
             />
           </FadeInView>
