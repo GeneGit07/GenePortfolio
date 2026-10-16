@@ -229,6 +229,7 @@ const rendezvousSections: SocialGallerySection[] = [
         src: "/assets/social/rendezvous-cafe/rendezvous-cinematic-atmosphere.mp4",
         alt: "Cinematic atmosphere video for Rendezvous Cafe.",
         kind: "video",
+        poster: "/assets/video-posters/rendezvous-cinematic-poster.jpg",
         caption: "Cafe atmosphere",
       },
     ],
@@ -256,7 +257,6 @@ const rendezvousSections: SocialGallerySection[] = [
   {
     id: "solar-powered-cafe",
     title: "Solar-powered café story",
-        poster: "/assets/video-posters/rendezvous-cinematic-poster.jpg",
     description:
       "A branded video connects Rendezvous Cafe’s location with its solar-powered setup.",
     assets: [
