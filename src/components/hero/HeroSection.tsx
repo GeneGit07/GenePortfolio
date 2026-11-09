@@ -45,12 +45,6 @@ export default function HeroSection() {
         </div>
 
         <div className="hero-enter-delay relative mx-auto w-full max-w-2xl lg:mx-0 lg:justify-self-end">
-          <div role="img" aria-label="Solar energy. A brighter tomorrow." className="absolute -top-4 right-3 z-10 grid size-24 place-items-center rounded-full bg-accent px-2 text-center text-[0.58rem] font-medium leading-tight tracking-[0.12em] text-foreground shadow-xl md:-top-6 md:-right-5 md:size-28">
-            <span className="flex flex-col items-center gap-1">
-              <span>SOLAR ENERGY<br />A BRIGHTER<br />TOMORROW</span>
-              <span aria-hidden="true" className="text-base leading-none">✳</span>
-            </span>
-          </div>
           <div className="project-link group block w-full">
             <div className="hero-art relative aspect-video w-full overflow-hidden rounded-[1.4rem] bg-[#11130f] shadow-[0_28px_70px_rgba(0,0,0,0.32)] ring-1 ring-white/10 md:rounded-[2rem]">
               <video
