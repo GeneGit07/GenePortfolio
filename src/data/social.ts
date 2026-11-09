@@ -274,6 +274,12 @@ const rendezvousSections: SocialGallerySection[] = [
         kind: "campaign",
       },
       {
+        src: "/assets/social/rendezvous-cafe/beef-curry-holiday-ad.jpg",
+        alt: "Rendezvous Cafe holiday-exclusive beef curry campaign featuring a plated curry dish.",
+        kind: "campaign",
+        caption: "Beef Curry · Holiday Exclusive",
+      },
+      {
         src: "/assets/social/rendezvous-cafe/chicken-sisig-reel.mp4",
         alt: "Rendezvous Cafe chef finishing a Chicken Sisig dish with sauce and fresh garnish.",
         kind: "video",
