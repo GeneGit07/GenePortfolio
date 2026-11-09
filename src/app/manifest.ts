@@ -9,13 +9,13 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Portfolio of visual identity, art direction, and digital design.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f2f0e9",
-    theme_color: "#f2f0e9",
+    background_color: "#0A0A0B",
+    theme_color: "#0A0A0B",
     icons: [
       {
-        src: "/assets/home/favicon-black.ico",
+        src: "/assets/home/favicon-black-gold.svg",
         sizes: "any",
-        type: "image/x-icon",
+        type: "image/svg+xml",
       },
     ],
   };

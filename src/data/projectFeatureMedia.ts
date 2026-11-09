@@ -8,6 +8,7 @@ export interface FeatureLibraryItem {
   alt: string;
   kind?: "image" | "video";
   poster?: string;
+  concept?: boolean;
   fit?: "cover" | "contain";
   href?: string;
 }
@@ -56,6 +57,7 @@ const mobileScreens: FeatureLibraryItem[] = [
     src: "/assets/social/rendezvous-cafe/app-home.png",
     alt: "Rendezvous Cafe mobile app concept home screen.",
     fit: "contain",
+    concept: true,
     href: "/projects/rendezvous-cafe",
   },
   {
@@ -64,6 +66,7 @@ const mobileScreens: FeatureLibraryItem[] = [
     src: "/assets/social/rendezvous-cafe/app-menu.png",
     alt: "Rendezvous Cafe mobile app concept menu screen.",
     fit: "contain",
+    concept: true,
     href: "/projects/rendezvous-cafe",
   },
   {
@@ -72,6 +75,7 @@ const mobileScreens: FeatureLibraryItem[] = [
     src: "/assets/social/rendezvous-cafe/app-product-detail.png",
     alt: "Rendezvous Cafe mobile app concept product detail screen.",
     fit: "contain",
+    concept: true,
     href: "/projects/rendezvous-cafe",
   },
   {
@@ -80,6 +84,7 @@ const mobileScreens: FeatureLibraryItem[] = [
     src: "/assets/social/rendezvous-cafe/app-cart.png",
     alt: "Rendezvous Cafe mobile app concept cart screen.",
     fit: "contain",
+    concept: true,
     href: "/projects/rendezvous-cafe",
   },
   {
@@ -88,6 +93,7 @@ const mobileScreens: FeatureLibraryItem[] = [
     src: "/assets/social/rendezvous-cafe/app-order-confirmation.png",
     alt: "Rendezvous Cafe mobile app concept order confirmation screen.",
     fit: "contain",
+    concept: true,
     href: "/projects/rendezvous-cafe",
   },
 ];

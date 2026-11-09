@@ -18,16 +18,18 @@ export default function SocialSection() {
   return (
     <div className="page-shell">
       <FadeInView>
-        <div className="mb-14 flex flex-col justify-between gap-5 md:mb-16 md:flex-row md:items-end">
-          <div><span className="section-label text-muted">02 / Selected work</span>
-            <h2 className="mt-5 font-display text-5xl font-medium uppercase tracking-[-0.065em] md:text-7xl">Social <span className="italic text-muted">& digital</span></h2></div>
-          <p className="max-w-xs text-sm leading-relaxed text-muted">Social campaigns and product stories for three distinct brands.</p>
+        <div className="section-heading">
+          <div>
+            <span className="section-label text-accent">02 / Selected work</span>
+            <h2 className="mt-3 font-display text-4xl font-semibold leading-tight md:text-6xl">Social <span className="italic text-muted">&amp; digital</span></h2>
+          </div>
+          <p className="max-w-[65ch] text-base leading-[1.65] text-muted">Social campaigns and product stories for three distinct brands.</p>
         </div>
       </FadeInView>
 
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
+      <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-6">
         {visibleProjects.map((project, i) => (
-          <FadeInView key={project.slug} delay={i * 0.05} className="h-full">
+          <FadeInView key={project.slug} delay={Math.min(i * 0.035, 0.14)} className={`h-full ${i === 0 ? "md:col-span-2" : ""}`}>
             <ProjectCard
               slug={project.slug}
               title={project.title}

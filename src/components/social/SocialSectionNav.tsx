@@ -8,10 +8,10 @@ interface SectionLink {
 }
 
 const PILL_BASE =
-  "inline-flex shrink-0 snap-start items-center justify-center rounded-full border px-5 py-2.5 text-sm font-medium uppercase tracking-widest shadow-sm";
+  "inline-flex min-h-11 shrink-0 snap-start items-center justify-center rounded-full border px-5 py-2.5 text-sm font-medium uppercase tracking-[0.1em]";
 const PILL_IDLE =
-  "border-foreground/15 bg-surface/60 text-muted hover:border-foreground/30 hover:bg-surface hover:text-foreground";
-const PILL_ACTIVE = "border-foreground bg-foreground text-background";
+  "border-border bg-surface text-muted hover:border-border-strong hover:text-accent";
+const PILL_ACTIVE = "border-accent bg-accent text-accent-ink";
 
 export default function SocialSectionNav({ sections }: { sections: SectionLink[] }) {
   const [active, setActive] = useState(sections[0]?.id ?? "");
@@ -43,7 +43,7 @@ export default function SocialSectionNav({ sections }: { sections: SectionLink[]
       e.preventDefault();
       const el = document.getElementById(id);
       if (!el) return;
-      el.scrollIntoView({ behavior: "smooth" });
+      el.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     };
 
   return (

@@ -2,17 +2,12 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
-import ThemeProvider from "@/components/layout/ThemeProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import IntroAnimation from "@/components/layout/IntroAnimation";
+import { getSiteUrl } from "@/lib/siteUrl";
 
-const productionDomain = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-const deploymentDomain = process.env.VERCEL_URL;
-const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-const siteUrl = configuredSiteUrl ??
-  (productionDomain ? `https://${productionDomain}` :
-    deploymentDomain ? `https://${deploymentDomain}` : "http://localhost:3000");
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   title: {
@@ -20,11 +15,14 @@ export const metadata: Metadata = {
     template: "%s | Eugene Dalida",
   },
   description:
-    "Eugene Dalida is an independent designer in Manila creating social campaigns, visual identities, digital content, and AI-assisted creative work.",
+    "Eugene Dalida is an independent designer in Batangas creating social campaigns, visual identities, digital content, and AI-assisted creative work.",
   keywords: ["visual design", "brand identity", "social media", "content creation", "UI/UX", "Philippines"],
   authors: [{ name: "Eugene Dalida" }],
   creator: "Eugene Dalida",
   metadataBase: new URL(siteUrl),
+  icons: {
+    icon: "/assets/home/favicon-black-gold.svg",
+  },
   alternates: {
     canonical: "/",
   },
@@ -35,20 +33,25 @@ export const metadata: Metadata = {
     title: "Eugene Dalida — Visual Designer & Art Director",
     description: "Social campaigns, visual identities, digital content, and AI-assisted creative work.",
     siteName: "Eugene Dalida Portfolio",
+    images: [
+      {
+        url: "/assets/video-posters/solarworks-featured-poster.jpg",
+        width: 1600,
+        height: 900,
+        alt: "SolarWorks PH featured campaign video",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Eugene Dalida — Visual Designer & Art Director",
     description: "Social campaigns, visual identities, digital content, and AI-assisted creative work.",
+    images: ["/assets/video-posters/solarworks-featured-poster.jpg"],
   },
-  
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2f0e9" },
-    { media: "(prefers-color-scheme: dark)", color: "#11130f" },
-  ],
+  themeColor: "#0A0A0B",
 };
 
 export default function RootLayout({
@@ -57,26 +60,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html lang="en">
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem('dp-theme');if(s!=='dark'){document.documentElement.classList.add('light')}}catch(e){document.documentElement.classList.add('light')}})();`,
-          }}
+        <link rel="preload" as="image" href="/assets/video-posters/solarworks-featured-poster.jpg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* App Router root layout loads these Google Fonts globally. */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+          rel="stylesheet"
         />
       </head>
       <body className="font-sans antialiased">
-        <ThemeProvider>
-          <IntroAnimation />
-          <SmoothScrollProvider>
-            <Header />
-            {children}
-            <Footer />
-          </SmoothScrollProvider>
-        </ThemeProvider>
+        <a href="#main-content" className="skip-link">Skip to content</a>
+        <IntroAnimation />
+        <SmoothScrollProvider>
+          <Header />
+          {children}
+          <Footer />
+        </SmoothScrollProvider>
         <Analytics />
       </body>
     </html>

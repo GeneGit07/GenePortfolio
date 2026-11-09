@@ -9,7 +9,7 @@ import SocialSectionNav from "./SocialSectionNav";
 
 export default function SocialCasePage({ project }: { project: SocialProject }) {
   return (
-    <main className="page-shell py-32 md:py-40">
+    <main id="main-content" className="page-shell py-32 md:py-40">
       <CaseHero
         title={project.title}
         category={project.category}
@@ -47,7 +47,7 @@ export default function SocialCasePage({ project }: { project: SocialProject }) 
                       <h2 className="font-display text-3xl font-medium tracking-tight md:text-4xl">
                         {section.title}
                       </h2>
-                      <p className="mt-3 text-sm leading-relaxed text-background/65 md:text-base">
+                      <p className="mt-3 text-base leading-[1.65] text-muted">
                         {section.description}
                       </p>
                     </div>

@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
 import { socialProjects } from "@/data/social";
 import { brandingPieces } from "@/data/branding";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://example.com";
+  const baseUrl = getSiteUrl();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

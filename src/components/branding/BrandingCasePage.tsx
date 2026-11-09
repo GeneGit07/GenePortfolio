@@ -9,7 +9,7 @@ export default function BrandingCasePage({ project }: { project: BrandingPiece }
   const hasGallery = gallery.length > 0;
 
   return (
-    <main className="page-shell py-32 md:py-40">
+    <main id="main-content" className="page-shell py-32 md:py-40">
       <CaseHero
         title={project.title}
         projectType="Brand identity"

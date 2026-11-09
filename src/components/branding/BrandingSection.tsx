@@ -15,14 +15,14 @@ export default function BrandingSection() {
   return (
     <div className="page-shell">
       <FadeInView>
-        <div className="mb-14 flex flex-col justify-between gap-5 md:mb-16 md:flex-row md:items-end">
-          <div><span className="section-label text-muted">03 / Brand identities</span>
-            <h2 className="mt-5 font-display text-5xl font-medium tracking-[-0.065em] md:text-7xl">Brands with <span className="italic text-muted">character</span></h2></div>
-          <p className="max-w-xs text-sm leading-relaxed text-muted">Ideas shaped into distinctive, memorable visual worlds.</p>
+        <div className="section-heading">
+          <div><span className="section-label text-accent">03 / Brand identities</span>
+            <h2 className="mt-3 font-display text-5xl font-semibold leading-tight md:text-7xl">Brands with <span className="italic text-muted">character</span></h2></div>
+          <p className="max-w-[65ch] text-base leading-[1.65] text-muted">Ideas shaped into distinctive, memorable visual worlds.</p>
         </div>
       </FadeInView>
 
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
+      <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
         {visiblePiecesList.map((piece, i) => (
           <FadeInView key={piece.slug} delay={i * 0.05} className="h-full">
             <ProjectCard
