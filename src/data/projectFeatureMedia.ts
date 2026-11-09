@@ -166,6 +166,22 @@ const videoReels: FeatureLibraryItem[] = [
     href: "/projects/solarworks-ph",
   },
   {
+    project: "Rendezvous Cafe",
+    title: "Promotional video ad",
+    src: "/assets/social/rendezvous-cafe/rendezvous-ads-final.mp4",
+    alt: "Rendezvous Cafe promotional video ad.",
+    kind: "video",
+    href: "/projects/rendezvous-cafe",
+  },
+  {
+    project: "Fifth Ave Dogs",
+    title: "Location discovery video",
+    src: "/assets/social/fifth-ave-dogs/fad-location-discovery.mp4",
+    alt: "Fifth Ave Dogs location discovery video.",
+    kind: "video",
+    href: "/projects/fifth-ave-dogs",
+  },
+  {
     project: "Ana Maria La Justicia",
     title: "Social reel — Product feature",
     src: "/assets/features/video-motion/ana-maria-reel-2.webm",

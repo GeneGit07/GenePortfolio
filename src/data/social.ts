@@ -185,6 +185,20 @@ const fifthAveSections: SocialGallerySection[] = [
       },
     ],
   },
+  {
+    id: "location-discovery",
+    title: "Location discovery video",
+    description:
+      "A short location-focused video helps customers discover Fifth Ave Dogs.",
+    assets: [
+      {
+        src: "/assets/social/fifth-ave-dogs/fad-location-discovery.mp4",
+        alt: "Fifth Ave Dogs location discovery video.",
+        kind: "video",
+        caption: "Find Fifth Ave Dogs",
+      },
+    ],
+  },
 ];
 
 const rendezvousSections: SocialGallerySection[] = [
@@ -235,6 +249,20 @@ const rendezvousSections: SocialGallerySection[] = [
     ],
   },
   {
+    id: "video-ads",
+    title: "Promotional video ad",
+    description:
+      "A video ad extends Rendezvous Cafe's product storytelling into motion.",
+    assets: [
+      {
+        src: "/assets/social/rendezvous-cafe/rendezvous-ads-final.mp4",
+        alt: "Rendezvous Cafe promotional video ad.",
+        kind: "video",
+        caption: "Rendezvous Cafe ad",
+      },
+    ],
+  },
+  {
     id: "food-content",
     title: "Food content",
     description:
@@ -244,13 +272,12 @@ const rendezvousSections: SocialGallerySection[] = [
         src: "/assets/social/rendezvous-cafe/chicken-sisig.webp",
         alt: "Rendezvous Cafe Chicken Sisig campaign featuring the plated Filipino-style dish.",
         kind: "campaign",
-        poster: "/assets/video-posters/rendezvous-chicken-sisig-poster.jpg",
       },
       {
         src: "/assets/social/rendezvous-cafe/chicken-sisig-reel.mp4",
         alt: "Rendezvous Cafe chef finishing a Chicken Sisig dish with sauce and fresh garnish.",
         kind: "video",
-        poster: "/assets/video-posters/rendezvous-new-drinks-poster.jpg",
+        poster: "/assets/video-posters/rendezvous-chicken-sisig-poster.jpg",
       },
     ],
   },
