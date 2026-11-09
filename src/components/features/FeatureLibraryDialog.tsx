@@ -37,16 +37,17 @@ function LibraryItem({ item }: { item: FeatureLibraryItem }) {
   return (
     <article className="overflow-hidden rounded-2xl border border-border bg-surface">
       <div
-        className={`relative overflow-hidden bg-black/5 ${item.kind === "video" ? "aspect-video" : item.fit === "contain" ? "aspect-[4/5]" : "aspect-[4/3]"}`}
+        className={`relative overflow-hidden bg-surface-2 ${item.kind === "video" ? "aspect-video" : item.fit === "contain" ? "aspect-[4/5]" : "aspect-[4/3]"}`}
       >
         {media}
       </div>
       <div className="flex items-end justify-between gap-4 p-4">
         <div>
           <p className="section-label text-muted">{item.project}</p>
-          <h4 className="mt-2 font-display text-lg font-medium tracking-[-0.03em]">
-            {item.title}
-          </h4>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <h4 className="font-display text-lg font-semibold">{item.title}</h4>
+            {item.concept ? <span className="concept-chip">Concept project</span> : null}
+          </div>
         </div>
         {item.href ? (
           <Link
@@ -92,7 +93,7 @@ export default function FeatureLibraryDialog({
 
   return createPortal((
     <div
-      className="feature-dialog-backdrop fixed inset-0 z-[100] bg-black/75 backdrop-blur-md"
+      className="feature-dialog-backdrop fixed inset-0 z-[100] dialog-scrim backdrop-blur-md"
       onClick={onClose}
     >
       <section
@@ -111,7 +112,7 @@ export default function FeatureLibraryDialog({
             </p>
             <h3
               id="feature-library-title"
-              className="mt-3 font-display text-3xl font-medium tracking-[-0.05em] md:text-5xl"
+              className="mt-3 font-display text-3xl font-semibold md:text-5xl"
             >
               {media.feature}
             </h3>

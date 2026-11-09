@@ -10,6 +10,7 @@ export const emailDesigns = [
     category: "Promotional campaign",
     src: "/assets/email/promotional-email.png",
     alt: "Lumiere Skincare promotional email for its Brightening Serum.",
+    concept: true,
   },
   {
     title: "Welcome Email",

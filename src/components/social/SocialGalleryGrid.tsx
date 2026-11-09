@@ -21,8 +21,8 @@ export default function SocialGalleryGrid({ assets }: { assets: SocialAsset[] })
           return (
             <GalleryGrid.Item key={asset.src} colSpan={isVideo ? 2 : 1} index={index}>
               {isVideo ? (
-                <figure className="relative overflow-hidden rounded-2xl bg-black">
-                  <div className="relative aspect-video w-full overflow-hidden">
+                <figure className="relative overflow-hidden rounded-xl border border-border bg-surface">
+                  <div className="relative aspect-video w-full overflow-hidden bg-surface-2">
                     <video
                       src={asset.src}
                       poster={asset.poster}
@@ -30,20 +30,20 @@ export default function SocialGalleryGrid({ assets }: { assets: SocialAsset[] })
                       controls
                       muted={false}
                       playsInline
-                      preload="auto"
+                      preload="metadata"
                       onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
                       className="absolute inset-0 block h-full w-full object-cover object-center"
                       style={{ width: "100%", height: "100%", objectPosition: "center center" }}
                     />
                   </div>
-                  {asset.caption && <figcaption className="px-3 py-3 text-sm text-background">{asset.caption}</figcaption>}
+                  {asset.caption && <figcaption className="border-t border-border px-3 py-3 text-sm text-muted">{asset.caption}</figcaption>}
                 </figure>
               ) : (
                 <button
                   type="button"
                   onClick={() => setSelected(asset)}
                   aria-label={`View larger image: ${asset.alt}`}
-                  className={`group block h-full w-full cursor-zoom-in overflow-hidden rounded-2xl text-left ${isScreen ? "bg-[#100d08]" : "bg-surface"}`}
+                  className={`group block h-full w-full cursor-zoom-in overflow-hidden rounded-xl border border-border text-left ${isScreen ? "bg-surface-2" : "bg-surface"}`}
                 >
                   <div className={`relative w-full overflow-hidden ${isScreen ? "aspect-[9/16]" : "aspect-[2/3] bg-surface"}`}>
                     <Image
@@ -53,9 +53,10 @@ export default function SocialGalleryGrid({ assets }: { assets: SocialAsset[] })
                       sizes="(max-width:768px) 50vw, 25vw"
                       className={`${isScreen ? "object-contain" : "object-cover group-hover:scale-[1.02]"}`}
                     />
+                    {asset.concept ? <span className="concept-chip absolute left-2 top-2">Concept project</span> : null}
                     {asset.caption && (
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-3">
-                        <p className="text-sm tracking-wide text-white">{asset.caption}</p>
+                      <div className="media-caption-overlay absolute inset-x-0 bottom-0 px-3 py-3 pt-8">
+                        <p className="text-sm tracking-wide text-text">{asset.caption}</p>
                       </div>
                     )}
                   </div>

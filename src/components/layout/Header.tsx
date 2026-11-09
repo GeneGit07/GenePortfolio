@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import ThemeToggle from "./ThemeToggle";
 import MobileMenu from "./MobileMenu";
 import { NAV_ITEMS } from "@/lib/constants";
 
@@ -12,7 +11,15 @@ export default function Header() {
   const isHome = pathname === "/";
   const [activeSection, setActiveSection] = useState("hero");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const toggleMenu = useCallback(() => setMenuOpen((value) => !value), []);
+
+  useEffect(() => {
+    const updateScrollState = () => setHasScrolled(window.scrollY > 8);
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrollState);
+  }, []);
 
   const buildObserver = useCallback(() => {
     const sections = NAV_ITEMS.map(({ id }) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
@@ -32,21 +39,40 @@ export default function Header() {
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     if (!isHome) return;
     event.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.getElementById(id)?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
   };
 
   return (
-    <header className="header-in fixed inset-x-0 top-0 z-40">
-      <nav aria-label="Primary navigation" className="page-shell mt-3 flex h-[4.35rem] items-center justify-between rounded-full border border-border/80 bg-background/90 px-4 shadow-[0_12px_40px_-24px_rgba(23,25,19,.35)] backdrop-blur-xl md:mt-5 md:h-[4.75rem] md:px-7">
-        <Link href="/" onClick={(event) => handleClick(event, "hero")} className="flex items-center gap-2.5" aria-label="Back to home">
-          <span className="grid size-9 place-items-center rounded-full bg-foreground font-display text-sm font-semibold tracking-[-0.08em] text-background">ED.</span>
+    <header className={`site-header ${hasScrolled ? "is-scrolled" : ""}`}>
+      <nav aria-label="Primary navigation" className="page-shell flex h-16 items-center justify-between gap-6">
+        <Link href="/" onClick={(event) => handleClick(event, "hero")} className="inline-flex min-h-12 min-w-12 items-center gap-2.5" aria-label="Back to home">
+          <span className="grid size-9 place-items-center rounded-full bg-accent font-display text-sm font-semibold text-accent-ink">ED.</span>
           <span className="leading-none"><span className="block whitespace-nowrap font-display text-sm font-medium tracking-wide">EUGENE DALIDA</span><span className="header-descriptor mt-1 block text-muted">INDEPENDENT DESIGNER</span></span>
         </Link>
-        {isHome ? <div className="hidden items-center gap-1 lg:flex">
-          {NAV_ITEMS.map(({ id, label }) => <a key={id} href={`#${id}`} onClick={(event) => handleClick(event, id)} className={`rounded-full px-4 py-2.5 text-[0.72rem] transition-colors hover:bg-surface ${activeSection === id ? "bg-surface text-foreground" : "text-muted"}`}>{label}</a>)}
-          <span className="mx-1 h-5 w-px bg-border" /><ThemeToggle className="rounded-full hover:bg-surface" />
-        </div> : <div className="hidden items-center gap-2 lg:flex"><Link href="/#redes-sociales" className="rounded-full px-4 py-2 text-sm text-muted hover:text-foreground">Back to work</Link><ThemeToggle className="rounded-full hover:bg-surface" /></div>}
-        <div className="flex items-center gap-1 lg:hidden">{!isHome && <Link href="/#redes-sociales" className="rounded-full px-3 py-2 text-sm text-muted hover:text-foreground">Back to work</Link>}<ThemeToggle className="rounded-full hover:bg-surface" />{isHome && <MobileMenu open={menuOpen} activeSection={activeSection} onToggle={toggleMenu} onNavigate={handleClick} />}</div>
+        {isHome ? (
+          <div className="hidden items-center gap-7 lg:flex">
+            {NAV_ITEMS.map(({ id, label }) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                onClick={(event) => handleClick(event, id)}
+                aria-current={activeSection === id ? "location" : undefined}
+                className={`nav-link inline-flex min-h-11 min-w-11 items-center justify-center px-1 py-2 text-sm ${activeSection === id ? "is-active" : ""}`}
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        ) : (
+          <Link href="/#redes-sociales" className="hidden min-h-12 items-center text-sm text-muted hover:text-accent lg:flex">
+            Back to work
+          </Link>
+        )}
+        <div className="flex items-center lg:hidden">
+          {!isHome && <Link href="/#redes-sociales" className="mr-2 inline-flex min-h-12 items-center px-2 text-sm text-muted hover:text-accent">Back to work</Link>}
+          {isHome && <MobileMenu open={menuOpen} activeSection={activeSection} onToggle={toggleMenu} onNavigate={handleClick} />}
+        </div>
       </nav>
     </header>
   );

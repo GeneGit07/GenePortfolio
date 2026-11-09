@@ -41,6 +41,7 @@ export interface SocialAsset {
   kind: SocialAssetKind;
   caption?: string;
   poster?: string;
+  concept?: boolean;
 }
 
 export interface SocialGallerySection {

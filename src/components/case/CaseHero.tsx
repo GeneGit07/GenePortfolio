@@ -32,7 +32,7 @@ function textOnColor(hex: string): string {
   const g = parseInt(full.slice(2, 4), 16) / 255;
   const b = parseInt(full.slice(4, 6), 16) / 255;
   const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  return luminance > 0.6 ? "#000000" : "#ffffff";
+  return luminance > 0.6 ? "var(--swatch-light-ink)" : "var(--swatch-dark-ink)";
 }
 
 export default function CaseHero({
@@ -57,7 +57,7 @@ export default function CaseHero({
       <FadeInView>
         <div className="max-w-5xl">
           <p className="section-label mb-6 text-muted">Case study <span className="mx-2 text-accent">✳</span>{year}{category && <><span className="mx-2">/</span>{category}</>}</p>
-          <h1 className="font-display text-[clamp(3.5rem,9vw,7.75rem)] font-medium leading-[0.9] tracking-[-0.07em] text-balance">
+          <h1 className="font-display text-5xl font-semibold leading-[1.1] text-balance md:text-7xl lg:text-8xl">
             {title}
           </h1>
         </div>
@@ -120,7 +120,7 @@ export default function CaseHero({
               type="button"
               onClick={() => setCoverOpen(true)}
               aria-label={isVideoCover ? `View larger video: ${title}` : `View larger image: ${title}`}
-              className="group relative flex aspect-[16/9] w-full cursor-zoom-in items-stretch overflow-hidden rounded-[1rem] bg-surface text-left ring-1 ring-white/10 md:rounded-[1.25rem]"
+              className="group relative flex aspect-[16/9] w-full cursor-zoom-in items-stretch overflow-hidden rounded-lg border border-border bg-surface-2 text-left"
             >
               {isVideoCover ? (
                 <>
@@ -130,13 +130,13 @@ export default function CaseHero({
                     muted={false}
                     loop
                     playsInline
-                    preload="auto"
+                    preload="metadata"
                     controls
                     onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
-                    className="absolute inset-0 block h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                    className="absolute inset-0 block h-full w-full object-cover object-center transition duration-200 group-hover:scale-[1.03]"
                     style={{ width: "100%", height: "100%", objectPosition: "center center" }}
                   />
-                  <span className="absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full border border-white/50 bg-black/35 text-lg text-white backdrop-blur-sm">
+                  <span className="media-play absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full text-lg text-text backdrop-blur-sm">
                     ▶
                   </span>
                 </>

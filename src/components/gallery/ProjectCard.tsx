@@ -57,13 +57,13 @@ function ProjectCard({
   };
 
   return (
-    <Link href={`/projects/${slug}`} className={`project-link group block ${isLarge ? "h-full" : ""}`}>
-      <Card className="flex h-full cursor-pointer flex-col !rounded-[1.35rem] !p-3 shadow-[0_18px_45px_rgba(0,0,0,0.18)] md:!rounded-[1.7rem] md:!p-4">
+    <Link href={`/projects/${slug}`} className={`project-link group block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${isLarge ? "h-full" : ""}`}>
+      <Card className="flex h-full cursor-pointer flex-col rounded-xl border border-border bg-surface p-4 shadow-soft transition duration-200 hover:-translate-y-1 hover:border-border-strong md:p-6">
         <div
           className={
             isLarge
-              ? "relative aspect-[16/9] overflow-hidden rounded-[1rem] bg-surface ring-1 ring-white/10 md:rounded-[1.25rem]"
-              : "relative aspect-[16/9] overflow-hidden rounded-[1rem] bg-surface ring-1 ring-white/10"
+              ? "project-media relative aspect-[16/10] overflow-hidden rounded-lg bg-surface-2"
+              : "project-media relative aspect-[16/10] overflow-hidden rounded-lg bg-surface-2"
           }
         >
           {hasVideo ? (
@@ -74,12 +74,12 @@ function ProjectCard({
               muted={false}
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               controls={false}
               aria-label={`Play or pause ${title} video`}
               onClick={handleVideoClick}
               onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
-              className="absolute inset-0 block h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.04]"
+              className="absolute inset-0 block h-full w-full object-cover object-center transition duration-200 group-hover:scale-[1.03]"
               style={{ width: "100%", height: "100%", objectPosition: "center center" }}
             />
           ) : (
@@ -96,17 +96,17 @@ function ProjectCard({
               className="project-image object-cover"
             />
           )}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/5" />
-          <span aria-hidden="true" className={`pointer-events-none absolute right-4 top-4 grid size-10 place-items-center rounded-full bg-background/90 text-lg text-foreground backdrop-blur-sm transition-opacity duration-300 ${hasVideo ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>{hasVideo ? "▶" : "↗"}</span>
+          <div aria-hidden="true" className="media-overlay pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-200 group-hover:opacity-100" />
+          <span aria-hidden="true" className={`media-play pointer-events-none absolute inset-0 m-auto grid size-12 place-items-center rounded-full text-lg text-text backdrop-blur-sm transition-opacity duration-200 ${hasVideo ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>{hasVideo ? "▶" : "↗"}</span>
         </div>
-        <div className="flex items-end justify-between gap-4 px-3 pb-2 pt-5 md:px-4 md:pb-3">
-          <div>
-            <p className="section-label text-background/60">{eyebrow ?? year}</p>
-            {category && <p className="mt-1 text-sm text-background/65">{category}</p>}
-            <h3 className="mt-2 font-display text-xl font-medium tracking-tight text-background md:text-2xl">{title}</h3>
-            {description && <p className="mt-2 line-clamp-2 max-w-xl text-sm leading-relaxed text-background/75 md:text-base">{description}</p>}
-          </div>
-          <span className="mb-1 text-sm text-background/60">View case ↗</span>
+        <div className="flex flex-1 flex-col items-start p-2 pt-5">
+          <p className="section-label text-accent">{category ?? eyebrow ?? year}</p>
+          {category && year ? <p className="mt-1 text-xs text-muted">{year}</p> : null}
+          <h3 className="mt-2 font-display text-2xl font-semibold leading-[1.2] text-text md:text-[1.75rem]">{title}</h3>
+          {description && <p className="mt-3 line-clamp-2 max-w-[65ch] text-base leading-[1.65] text-muted">{description}</p>}
+          <span className="section-label mt-auto inline-flex min-h-11 items-center gap-2 pt-4 text-text">
+            View case <span aria-hidden="true" className="text-accent transition-transform duration-200 group-hover:translate-x-1">↗</span>
+          </span>
         </div>
       </Card>
     </Link>

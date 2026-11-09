@@ -27,18 +27,18 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
             if (e.key === "Enter" || e.key === " ") setIsPlaying(true);
           }}
           aria-label={`Play ${alt}`}
-          className="group relative cursor-pointer overflow-hidden rounded-2xl bg-black"
+            className="group relative cursor-pointer overflow-hidden rounded-xl border border-border bg-surface"
         >
-          <div className="relative aspect-[9/16] overflow-hidden bg-black">
-            <Image
-              src={poster ?? src}
-              alt={alt}
-              fill
-              sizes="(max-width:768px) 50vw, 33vw"
-              className="object-cover group-hover:scale-[1.02]"
-            />
-            <span className="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-black backdrop-blur group-hover:scale-105 group-active:scale-95">
-              <span aria-hidden className="ml-0.5 text-lg leading-none">▶</span>
+          <div className="relative aspect-[9/16] overflow-hidden bg-surface-2">
+              <Image
+                src={poster ?? src}
+                alt={alt}
+                fill
+                sizes="(max-width:768px) 50vw, 33vw"
+                className="object-cover group-hover:scale-[1.02]"
+              />
+            <span className="media-play absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-accent backdrop-blur group-hover:scale-105 group-active:scale-95">
+                <span aria-hidden className="ml-0.5 text-lg leading-none">▶</span>
             </span>
           </div>
           {caption && (
@@ -50,7 +50,7 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
 
     return (
       <div className="overflow-hidden rounded-2xl bg-surface">
-        <div className="aspect-[9/16] overflow-hidden bg-black">
+        <div className="aspect-[9/16] overflow-hidden bg-surface-2">
           <video
             ref={videoRef}
             src={videoSrc}
@@ -80,7 +80,7 @@ export default function ReelCard({ src, alt, poster, videoSrc, caption }: Props)
           sizes="(max-width:768px) 50vw, 33vw"
           className="object-cover group-hover:scale-105"
         />
-        <span className="absolute right-2 top-2 rounded-full bg-black/70 px-2 py-1 text-xs uppercase tracking-widest text-white">
+        <span className="media-play absolute right-2 top-2 rounded-full px-2 py-1 text-[10px] uppercase tracking-widest text-text">
           Reel
         </span>
       </div>
