@@ -43,7 +43,7 @@ export default function BrandingGalleryGrid({
             <button
               type="button"
               onClick={() => setSelected(asset)}
-              aria-label={`Ver imagen ampliada: ${asset.alt}`}
+              aria-label={`View larger image: ${asset.alt}`}
               className="group relative block h-full w-full cursor-zoom-in overflow-hidden rounded-xl border border-border bg-surface text-left"
             >
               <Image

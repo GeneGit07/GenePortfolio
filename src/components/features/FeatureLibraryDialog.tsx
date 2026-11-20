@@ -35,17 +35,17 @@ function LibraryItem({ item }: { item: FeatureLibraryItem }) {
   );
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-border bg-surface">
+    <article className={`overflow-hidden rounded-xl border border-border bg-surface ${item.portrait ? "col-span-1" : "col-span-2"}`}>
       <div
-        className={`relative overflow-hidden bg-surface-2 ${item.kind === "video" ? "aspect-video" : item.fit === "contain" ? "aspect-[4/5]" : "aspect-[4/3]"}`}
+        className={`relative overflow-hidden bg-surface-2 ${item.kind === "video" ? (item.portrait ? "aspect-[9/16]" : "aspect-video") : item.fit === "contain" ? "aspect-[4/5]" : "aspect-[4/3]"}`}
       >
         {media}
       </div>
-      <div className="flex items-end justify-between gap-4 p-4">
+      <div className="flex flex-wrap items-end justify-between gap-3 p-4">
         <div>
           <p className="section-label text-muted">{item.project}</p>
           <div className="mt-2 flex flex-wrap items-center gap-2">
-            <h4 className="font-display text-lg font-semibold">{item.title}</h4>
+            <h4 className="text-base font-medium" style={{ fontFamily: "var(--font-body-family)", letterSpacing: 0 }}>{item.title}</h4>
             {item.concept ? <span className="concept-chip">Concept project</span> : null}
           </div>
         </div>
@@ -54,7 +54,7 @@ function LibraryItem({ item }: { item: FeatureLibraryItem }) {
             href={item.href}
             className="shrink-0 rounded-full border border-border px-3 py-2 text-sm text-muted hover:text-foreground"
           >
-            View project ↗
+            View project →
           </Link>
         ) : null}
       </div>
@@ -108,11 +108,11 @@ export default function FeatureLibraryDialog({
         <div className="mb-7 flex items-start justify-between gap-6 md:mb-9">
           <div>
             <p className="section-label text-muted">
-              {number} / Project library
+              {number} · Related work
             </p>
             <h3
               id="feature-library-title"
-              className="mt-3 font-display text-3xl font-semibold md:text-5xl"
+              className="display-2 mt-3"
             >
               {media.feature}
             </h3>
@@ -136,7 +136,7 @@ export default function FeatureLibraryDialog({
           </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5">
+        <div className="grid grid-cols-2 items-start gap-3 md:grid-cols-4 md:gap-4">
           {media.library.map((item) => (
             <LibraryItem key={`${item.src}-${item.title}`} item={item} />
           ))}

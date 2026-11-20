@@ -26,11 +26,14 @@ export default function BrandingSection() {
         {visiblePiecesList.map((piece, i) => (
           <FadeInView key={piece.slug} delay={i * 0.05} className="h-full">
             <ProjectCard
+              index={String(i + 1).padStart(2, "0")}
               slug={piece.slug}
               title={piece.title}
               year={piece.year}
+              category="Brand identity"
+              summary={piece.projectGoal}
               thumbnail={piece.thumbnail}
-              variant="large"
+              thumbnailAlt={`${piece.title} visual identity`}
             />
           </FadeInView>
         ))}

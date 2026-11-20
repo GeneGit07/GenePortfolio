@@ -42,6 +42,28 @@ export interface SocialAsset {
   caption?: string;
   poster?: string;
   concept?: boolean;
+  /** Width ÷ height of the source file. Keeps media uncropped in galleries. */
+  ratio?: number;
+}
+
+/** Common aspect ratios (width ÷ height) used across the portfolio assets. */
+export const RATIO = {
+  landscape: 16 / 9,
+  portrait: 9 / 16,
+  post: 4 / 5,
+  poster: 2 / 3,
+  story: 941 / 1672,
+  phone: 390 / 844,
+} as const;
+
+const DEFAULT_RATIO: Record<SocialAssetKind, number> = {
+  campaign: RATIO.poster,
+  screen: RATIO.phone,
+  video: RATIO.landscape,
+};
+
+export function assetRatio(asset: Pick<SocialAsset, "kind" | "ratio">): number {
+  return asset.ratio ?? DEFAULT_RATIO[asset.kind];
 }
 
 export interface SocialGallerySection {

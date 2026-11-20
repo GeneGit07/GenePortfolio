@@ -1,19 +1,21 @@
 "use client";
 
-import { useEffect, useRef, useState, ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 // Unificado para reúso en GalleryGrid (branding/social) y resto del sitio.
 // Uso: <FadeInView delay={Math.min(index*0.035, 0.35)}> via GalleryGrid.Item
 interface FadeInViewProps {
   children: ReactNode;
   className?: string;
-  delay?: number; // segundos, cap recomendado 0.35
+  delay?: number; // seconds; keep at or below 0.35
+  style?: CSSProperties;
 }
 
 export default function FadeInView({
   children,
   className = "",
   delay = 0,
+  style,
 }: FadeInViewProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -45,7 +47,7 @@ export default function FadeInView({
     <div
       ref={ref}
       className={`reveal ${isVisible ? "is-visible" : ""} ${className}`}
-      style={{ transitionDelay: delayDone ? "0s" : `${delay}s` }}
+      style={{ ...style, transitionDelay: delayDone ? "0s" : `${delay}s` }}
     >
       {children}
     </div>

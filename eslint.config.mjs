@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Nested legacy clone and raw exports — not part of the app.
+    "GenePortfolio/**",
+    "source-files/**",
   ]),
 ]);
 

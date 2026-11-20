@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import FadeInView from "@/components/ui/FadeInView";
 import ImageModal from "@/components/ui/ImageModal";
-import CaseCard from "./CaseCard";
 import { activateExclusiveVideo } from "@/lib/videoPlayback";
 
 interface CaseHeroProps {
@@ -56,21 +55,25 @@ export default function CaseHero({
       {/* Full-width case study title */}
       <FadeInView>
         <div className="max-w-5xl">
-          <p className="section-label mb-6 text-muted">Case study <span className="mx-2 text-accent">✳</span>{year}{category && <><span className="mx-2">/</span>{category}</>}</p>
-          <h1 className="font-display text-5xl font-semibold leading-[1.1] text-balance md:text-7xl lg:text-8xl">
+          <p className="eyebrow">
+            <span className="eyebrow-index">Case study</span>
+            <span aria-hidden="true" className="eyebrow-rule" />
+            {year}{category && <> · {category}</>}
+          </p>
+          <h1 className="display-1 mt-6 text-balance">
             {title}
           </h1>
         </div>
       </FadeInView>
 
-      <div className="relative mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 md:items-start">
+      <div className="relative mt-12 grid grid-cols-1 gap-10 md:mt-16 md:grid-cols-2 md:items-start md:gap-14">
         <FadeInView delay={0.05} className="flex min-w-0 items-start">
           <div className="flex w-full min-w-0 flex-col items-start justify-start">
-            <p className="whitespace-pre-line text-lg leading-relaxed text-muted md:text-xl">
+            <p className="whitespace-pre-line text-lg leading-[1.7] text-muted">
               {description}
             </p>
 
-            {role && <div className="mt-7 border-l-2 border-accent pl-5">
+            {role && <div className="mt-8 border-l border-accent pl-5">
               <p className="section-label text-muted">My role</p>
               <p className="mt-2 text-sm leading-relaxed md:text-base">{role}</p>
             </div>}
@@ -97,11 +100,11 @@ export default function CaseHero({
                   {palette.map((color) => (
                     <div
                       key={color}
-                      className="flex h-8 w-full items-center px-4"
+                      className="flex h-8 w-full items-center rounded-sm px-3"
                       style={{ background: color }}
                     >
                       <span
-                        className="font-mono text-sm uppercase tracking-widest"
+                        className="font-mono text-xs uppercase tracking-widest"
                         style={{ color: textOnColor(color) }}
                       >
                         {color}
@@ -115,54 +118,44 @@ export default function CaseHero({
         </FadeInView>
 
         <div className="flex min-w-0 items-start">
-          <CaseCard className="w-full min-w-0" delay={0.1}>
-            <button
-              type="button"
-              onClick={() => setCoverOpen(true)}
-              aria-label={isVideoCover ? `View larger video: ${title}` : `View larger image: ${title}`}
-              className="group relative flex aspect-[16/9] w-full cursor-zoom-in items-stretch overflow-hidden rounded-lg border border-border bg-surface-2 text-left"
-            >
-              {isVideoCover ? (
-                <>
-                  <video
-                    src={thumbnailVideo?.src}
-                    poster={thumbnailVideo?.poster}
-                    muted={false}
-                    loop
-                    playsInline
-                    preload="metadata"
-                    controls
-                    onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
-                    className="absolute inset-0 block h-full w-full object-cover object-center transition duration-200 group-hover:scale-[1.03]"
-                    style={{ width: "100%", height: "100%", objectPosition: "center center" }}
-                  />
-                  <span className="media-play absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full text-lg text-text backdrop-blur-sm">
-                    ▶
-                  </span>
-                </>
-              ) : (
+          <FadeInView delay={0.1} className="w-full min-w-0">
+            {isVideoCover ? (
+              <div className="media-frame aspect-video w-full">
+                <video
+                  src={thumbnailVideo?.src}
+                  poster={thumbnailVideo?.poster}
+                  loop
+                  playsInline
+                  preload="none"
+                  controls
+                  aria-label={`${title} featured video`}
+                  onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
+                  className="absolute inset-0 block h-full w-full object-cover"
+                />
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setCoverOpen(true)}
+                aria-label={`View larger image: ${title}`}
+                className="media-frame group block aspect-video w-full cursor-zoom-in"
+              >
                 <Image
                   src={thumbnail}
                   alt={thumbnailAlt ?? title}
                   fill
-                  sizes="(max-width:768px) 100vw, 560px"
+                  sizes="(max-width:768px) 100vw, 600px"
                   preload
-                  className="object-cover group-hover:scale-[1.02]"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
-              )}
-            </button>
-          </CaseCard>
+              </button>
+            )}
+          </FadeInView>
         </div>
       </div>
 
-      {coverOpen && (
-        <ImageModal
-          src={thumbnailVideo?.src ?? thumbnail}
-          alt={thumbnailAlt ?? title}
-          onClose={() => setCoverOpen(false)}
-          mediaType={isVideoCover ? "video" : "image"}
-          poster={thumbnailVideo?.poster}
-        />
+      {coverOpen && !isVideoCover && (
+        <ImageModal src={thumbnail} alt={thumbnailAlt ?? title} onClose={() => setCoverOpen(false)} />
       )}
     </>
   );

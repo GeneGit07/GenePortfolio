@@ -1,5 +1,6 @@
 import { brandingPieces } from "@/data/branding";
 import { socialProjects } from "@/data/social";
+import { assetRatio } from "@/data/gallery";
 
 export interface FeatureLibraryItem {
   project: string;
@@ -10,6 +11,8 @@ export interface FeatureLibraryItem {
   poster?: string;
   concept?: boolean;
   fit?: "cover" | "contain";
+  /** Vertical (9:16) video — rendered in a portrait frame. */
+  portrait?: boolean;
   href?: string;
 }
 
@@ -20,7 +23,7 @@ export interface ProjectFeatureMedia {
   note?: string;
 }
 
-const socialThumbnails = socialProjects.map((project) => ({
+const socialThumbnails: FeatureLibraryItem[] = socialProjects.map((project) => ({
   project: project.title,
   title: project.projectType,
   src: project.thumbnail,
@@ -28,7 +31,7 @@ const socialThumbnails = socialProjects.map((project) => ({
   href: `/projects/${project.slug}`,
 }));
 
-const socialCampaignAssets = socialProjects.flatMap((project) =>
+const socialCampaignAssets: FeatureLibraryItem[] = socialProjects.flatMap((project) =>
   project.sections.flatMap((section) =>
     section.assets
       .filter((asset) => asset.kind === "campaign")
@@ -42,151 +45,25 @@ const socialCampaignAssets = socialProjects.flatMap((project) =>
   ),
 );
 
-const brandAssets = brandingPieces.map((piece) => ({
-  project: piece.title,
-  title: "Visual identity",
-  src: piece.thumbnail,
-  alt: `${piece.title} visual identity project`,
-  href: `/projects/${piece.slug}`,
-}));
+/** Every video across the case studies, in case-study order. */
+const videoReels: FeatureLibraryItem[] = socialProjects.flatMap((project) =>
+  project.sections.flatMap((section) =>
+    section.assets
+      .filter((asset) => asset.kind === "video")
+      .map((asset) => ({
+        project: project.title,
+        title: asset.caption ?? section.title,
+        src: asset.src,
+        poster: asset.poster,
+        alt: asset.alt,
+        kind: "video" as const,
+        portrait: assetRatio(asset) < 1,
+        href: `/projects/${project.slug}`,
+      })),
+  ),
+);
 
-const mobileScreens: FeatureLibraryItem[] = [
-  {
-    project: "Rendezvous Cafe",
-    title: "Mobile app — Home",
-    src: "/assets/social/rendezvous-cafe/app-home.png",
-    alt: "Rendezvous Cafe mobile app concept home screen.",
-    fit: "contain",
-    concept: true,
-    href: "/projects/rendezvous-cafe",
-  },
-  {
-    project: "Rendezvous Cafe",
-    title: "Mobile app — Menu",
-    src: "/assets/social/rendezvous-cafe/app-menu.png",
-    alt: "Rendezvous Cafe mobile app concept menu screen.",
-    fit: "contain",
-    concept: true,
-    href: "/projects/rendezvous-cafe",
-  },
-  {
-    project: "Rendezvous Cafe",
-    title: "Mobile app — Product detail",
-    src: "/assets/social/rendezvous-cafe/app-product-detail.png",
-    alt: "Rendezvous Cafe mobile app concept product detail screen.",
-    fit: "contain",
-    concept: true,
-    href: "/projects/rendezvous-cafe",
-  },
-  {
-    project: "Rendezvous Cafe",
-    title: "Mobile app — Cart",
-    src: "/assets/social/rendezvous-cafe/app-cart.png",
-    alt: "Rendezvous Cafe mobile app concept cart screen.",
-    fit: "contain",
-    concept: true,
-    href: "/projects/rendezvous-cafe",
-  },
-  {
-    project: "Rendezvous Cafe",
-    title: "Mobile app — Order confirmation",
-    src: "/assets/social/rendezvous-cafe/app-order-confirmation.png",
-    alt: "Rendezvous Cafe mobile app concept order confirmation screen.",
-    fit: "contain",
-    concept: true,
-    href: "/projects/rendezvous-cafe",
-  },
-];
-
-const videoReels: FeatureLibraryItem[] = [
-  {
-    project: "SolarWorks PH",
-    title: "Solar campaign video",
-    src: "/assets/social/solarworks-ph/solar-works-campaign-video.mp4",
-    poster: "/assets/video-posters/solarworks-featured-poster.jpg",
-    alt: "SolarWorks PH campaign video about solar energy.",
-    kind: "video",
-    href: "/projects/solarworks-ph",
-  },
-  {
-    project: "Rendezvous Cafe",
-    title: "New drinks campaign",
-    src: "/assets/social/rendezvous-cafe/rendezvous-new-drinks.mp4",
-    poster: "/assets/video-posters/rendezvous-new-drinks-poster.jpg",
-    alt: "Rendezvous Cafe video introducing its new drinks.",
-    kind: "video",
-    href: "/projects/rendezvous-cafe",
-  },
-  {
-    project: "Rendezvous Cafe",
-    title: "Cafe atmosphere",
-    src: "/assets/social/rendezvous-cafe/rendezvous-cinematic-atmosphere.mp4",
-    poster: "/assets/video-posters/rendezvous-cinematic-poster.jpg",
-    alt: "Cinematic atmosphere video for Rendezvous Cafe.",
-    kind: "video",
-    href: "/projects/rendezvous-cafe",
-  },
-  {
-    project: "SolarWorks PH",
-    title: "Customer testimonial 1",
-    src: "/assets/social/solarworks-ph/solar-works-testimonial-1.mp4",
-    poster: "/assets/video-posters/solarworks-testimonial-1-poster.jpg",
-    alt: "SolarWorks PH customer testimonial video.",
-    kind: "video",
-    href: "/projects/solarworks-ph",
-  },
-  {
-    project: "SolarWorks PH",
-    title: "Customer testimonial 2",
-    src: "/assets/social/solarworks-ph/solar-works-testimonial-2.mp4",
-    poster: "/assets/video-posters/solarworks-testimonial-2-poster.jpg",
-    alt: "SolarWorks PH customer testimonial video.",
-    kind: "video",
-    href: "/projects/solarworks-ph",
-  },
-  {
-    project: "SolarWorks PH",
-    title: "Customer testimonial 3",
-    src: "/assets/social/solarworks-ph/solar-works-testimonial-3.mp4",
-    poster: "/assets/video-posters/solarworks-testimonial-3-poster.jpg",
-    alt: "SolarWorks PH customer testimonial video.",
-    kind: "video",
-    href: "/projects/solarworks-ph",
-  },
-  {
-    project: "Rendezvous Cafe",
-    title: "Solar-powered cafe story",
-    src: "/assets/social/rendezvous-cafe/rendezvous-solarworks-setup.mp4",
-    poster: "/assets/video-posters/rendezvous-solar-setup-poster.jpg",
-    alt: "Rendezvous Cafe video about its solar-powered setup.",
-    kind: "video",
-    href: "/projects/rendezvous-cafe",
-  },
-  {
-    project: "SolarWorks PH",
-    title: "Featured solar video",
-    src: "/assets/social/solarworks-ph/solar-works-video.mp4",
-    poster: "/assets/video-posters/solarworks-featured-poster.jpg",
-    alt: "SolarWorks PH featured solar campaign video.",
-    kind: "video",
-    href: "/projects/solarworks-ph",
-  },
-  {
-    project: "Rendezvous Cafe",
-    title: "Promotional video ad",
-    src: "/assets/social/rendezvous-cafe/rendezvous-ads-final.mp4",
-    alt: "Rendezvous Cafe promotional video ad.",
-    kind: "video",
-    href: "/projects/rendezvous-cafe",
-  },
-  {
-    project: "Fifth Ave Dogs",
-    title: "Location discovery video",
-    src: "/assets/social/fifth-ave-dogs/fad-location-discovery.mp4",
-    alt: "Fifth Ave Dogs location discovery video.",
-    kind: "video",
-    href: "/projects/fifth-ave-dogs",
-  },
+const archiveReels: FeatureLibraryItem[] = [
   {
     project: "Ana Maria La Justicia",
     title: "Social reel — Product feature",
@@ -194,6 +71,7 @@ const videoReels: FeatureLibraryItem[] = [
     poster: "/assets/features/video-motion/ana-maria-reel-2.webp",
     alt: "Product-focused promotional social reel from the archived portfolio.",
     kind: "video",
+    portrait: true,
   },
   {
     project: "MD Lash Factor",
@@ -202,8 +80,38 @@ const videoReels: FeatureLibraryItem[] = [
     poster: "/assets/features/video-motion/md-lash-factor-reel-5.webp",
     alt: "Product-focused promotional social reel from the archived portfolio.",
     kind: "video",
+    portrait: true,
   },
 ];
+
+const brandAssets: FeatureLibraryItem[] = brandingPieces.map((piece) => ({
+  project: piece.title,
+  title: "Visual identity",
+  src: piece.thumbnail,
+  alt: `${piece.title} visual identity project`,
+  href: `/projects/${piece.slug}`,
+}));
+
+const mobileScreens: FeatureLibraryItem[] = [
+  ["Home", "app-home"],
+  ["Menu", "app-menu"],
+  ["Product detail", "app-product-detail"],
+  ["Cart", "app-cart"],
+  ["Order confirmation", "app-order-confirmation"],
+].map(([label, file]): FeatureLibraryItem => ({
+  project: "Rendezvous Cafe",
+  title: `Mobile app — ${label}`,
+  src: `/assets/social/rendezvous-cafe/${file}.png`,
+  alt: `Rendezvous Cafe mobile app concept ${label.toLowerCase()} screen.`,
+  fit: "contain",
+  concept: true,
+  href: "/projects/rendezvous-cafe",
+}));
+
+const pick = (items: FeatureLibraryItem[], ...srcFragments: string[]) =>
+  srcFragments
+    .map((fragment) => items.find((item) => item.src.includes(fragment)))
+    .filter((item): item is FeatureLibraryItem => Boolean(item));
 
 export const PROJECT_FEATURE_MEDIA: ProjectFeatureMedia[] = [
   {
@@ -213,8 +121,14 @@ export const PROJECT_FEATURE_MEDIA: ProjectFeatureMedia[] = [
   },
   {
     feature: "Content Creation",
-    preview: [socialCampaignAssets[0], socialThumbnails[1], socialCampaignAssets[2]],
-    library: [...socialCampaignAssets, socialThumbnails[1]],
+    preview: pick(socialCampaignAssets, "signature-mango", "power-outage", "hotdog-menu"),
+    library: socialCampaignAssets,
+  },
+  {
+    feature: "Video & Motion",
+    preview: pick(videoReels, "more-than-solar-panels", "all-day-favorites", "christmas-reel"),
+    library: [...videoReels, ...archiveReels],
+    note: "Brand reels, menu films, customer testimonials, and seasonal edits from SolarWorks PH, Rendezvous Cafe, and Fifth Ave Dogs.",
   },
   {
     feature: "Visual Design",
@@ -227,14 +141,8 @@ export const PROJECT_FEATURE_MEDIA: ProjectFeatureMedia[] = [
     library: mobileScreens,
   },
   {
-    feature: "Video & Motion",
-    preview: videoReels.slice(0, 3),
-    library: videoReels,
-    note: "Campaign videos, customer stories, and reel examples from SolarWorks PH, Rendezvous Cafe, and archived projects.",
-  },
-  {
     feature: "AI-Assisted Creative",
-    preview: [socialCampaignAssets[0], socialCampaignAssets[2], socialCampaignAssets[1]],
+    preview: pick(socialCampaignAssets, "signature-chocolate", "free-daylight", "lychee-refresh"),
     library: socialThumbnails,
     note: "These projects document AI-assisted production as one part of a human-led creative process.",
   },

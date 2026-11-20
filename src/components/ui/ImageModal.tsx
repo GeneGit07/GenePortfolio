@@ -23,6 +23,12 @@ export default function ImageModal({ src, alt, onClose, mediaType = "image", pos
   const isVideo = mediaType === "video";
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  // Keep the latest callbacks in a ref so parent re-renders (e.g. moving to the
+  // next image) do not tear down the effect and steal focus.
+  const handlers = useRef({ onClose, onPrevious, onNext });
+  useEffect(() => {
+    handlers.current = { onClose, onPrevious, onNext };
+  });
 
   useEffect(() => {
     const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
@@ -32,9 +38,9 @@ export default function ImageModal({ src, alt, onClose, mediaType = "image", pos
     ) ?? []);
     const initialFocus = window.requestAnimationFrame(() => closeButtonRef.current?.focus());
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-      if (!isVideo && event.key === "ArrowLeft") onPrevious?.();
-      if (!isVideo && event.key === "ArrowRight") onNext?.();
+      if (event.key === "Escape") handlers.current.onClose();
+      if (!isVideo && event.key === "ArrowLeft") handlers.current.onPrevious?.();
+      if (!isVideo && event.key === "ArrowRight") handlers.current.onNext?.();
       if (event.key !== "Tab") return;
       const items = focusables();
       if (!items.length) return;
@@ -56,7 +62,7 @@ export default function ImageModal({ src, alt, onClose, mediaType = "image", pos
       document.body.style.overflow = previousOverflow;
       previousFocus?.focus();
     };
-  }, [isVideo, onClose, onNext, onPrevious]);
+  }, [isVideo]);
 
   return createPortal(
     <div
