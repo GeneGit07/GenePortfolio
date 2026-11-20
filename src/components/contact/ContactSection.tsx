@@ -4,34 +4,39 @@ import { CONTACT } from "@/data/site";
 
 export default function ContactSection() {
   return (
-    <FadeInView className="page-shell">
-      <div className="contact-panel">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="flex flex-col items-start lg:col-span-5">
-            <p className="section-label text-accent">{CONTACT.sectionNumber} / Let’s make something memorable</p>
-            <h2 className="mt-6 font-display text-5xl font-semibold leading-[1.1] md:text-7xl">Have a good<br />idea<span className="italic">?</span></h2>
-            <p className="mt-5 max-w-[55ch] leading-[1.65] text-muted">{CONTACT.description}</p>
-            <div className="mt-8 w-full">
-              <a href={CONTACT.emailHref} className="contact-link-row group">
-                <span>{CONTACT.email}</span>
-                <span aria-hidden="true" className="shrink-0 text-accent transition-transform duration-200 group-hover:translate-x-1">↗</span>
-              </a>
-              <a href={CONTACT.phoneHref} className="contact-link-row group mt-2">
-                <span>{CONTACT.phoneDisplay}</span>
-                <span aria-hidden="true" className="shrink-0 text-accent transition-transform duration-200 group-hover:translate-x-1">↗</span>
-              </a>
-            </div>
-            <p className="section-label mt-8 text-muted">Batangas, Philippines · Available worldwide</p>
+    <div className="page-shell">
+      <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+        <FadeInView className="lg:col-span-6">
+          <p className="eyebrow">
+            <span className="eyebrow-index">06</span>
+            <span aria-hidden="true" className="eyebrow-rule" />
+            Contact
+          </p>
+          <h2 className="display-1 mt-6">
+            Let’s work <span className="italic text-muted">together.</span>
+          </h2>
+          <p className="lead mt-8">{CONTACT.description}</p>
+
+          <div className="mt-12">
+            <a href={CONTACT.emailHref} target="_blank" rel="noopener noreferrer" className="contact-link group">
+              <span>{CONTACT.email}</span>
+              <span aria-hidden="true" className="btn-arrow shrink-0 text-accent">→</span>
+            </a>
+            <a href={CONTACT.phoneHref} className="contact-link group">
+              <span>{CONTACT.phoneDisplay}</span>
+              <span aria-hidden="true" className="btn-arrow shrink-0 text-accent">→</span>
+            </a>
           </div>
-          <div className="contact-form-card lg:col-span-7">
-            <div className="mb-6 flex items-center justify-between gap-4">
-              <p className="section-label text-accent">Tell me about your project</p>
-              <span aria-hidden="true" className="grid size-9 place-items-center rounded-full bg-accent text-accent-ink">↘</span>
-            </div>
+          <p className="section-label mt-8 text-muted">{CONTACT.location} · Working with clients worldwide</p>
+        </FadeInView>
+
+        <FadeInView delay={0.05} className="lg:col-span-6 lg:pt-4">
+          <div className="rounded-xl border border-border bg-surface p-6 md:p-8">
+            <p className="section-label mb-6 text-muted">Send a message</p>
             <ContactForm />
           </div>
-        </div>
+        </FadeInView>
       </div>
-    </FadeInView>
+    </div>
   );
 }

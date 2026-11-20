@@ -93,7 +93,7 @@ export default function MobileMenu({ open, activeSection, onToggle, onNavigate }
             >
               <div className="page-shell flex min-h-full flex-col">
                 <div className="flex h-16 items-center justify-between border-b border-border">
-                  <span className="section-label text-accent">Navigation</span>
+                  <span className="font-display text-xl tracking-tight">Eugene Dalida</span>
                   <button type="button" onClick={onToggle} className="min-h-12 min-w-12 text-2xl text-muted hover:text-accent" aria-label="Close navigation">×</button>
                 </div>
                 <nav aria-label="Mobile navigation links" className="flex flex-1 flex-col justify-center gap-2 py-8">
@@ -107,7 +107,7 @@ export default function MobileMenu({ open, activeSection, onToggle, onNavigate }
                       onToggle();
                     }}
                     style={{ transitionDelay: `${Math.min(i * 35, 175)}ms` }}
-                    className={`mobile-menu-link relative flex min-h-12 items-center font-display text-4xl font-semibold leading-[1.1] text-muted md:text-7xl ${activeSection === id ? "text-foreground" : ""}`}
+                    className={`mobile-menu-link relative flex min-h-14 items-center font-display text-4xl leading-[1.1] tracking-tight md:text-6xl ${activeSection === id ? "text-foreground" : "text-muted"}`}
                   >
                     {label}
                     <span

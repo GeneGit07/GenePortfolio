@@ -1,15 +1,18 @@
 "use client";
 
-import type { SocialProject } from "@/data/social";
+import Link from "next/link";
+import { socialProjects, type SocialProject } from "@/data/social";
 import FadeInView from "@/components/ui/FadeInView";
 import CaseHero from "@/components/case/CaseHero";
-import CaseCard from "@/components/case/CaseCard";
 import SocialGalleryGrid from "./SocialGalleryGrid";
 import SocialSectionNav from "./SocialSectionNav";
 
 export default function SocialCasePage({ project }: { project: SocialProject }) {
+  const index = socialProjects.findIndex((item) => item.slug === project.slug);
+  const next = socialProjects[(index + 1) % socialProjects.length];
+
   return (
-    <main id="main-content" className="page-shell py-32 md:py-40">
+    <main id="main-content" className="page-shell pb-24 pt-32 md:pb-32 md:pt-40">
       <CaseHero
         title={project.title}
         category={project.category}
@@ -26,53 +29,57 @@ export default function SocialCasePage({ project }: { project: SocialProject }) 
 
       {project.sections.length > 0 && (
         <>
-          <FadeInView>
-            <hr className="mt-0 border-0 border-t-2 border-subtle/60 md:mt-20" aria-hidden="true" />
-          </FadeInView>
-
           {project.sections.length > 1 && (
-            <FadeInView>
-              <div className="mt-8">
-                <SocialSectionNav sections={project.sections} />
-              </div>
-            </FadeInView>
+            <div className="mt-20 md:mt-28">
+              <SocialSectionNav sections={project.sections} />
+            </div>
           )}
 
-          <div className="mt-12 space-y-12 md:space-y-16">
-            {project.sections.map((section) => (
-              <section key={section.id} id={`section-${section.id}`} className="scroll-mt-28">
-                <CaseCard>
-                  <FadeInView>
-                    <div className="mb-6 max-w-3xl">
-                      <h2 className="font-display text-3xl font-medium tracking-tight md:text-4xl">
-                        {section.title}
-                      </h2>
-                      <p className="mt-3 text-base leading-[1.65] text-muted">
-                        {section.description}
-                      </p>
+          <div className="mt-10 md:mt-14">
+            {project.sections.map((section, i) => (
+              <section
+                key={section.id}
+                id={`section-${section.id}`}
+                className="scroll-mt-36 border-t border-border py-14 md:py-20"
+              >
+                <FadeInView>
+                  <div className="mb-10 grid gap-4 md:grid-cols-12 md:gap-8">
+                    <p className="section-label pt-2 text-accent md:col-span-2">{String(i + 1).padStart(2, "0")}</p>
+                    <div className="md:col-span-10">
+                      <h2 className="display-3">{section.title}</h2>
+                      <p className="mt-3 max-w-[64ch] text-[0.9375rem] leading-[1.7] text-muted">{section.description}</p>
                     </div>
-                  </FadeInView>
-                  <SocialGalleryGrid assets={section.assets} />
-                </CaseCard>
+                  </div>
+                </FadeInView>
+                <SocialGalleryGrid assets={section.assets} />
               </section>
             ))}
           </div>
         </>
       )}
 
-      <FadeInView className="mt-16 border-t border-border pt-10 md:mt-24 md:pt-14">
-        <div className="grid gap-5 md:grid-cols-[0.7fr_1.3fr] md:gap-12">
-          <div>
-            <p className="section-label text-muted">Creative process</p>
-            <h2 className="mt-3 font-display text-3xl font-medium tracking-tight md:text-4xl">
-              AI-assisted workflow
-            </h2>
+      <FadeInView className="border-t border-border py-14 md:py-20">
+        <div className="grid gap-4 md:grid-cols-12 md:gap-8">
+          <p className="section-label pt-2 text-muted md:col-span-2">Process</p>
+          <div className="md:col-span-10">
+            <h2 className="display-3">AI-assisted, human-led</h2>
+            <p className="mt-3 max-w-[64ch] text-[0.9375rem] leading-[1.7] text-muted">{project.workflow}</p>
           </div>
-          <p className="max-w-3xl text-base leading-relaxed text-muted md:text-lg">
-            {project.workflow}
-          </p>
         </div>
       </FadeInView>
+
+      {next && next.slug !== project.slug ? (
+        <FadeInView className="border-t border-border pt-14 md:pt-20">
+          <Link href={`/projects/${next.slug}`} className="group block">
+            <p className="section-label text-muted">Next project</p>
+            <p className="display-2 mt-4 flex flex-wrap items-baseline gap-x-6">
+              {next.title}
+              <span aria-hidden="true" className="btn-arrow text-accent">→</span>
+            </p>
+            <p className="mt-3 max-w-[56ch] text-muted">{next.summary}</p>
+          </Link>
+        </FadeInView>
+      ) : null}
     </main>
   );
 }

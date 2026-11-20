@@ -8,10 +8,10 @@ interface SectionLink {
 }
 
 const PILL_BASE =
-  "inline-flex min-h-11 shrink-0 snap-start items-center justify-center rounded-full border px-5 py-2.5 text-sm font-medium uppercase tracking-[0.1em]";
+  "inline-flex min-h-10 shrink-0 snap-start items-center justify-center rounded-full border px-4 py-2 text-[0.8125rem] whitespace-nowrap";
 const PILL_IDLE =
-  "border-border bg-surface text-muted hover:border-border-strong hover:text-accent";
-const PILL_ACTIVE = "border-accent bg-accent text-accent-ink";
+  "border-border text-muted hover:border-border-strong hover:text-text";
+const PILL_ACTIVE = "border-text bg-text text-background";
 
 export default function SocialSectionNav({ sections }: { sections: SectionLink[] }) {
   const [active, setActive] = useState(sections[0]?.id ?? "");
@@ -41,14 +41,16 @@ export default function SocialSectionNav({ sections }: { sections: SectionLink[]
   const handleClick =
     (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
+      // Handled here (respects scroll-margin under the sticky nav), not by Lenis anchors.
+      e.stopPropagation();
       const el = document.getElementById(id);
       if (!el) return;
       el.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     };
 
   return (
-    <nav className="sticky top-16 z-20 -mx-6 bg-background px-6 py-4 sm:-mx-8 sm:px-8 md:mx-0 md:top-[64px] md:px-0">
-      <div className="flex snap-x snap-mandatory items-center gap-3 overflow-x-auto scroll-smooth py-1 md:justify-start md:gap-4 lg:justify-center lg:overflow-visible">
+    <nav aria-label="Case study sections" className="sticky top-16 z-20 -mx-[var(--container-gutter)] bg-background/90 px-[var(--container-gutter)] py-3 backdrop-blur-md md:top-[72px]">
+      <div className="flex snap-x snap-mandatory items-center gap-2 overflow-x-auto py-1 [scrollbar-width:none]">
         {sections.map((section) => (
           <a
             key={section.id}

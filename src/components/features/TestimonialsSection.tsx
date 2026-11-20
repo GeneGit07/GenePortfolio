@@ -14,16 +14,16 @@ export default function TestimonialsSection() {
   if (readyTestimonials.length === 0) return null;
 
   return (
-    <section className="page-section" aria-labelledby="testimonials-title">
+    <section id="testimonials" aria-labelledby="testimonials-title">
       <div className="page-shell">
         <div className="section-heading">
-          <p className="section-label text-accent">Kind words</p>
-          <h2 id="testimonials-title" className="mt-3 font-display text-4xl font-semibold leading-tight md:text-6xl">Testimonials</h2>
+          <p className="eyebrow">Kind words</p>
+          <h2 id="testimonials-title" className="display-2 mt-6">Testimonials</h2>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {readyTestimonials.map((item) => (
             <figure key={item.name} className="service-card">
-              <blockquote className="font-display text-2xl leading-snug">“{item.quote}”</blockquote>
+              <blockquote className="display-3">“{item.quote}”</blockquote>
               <figcaption className="mt-6 border-t border-border pt-4">
                 <p className="font-medium">{item.name}</p>
                 <p className="mt-1 text-sm text-muted">{item.project}</p>

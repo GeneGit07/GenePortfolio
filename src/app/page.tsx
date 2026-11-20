@@ -1,11 +1,11 @@
 import HeroSection from "@/components/hero/HeroSection";
-import AboutSection from "@/components/about/AboutSection";
 import SocialSection from "@/components/social/SocialSection";
+import AboutSection from "@/components/about/AboutSection";
+import ExperienceSection from "@/components/experience/ExperienceSection";
 import ProjectFeaturesSection from "@/components/features/ProjectFeaturesSection";
+import TestimonialsSection from "@/components/features/TestimonialsSection";
 import EmailDesignSection from "@/components/features/EmailDesignSection";
 import ContactSection from "@/components/contact/ContactSection";
-import ServicesSection from "@/components/features/ServicesSection";
-import TestimonialsSection from "@/components/features/TestimonialsSection";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import BackToTopButton from "@/components/layout/BackToTopButton";
 
@@ -13,36 +13,44 @@ export default function HomePage() {
   return (
     <main id="main-content">
       <ScrollProgress />
-      {/* 00 HERO */}
-      <section id="hero" className="hero-section relative overflow-hidden">
+
+      <section id="hero" className="hero-section">
         <HeroSection />
       </section>
 
-      {/* 01 ABOUT */}
+      {/* 01 — Selected work */}
+      <section id="work">
+        <SocialSection />
+      </section>
+
+      {/* 02 — About */}
       <section id="about">
         <AboutSection />
       </section>
 
-      {/* 02 SELECTED WORK */}
-      <section id="redes-sociales">
-        <SocialSection />
+      {/* 03 — Experience */}
+      <section id="experience">
+        <ExperienceSection />
       </section>
 
-      {/* 03 PROJECT FEATURES */}
-      <section id="branding">
+      {/* 04 — Services */}
+      <section id="services">
         <ProjectFeaturesSection />
       </section>
-      <ServicesSection />
+
+      {/* Renders only once approved testimonials are added. */}
       <TestimonialsSection />
 
-      {/* 04 EMAIL DESIGN */}
+      {/* 05 — Email design */}
       <section id="email-design">
         <EmailDesignSection />
       </section>
-      {/* 05 CONTACT */}
-      <footer id="contact" className="contact-section">
+
+      {/* 06 — Contact */}
+      <section id="contact">
         <ContactSection />
-      </footer>
+      </section>
+
       <BackToTopButton />
     </main>
   );

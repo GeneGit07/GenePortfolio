@@ -10,7 +10,9 @@ Built with [Next.js](https://nextjs.org) 16, [React](https://react.dev) 19, [Typ
 
 </div>
 
-A single-page portfolio website that showcases creative work across branding and social media projects. Features a bento grid, smooth scrolling, scroll-driven fade-in animations, and dedicated project detail pages.
+Portfolio for Eugene Dalida, Visual Designer & Content Creator. The home page runs Hero → Work → About → Experience → Services → Email design → Contact, and each brand has a case-study page with a justified (never-cropped) media gallery.
+
+> Content lives in `src/data/` — `social.ts` (case studies), `site.ts` (hero copy, experience, services, contact), and `projectFeatureMedia.ts` (service libraries). Raw exports live in `source-files/` and are not served.
 
 ## Features
 
@@ -111,7 +113,7 @@ src/
 │   │   ├── GalleryGrid.tsx        # Generic bento grid + GalleryGrid.Item
 │   │   └── ProjectCard.tsx        # Reusable project card inside the Card shell
 │   ├── hero/
-│   │   └── HeroSection.tsx        # Hero section on home page (HERO + HeroActions)
+│   │   └── HeroSection.tsx        # Hero section on home page (HERO copy + featured video)
 │   ├── layout/
 │   │   ├── Header.tsx             # Sticky header, uses NAV_ITEMS + MobileMenu
 │   │   ├── MobileMenu.tsx         # Hamburger button + full-screen mobile nav overlay
@@ -140,7 +142,7 @@ src/
     ├── gallery.ts                 # Shared gallery builders (buildBrandingGallery, buildSocialGallery)
     ├── branding.ts                # BrandingPiece[] + getBrandingPieceBySlug
     ├── social.ts                  # SocialProject[] + getSocialBySlug
-    ├── site.ts                    # Site-wide content (SOCIAL_LINKS, SOFTWARES, CONTACT, HERO, ABOUT)
+    ├── site.ts                    # Site-wide content (SOCIAL_LINKS, SOFTWARES, CONTACT, HERO, EXPERIENCE, PROJECT_FEATURES)
     └── index.ts                   # Barrel exports
 public/
 └── assets/
@@ -164,7 +166,7 @@ Edit [`src/data/social.ts`](src/data/social.ts). Assets live in `public/assets/s
 
 ### Content & copy
 
-- **Hero / About / Contact text** — edit [`src/data/site.ts`](src/data/site.ts) (`HERO`, `ABOUT`, `CONTACT`)
+- **Hero / About / Contact text** — edit [`src/data/site.ts`](src/data/site.ts) (`HERO`, `EXPERIENCE`, `CONTACT`)
 - **Social links** — edit [`src/data/site.ts`](src/data/site.ts) (`SOCIAL_LINKS`, rendered as pills in the `Footer`)
 - **Softwares** — edit [`src/data/site.ts`](src/data/site.ts) (`SOFTWARES`; each entry pairs a label with an icon from `SoftwareIcons.tsx`)
 - **Contact form** — [`src/components/contact/ContactForm.tsx`](src/components/contact/ContactForm.tsx) submits via `mailto:` to `CONTACT.email`; no backend needed

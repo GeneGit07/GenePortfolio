@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/next";
 import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import IntroAnimation from "@/components/layout/IntroAnimation";
 import { getSiteUrl } from "@/lib/siteUrl";
 
 const siteUrl = getSiteUrl();
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s | Eugene Dalida",
   },
   description:
-    "Eugene Dalida is an independent designer in Batangas creating social campaigns, visual identities, digital content, and AI-assisted creative work.",
+    "Eugene Dalida is a visual designer and content creator in Batangas, Philippines, creating social campaigns, short-form video, and visual systems for brands.",
   keywords: ["visual design", "brand identity", "social media", "content creation", "UI/UX", "Philippines"],
   authors: [{ name: "Eugene Dalida" }],
   creator: "Eugene Dalida",
@@ -30,8 +29,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    title: "Eugene Dalida — Visual Designer & Art Director",
-    description: "Social campaigns, visual identities, digital content, and AI-assisted creative work.",
+    title: "Eugene Dalida — Visual Designer & Content Creator",
+    description: "Social campaigns, short-form video, and visual systems for brands.",
     siteName: "Eugene Dalida Portfolio",
     images: [
       {
@@ -44,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Eugene Dalida — Visual Designer & Art Director",
-    description: "Social campaigns, visual identities, digital content, and AI-assisted creative work.",
+    title: "Eugene Dalida — Visual Designer & Content Creator",
+    description: "Social campaigns, short-form video, and visual systems for brands.",
     images: ["/assets/video-posters/solarworks-featured-poster.jpg"],
   },
 };
@@ -62,19 +61,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preload" as="image" href="/assets/video-posters/solarworks-featured-poster.jpg" />
+        <link rel="preload" as="image" href="/assets/video-posters/rendezvous-all-day-favorites-poster.jpg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* App Router root layout loads these Google Fonts globally. */}
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
       </head>
       <body className="font-sans antialiased">
         <a href="#main-content" className="skip-link">Skip to content</a>
-        <IntroAnimation />
         <SmoothScrollProvider>
           <Header />
           {children}

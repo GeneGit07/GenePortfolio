@@ -1,115 +1,117 @@
 "use client";
 
-import { memo, useRef } from "react";
+import { memo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Card from "@/components/ui/Card";
 import { activateExclusiveVideo } from "@/lib/videoPlayback";
 
 interface ProjectCardProps {
+  index: string;
   slug: string;
   title: string;
-  year?: string;
-  eyebrow?: string;
+  year: string;
+  category: string;
+  summary: string;
   thumbnail: string;
   thumbnailAlt?: string;
   thumbnailPosition?: string;
   videoSrc?: string;
   videoPoster?: string;
-  category?: string;
-  description?: string;
-  variant?: "default" | "large";
+  featured?: boolean;
 }
 
 function ProjectCard({
+  index,
   slug,
   title,
   year,
-  eyebrow,
+  category,
+  summary,
   thumbnail,
   thumbnailAlt,
   thumbnailPosition,
   videoSrc,
   videoPoster,
-  category,
-  description,
-  variant = "default",
+  featured = false,
 }: ProjectCardProps) {
-  const isLarge = variant === "large";
-  const hasVideo = Boolean(videoSrc);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const href = `/projects/${slug}`;
 
-  const handleVideoClick = (event: React.MouseEvent<HTMLVideoElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const videoEl = videoRef.current;
-    if (!videoEl) return;
-
-    videoEl.muted = false;
-    videoEl.volume = 1;
-
-    if (videoEl.paused) {
-      void videoEl.play().catch(() => {});
-    } else {
-      videoEl.pause();
-    }
+  const togglePlayback = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) void video.play().catch(() => {});
+    else video.pause();
   };
 
   return (
-    <Link href={`/projects/${slug}`} className={`project-link group block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${isLarge ? "h-full" : ""}`}>
-      <Card className="flex h-full cursor-pointer flex-col rounded-xl border border-border bg-surface p-4 shadow-soft transition duration-200 hover:-translate-y-1 hover:border-border-strong md:p-6">
-        <div
-          className={
-            isLarge
-              ? "project-media relative aspect-[16/10] overflow-hidden rounded-lg bg-surface-2"
-              : "project-media relative aspect-[16/10] overflow-hidden rounded-lg bg-surface-2"
-          }
-        >
-          {hasVideo ? (
+    <article className="project-link group">
+      <div className={`media-frame ${featured ? "aspect-[16/9]" : "aspect-[4/3]"}`}>
+        {videoSrc ? (
+          <>
             <video
               ref={videoRef}
               src={videoSrc}
               poster={videoPoster}
-              muted={false}
               loop
               playsInline
-              preload="metadata"
-              controls={false}
-              aria-label={`Play or pause ${title} video`}
-              onClick={handleVideoClick}
-              onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
-              className="absolute inset-0 block h-full w-full object-cover object-center transition duration-200 group-hover:scale-[1.03]"
-              style={{ width: "100%", height: "100%", objectPosition: "center center" }}
+              preload="none"
+              aria-label={thumbnailAlt ?? `${title} video`}
+              onPlay={(event) => {
+                activateExclusiveVideo(event.currentTarget);
+                setIsPlaying(true);
+              }}
+              onPause={() => setIsPlaying(false)}
+              className="project-image absolute inset-0 block h-full w-full object-cover"
             />
-          ) : (
+            <button
+              type="button"
+              onClick={togglePlayback}
+              aria-label={isPlaying ? `Pause ${title} video` : `Play ${title} video`}
+              className="absolute inset-0 flex items-end justify-start p-4 md:p-6"
+            >
+              <span className="media-play inline-flex min-h-10 items-center gap-2 rounded-full px-4 text-xs font-medium tracking-wide text-text backdrop-blur-md">
+                <span aria-hidden="true">{isPlaying ? "❚❚" : "▶"}</span>
+                {isPlaying ? "Pause" : "Play reel"}
+              </span>
+            </button>
+          </>
+        ) : (
+          <Link href={href} tabIndex={-1} aria-hidden="true" className="absolute inset-0">
             <Image
               src={thumbnail}
-              alt={thumbnailAlt ?? title}
+              alt=""
               fill
               style={thumbnailPosition ? { objectPosition: thumbnailPosition } : undefined}
-              sizes={
-                isLarge
-                  ? "(max-width: 768px) 100vw, 50vw"
-                  : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              }
+              sizes={featured ? "(max-width: 768px) 100vw, 1200px" : "(max-width: 768px) 100vw, 50vw"}
               className="project-image object-cover"
             />
-          )}
-          <div aria-hidden="true" className="media-overlay pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-200 group-hover:opacity-100" />
-          <span aria-hidden="true" className={`media-play pointer-events-none absolute inset-0 m-auto grid size-12 place-items-center rounded-full text-lg text-text backdrop-blur-sm transition-opacity duration-200 ${hasVideo ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>{hasVideo ? "▶" : "↗"}</span>
+          </Link>
+        )}
+      </div>
+
+      <Link
+        href={href}
+        aria-label={`${title} — view case study`}
+        className="mt-6 grid gap-x-8 gap-y-3 md:grid-cols-[minmax(0,1fr)_auto] md:items-start"
+      >
+        <div>
+          <p className="section-label text-muted">
+            <span className="text-accent">{index}</span>
+            <span className="mx-3 text-subtle">/</span>
+            {category}
+          </p>
+          <h3 className="display-3 mt-3">{title}</h3>
+          <p className="mt-3 max-w-[56ch] text-[0.9375rem] leading-[1.7] text-muted">{summary}</p>
         </div>
-        <div className="flex flex-1 flex-col items-start p-2 pt-5">
-          <p className="section-label text-accent">{category ?? eyebrow ?? year}</p>
-          {category && year ? <p className="mt-1 text-xs text-muted">{year}</p> : null}
-          <h3 className="mt-2 font-display text-2xl font-semibold leading-[1.2] text-text md:text-[1.75rem]">{title}</h3>
-          {description && <p className="mt-3 line-clamp-2 max-w-[65ch] text-base leading-[1.65] text-muted">{description}</p>}
-          <span className="section-label mt-auto inline-flex min-h-11 items-center gap-2 pt-4 text-text">
-            View case <span aria-hidden="true" className="text-accent transition-transform duration-200 group-hover:translate-x-1">↗</span>
-          </span>
-        </div>
-      </Card>
-    </Link>
+        <span className="text-link md:mt-1">
+          <span className="text-muted">{year}</span>
+          <span aria-hidden="true" className="mx-1 text-subtle">·</span>
+          Case study <span aria-hidden="true" className="btn-arrow">→</span>
+        </span>
+      </Link>
+    </article>
   );
 }
 

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import FadeInView from "@/components/ui/FadeInView";
 import ImageModal from "@/components/ui/ImageModal";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { emailDesigns } from "@/data/emailDesigns";
 
 export default function EmailDesignSection() {
@@ -19,21 +20,14 @@ export default function EmailDesignSection() {
 
   return (
     <div className="page-shell">
-      <FadeInView>
-        <div className="section-heading">
-          <div>
-            <span className="section-label text-accent">04 / Email design</span>
-            <h2 className="mt-3 font-display text-4xl font-semibold leading-tight md:text-6xl">
-              Email <span className="italic text-muted">design</span>
-            </h2>
-          </div>
-          <p className="max-w-[65ch] text-base leading-[1.65] text-muted">
-            Launch announcements, promotions, and welcome journeys designed to bring each brand into the inbox.
-          </p>
-        </div>
-      </FadeInView>
+      <SectionHeading
+        index="05"
+        label="Email design"
+        title={<>Into the <span className="italic text-muted">inbox.</span></>}
+        intro="Launch announcements, promotions, and welcome journeys designed to carry each brand into the inbox."
+      />
 
-      <div className="email-showcase mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible">
+      <div className="email-showcase flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible">
         {emailDesigns.map((design, index) => (
           <FadeInView key={design.title} delay={Math.min(index * 0.035, 0.14)} className="min-w-[min(84vw,360px)] snap-start md:min-w-0">
             <figure className="h-full">
@@ -62,8 +56,8 @@ export default function EmailDesignSection() {
                 </div>
               </div>
               <figcaption className="px-1 pt-4">
-                <p className="section-label text-accent">{design.category}</p>
-                <h3 className="mt-2 font-display text-2xl font-semibold text-text">{design.title}</h3>
+                <p className="section-label text-muted">{design.category}</p>
+                <h3 className="display-3 mt-2 text-text">{design.title}</h3>
               </figcaption>
             </figure>
           </FadeInView>

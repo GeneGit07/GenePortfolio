@@ -1,73 +1,93 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import type { SocialAsset } from "@/data/social";
-import GalleryGrid from "@/components/gallery/GalleryGrid";
+import { assetRatio } from "@/data/gallery";
+import FadeInView from "@/components/ui/FadeInView";
 import ImageModal from "@/components/ui/ImageModal";
 import { activateExclusiveVideo } from "@/lib/videoPlayback";
 
+/**
+ * Justified gallery: items in a row share one height and keep their native
+ * aspect ratio, so posters, stories, 4:5 posts, and portrait or landscape
+ * videos sit together without cropping.
+ */
 export default function SocialGalleryGrid({ assets }: { assets: SocialAsset[] }) {
-  const [selected, setSelected] = useState<SocialAsset | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const images = assets.filter((asset) => asset.kind !== "video");
+  const selected = selectedIndex === null ? null : images[selectedIndex];
 
   if (assets.length === 0) return null;
 
+  const move = (direction: -1 | 1) =>
+    setSelectedIndex((current) => (current === null ? null : (current + direction + images.length) % images.length));
+
+  const single = assets.length === 1;
+
   return (
     <>
-      <GalleryGrid>
+      <div className="justified-gallery">
         {assets.map((asset, index) => {
-          const isScreen = asset.kind === "screen";
+          const ratio = assetRatio(asset);
+          const style = { "--r": ratio } as CSSProperties;
           const isVideo = asset.kind === "video";
+          const isScreen = asset.kind === "screen";
+          // A lone portrait item should not stretch to the full content width.
+          const singleCap = single && ratio < 1 ? { maxWidth: "min(100%, 420px)" } : undefined;
+
           return (
-            <GalleryGrid.Item key={asset.src} colSpan={isVideo ? 2 : 1} index={index}>
-              {isVideo ? (
-                <figure className="relative overflow-hidden rounded-xl border border-border bg-surface">
-                  <div className="relative aspect-video w-full overflow-hidden bg-surface-2">
+            <FadeInView key={asset.src} delay={Math.min(index * 0.035, 0.25)} className="jg-item" style={style}>
+              <figure style={singleCap}>
+                <div className="media-frame w-full" style={{ aspectRatio: ratio }}>
+                  {isVideo ? (
                     <video
                       src={asset.src}
                       poster={asset.poster}
                       aria-label={asset.alt}
                       controls
-                      muted={false}
                       playsInline
-                      preload="metadata"
+                      preload={asset.poster ? "none" : "metadata"}
                       onPlay={(event) => activateExclusiveVideo(event.currentTarget)}
-                      className="absolute inset-0 block h-full w-full object-cover object-center"
-                      style={{ width: "100%", height: "100%", objectPosition: "center center" }}
+                      className="absolute inset-0 block h-full w-full bg-black object-cover"
                     />
-                  </div>
-                  {asset.caption && <figcaption className="border-t border-border px-3 py-3 text-sm text-muted">{asset.caption}</figcaption>}
-                </figure>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setSelected(asset)}
-                  aria-label={`View larger image: ${asset.alt}`}
-                  className={`group block h-full w-full cursor-zoom-in overflow-hidden rounded-xl border border-border text-left ${isScreen ? "bg-surface-2" : "bg-surface"}`}
-                >
-                  <div className={`relative w-full overflow-hidden ${isScreen ? "aspect-[9/16]" : "aspect-[2/3] bg-surface"}`}>
-                    <Image
-                      src={asset.src}
-                      alt={asset.alt}
-                      fill
-                      sizes="(max-width:768px) 50vw, 25vw"
-                      className={`${isScreen ? "object-contain" : "object-cover group-hover:scale-[1.02]"}`}
-                    />
-                    {asset.concept ? <span className="concept-chip absolute left-2 top-2">Concept project</span> : null}
-                    {asset.caption && (
-                      <div className="media-caption-overlay absolute inset-x-0 bottom-0 px-3 py-3 pt-8">
-                        <p className="text-sm tracking-wide text-text">{asset.caption}</p>
-                      </div>
-                    )}
-                  </div>
-                </button>
-              )}
-            </GalleryGrid.Item>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedIndex(images.indexOf(asset))}
+                      aria-label={`View larger image: ${asset.alt}`}
+                      className="group absolute inset-0 block cursor-zoom-in"
+                    >
+                      <Image
+                        src={asset.src}
+                        alt={asset.alt}
+                        fill
+                        sizes="(max-width: 768px) 60vw, 33vw"
+                        className={`transition-transform duration-700 ${isScreen ? "object-contain p-2" : "object-cover group-hover:scale-[1.02]"}`}
+                      />
+                      {asset.concept ? <span className="concept-chip absolute left-2 top-2">Concept</span> : null}
+                    </button>
+                  )}
+                </div>
+                {asset.caption ? (
+                  <figcaption className="mt-3 text-[0.8125rem] leading-snug text-muted">{asset.caption}</figcaption>
+                ) : null}
+              </figure>
+            </FadeInView>
           );
         })}
-      </GalleryGrid>
+        {single ? null : <span aria-hidden="true" className="jg-fill" />}
+      </div>
 
-      {selected && <ImageModal src={selected.src} alt={selected.alt} onClose={() => setSelected(null)} />}
+      {selected ? (
+        <ImageModal
+          src={selected.src}
+          alt={selected.alt}
+          onClose={() => setSelectedIndex(null)}
+          onPrevious={images.length > 1 ? () => move(-1) : undefined}
+          onNext={images.length > 1 ? () => move(1) : undefined}
+        />
+      ) : null}
     </>
   );
 }

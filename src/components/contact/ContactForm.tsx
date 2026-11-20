@@ -96,9 +96,9 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isOpeningDraft}
-        className="mt-2 inline-flex min-h-12 w-full items-center justify-center gap-4 rounded-full bg-accent px-6 py-3 text-sm font-semibold tracking-wide text-accent-ink hover:bg-accent-hover disabled:cursor-wait disabled:opacity-70"
+        className="btn btn-primary mt-2 w-full disabled:cursor-wait disabled:opacity-70"
       >
-        {isOpeningDraft ? "Opening Gmail…" : "Send message"} <span aria-hidden>↗</span>
+        {isOpeningDraft ? "Opening Gmail…" : "Send message"} <span aria-hidden className="btn-arrow">→</span>
       </button>
       <p className="min-h-5 text-sm text-muted" role="status" aria-live="polite">{status}</p>
     </form>

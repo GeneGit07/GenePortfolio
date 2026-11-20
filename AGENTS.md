@@ -30,11 +30,12 @@ There is no automated test suite in this repo.
 - `src/components/` — page sections and reusable UI. Keep section composition in `src/components/*` and reuse shared patterns instead of duplicating logic.
 - `src/data/` — source of truth for portfolio content. Content is usually edited here, not directly in JSX.
 - `src/lib/` — small helpers and constants such as `NAV_ITEMS`, `PAGE_PADDING_X`, and theme utilities.
+- `source-files/` — raw full-resolution exports (not served). Copy web-ready versions into `public/assets/`.
 - `public/assets/` — media assets. Keep filenames and folders aligned with the existing structure for home, branding, social, and features assets.
 
 ## Content conventions
 
-- Home content is composed in [src/app/page.tsx](src/app/page.tsx). The page sections are keyed by IDs: `hero`, `about`, `redes-sociales`, `branding`, `email-design`, and `contact`.
+- Home content is composed in [src/app/page.tsx](src/app/page.tsx). The page sections are keyed by IDs, in order: `hero`, `work`, `about`, `experience`, `services`, `email-design`, and `contact`. The Experience timeline is data in `EXPERIENCE` in `src/data/site.ts`.
 - Site-wide text and marketing details live in [src/data/site.ts](src/data/site.ts). Change copy there before editing a section component.
 - Navigation labels and spacing constants live in [src/lib/constants.ts](src/lib/constants.ts). Keep these in sync with the page structure.
 - Theme variables and color tokens live in [src/app/globals.css](src/app/globals.css); avoid hard-coded theme colors in components when a CSS token already exists.
