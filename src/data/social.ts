@@ -71,22 +71,22 @@ const solarSections: SocialGallerySection[] = [
     id: "short-form-video",
     title: "Short-form video",
     description:
-      "Vertical reels built for Facebook and Instagram feeds — a brand film on what SolarWorks delivers beyond the hardware, and a captioned explainer that turns a monthly bill into a reason to switch.",
+      "Vertical reels voiced in Tagalog for a natural, local feel on Facebook and Instagram — a brand film on the support that starts after installation, and an explainer that turns a rising electricity bill into a reason to switch.",
     assets: [
       {
         src: `${SOLAR}/more-than-solar-panels.mp4`,
-        alt: "SolarWorks PH brand reel, More Than Solar Panels, presenting monitoring, protection, and after-sales support.",
+        alt: "SolarWorks PH brand reel, More Than Solar Panels, showing that installation is only the beginning — with monitoring, protection, and after-sales support. Narrated in Tagalog.",
         kind: "video",
         poster: `${POSTERS}/solarworks-more-than-solar-panels-poster.jpg`,
-        caption: "More Than Solar Panels · Brand reel",
+        caption: "More Than Solar Panels · Brand reel (Tagalog)",
         ratio: RATIO.portrait,
       },
       {
         src: `${SOLAR}/the-bill.mp4`,
-        alt: "SolarWorks PH captioned reel, The Bill, showing how much a typical household could save every month.",
+        alt: "SolarWorks PH reel, The Bill, showing how rising Meralco rates add to a typical household bill and how solar can pay it instead. Narrated in Tagalog.",
         kind: "video",
         poster: `${POSTERS}/solarworks-the-bill-poster.jpg`,
-        caption: "The Bill · Captioned explainer",
+        caption: "The Bill · Explainer reel (Tagalog)",
         ratio: RATIO.portrait,
       },
       {
